@@ -27,4 +27,6 @@ public:
     GLenum getUsageMode(){return usageMode;}
     void setDrawMode(GLenum drawMode){this->drawMode=drawMode;}
     GLenum getDrawMode(){return drawMode;}
+
+    void updateBuffer(std::vector<Vertex>&vertices, std::vector<unsigned int>&indices);//Must be called on dynamic buffers
 };

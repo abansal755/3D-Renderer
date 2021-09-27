@@ -33,7 +33,7 @@ void Mesh::createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& 
 
         gl()->glGenBuffers(1, &IBO);
         gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-            gl()->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * numIndices, &indices[0], GL_STATIC_DRAW);
+            gl()->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * numIndices, &indices[0], usageMode);
         gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     gl()->glBindVertexArray(0);
 }
@@ -61,4 +61,17 @@ void Mesh::renderMesh() {
             gl()->glDrawElements(drawMode, numIndices, GL_UNSIGNED_INT, 0);
         gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     gl()->glBindVertexArray(0);
+}
+
+void Mesh::updateBuffer(std::vector<Vertex> &vertices, std::vector<unsigned int>&indices){
+    numVertices=vertices.size();
+    numIndices=indices.size();
+
+    gl()->glBindBuffer(GL_ARRAY_BUFFER,VBO);
+        gl()->glBufferSubData(GL_ARRAY_BUFFER,0,sizeof(vertices[0])*numVertices,&vertices[0]);
+    gl()->glBindBuffer(GL_ARRAY_BUFFER,0);
+
+    gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+        gl()->glBufferSubData(GL_ELEMENT_ARRAY_BUFFER,0,sizeof(indices[0])*numIndices,&indices[0]);
+    gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
