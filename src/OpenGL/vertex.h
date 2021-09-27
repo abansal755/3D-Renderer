@@ -1,14 +1,14 @@
 #include "simplevertex.h"
 
 class Vertex:public SimpleVertex{
-    glm::vec2 texCoord;
+    glm::vec3 norm;
 public:
-    Vertex(glm::vec3 pos=glm::vec3(), glm::vec2 texCoord=glm::vec2())
-        :SimpleVertex(pos), texCoord(texCoord){}
+    Vertex(glm::vec3 pos=glm::vec3(), glm::vec3 norm=glm::vec3())
+        :SimpleVertex(pos), norm(norm){}
     Vertex(GLfloat x,GLfloat y,GLfloat z,
-           GLfloat u,GLfloat v)
-        :SimpleVertex(x,y,z), texCoord(u,v){}
+           GLfloat nx,GLfloat ny,GLfloat nz)
+        :SimpleVertex(x,y,z), norm(nx,ny,nz){}
 
-    void setTexCoord(glm::vec2 texCoord){this->texCoord=texCoord;}
-    glm::vec2 getTexCoord(){return texCoord;}
+    void setNorm(glm::vec3 norm){this->norm=norm;}
+    glm::vec3 getNorm(){return norm;}
 };

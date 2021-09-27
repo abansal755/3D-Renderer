@@ -15,7 +15,7 @@ void Mesh::describeData(std::vector<Vertex> &vertices){
     gl()->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     gl()->glEnableVertexAttribArray(0);
 
-    gl()->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vertices[0].getPos())));
+    gl()->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vertices[0].getPos())));
     gl()->glEnableVertexAttribArray(1);
 }
 

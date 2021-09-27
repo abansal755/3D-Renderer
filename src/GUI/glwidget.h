@@ -2,6 +2,7 @@
 #include "src/OpenGL/version.h"
 #include "src/OpenGL/shader.h"
 #include "src/OpenGL/texture.h"
+#include "src/OpenGL/light.h"
 
 #include <QOpenGLWidget>
 #include <vector>
@@ -20,7 +21,7 @@ class GLWidget : public QOpenGLWidget{
     std::vector<Mesh*> meshes;
     std::vector<Shader*> shaders;
     Camera*camera;
-    Texture*brickTex,*dirtTex;
+    Light*light;
 
     GLfloat lastTime;
     QElapsedTimer timer;

@@ -27,6 +27,7 @@ public:
 
     void setPos(glm::vec3 pos) { this->pos = pos; }
     glm::vec3 getPos() { return pos; }
+    glm::vec3 getFront(){return front;}
 
     void setWorldUp(glm::vec3 worldUp);
     glm::vec3 getWorldUp() { return worldUp; }

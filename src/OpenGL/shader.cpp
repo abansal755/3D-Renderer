@@ -42,6 +42,10 @@ void Shader::loadShader(std::string& vPath, std::string& fPath) {
     uniformModel = gl()->glGetUniformLocation(program, "model");
     uniformProjection = gl()->glGetUniformLocation(program, "projection");
     uniformView = gl()->glGetUniformLocation(program, "view");
+    uniformColor=gl()->glGetUniformLocation(program,"directionalLight.color");
+    uniformAmbientIntensity=gl()->glGetUniformLocation(program,"directionalLight.ambientIntensity");
+    uniformDirection=gl()->glGetUniformLocation(program,"directionalLight.direction");
+    uniformDiffuseIntensity=gl()->glGetUniformLocation(program,"directionalLight.diffuseIntensity");
 }
 
 void Shader::clearShader() {
@@ -49,6 +53,10 @@ void Shader::clearShader() {
     uniformModel = 0;
     uniformProjection = 0;
     uniformView = 0;
+    uniformColor=0;
+    uniformAmbientIntensity=0;
+    uniformDirection=0;
+    uniformDiffuseIntensity=0;
 }
 
 Shader::~Shader() {

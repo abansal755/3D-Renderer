@@ -16,8 +16,7 @@ GLWidget::~GLWidget(){
     for (Mesh* mesh : meshes) delete mesh;
     for (Shader* shader : shaders) delete shader;
     delete camera;
-    delete brickTex;
-    delete dirtTex;
+    delete light;
 }
 
 void GLWidget::clearBuffer(){
@@ -32,47 +31,38 @@ void GLWidget::resizeGL(int width, int height){
 
 void GLWidget::initializeGL(){
     gl()->glEnable(GL_DEPTH_TEST);
-
-    std::vector<Vertex> vertices = {
-        //x,y,z		u,v
-        {-1,-1,-1,	0,0},
-        {1,-1,-1,	1,0},
-        {0,1,-1,	0.5,0},
-        {0,0,1,		0.5,1}
-    };
-    std::vector<unsigned int> indices = {
-        0,2,1,
-        0,1,3,
-        0,3,2,
-        1,2,3
-    };
-    meshes.push_back(new Mesh(vertices, indices));
-
-    std::vector<Vertex> vertices2 = {
-        //x,y,z		u,v
-        {-1,-1,0,	0,0},
-        {1,-1,0,    2,0},
-        {1,1,0,		2,2},
-        {-1,1,0,	0,2}
-    };
-    std::vector<unsigned int> indices2 = {
-        0,1,2,
-        2,3,0
-    };
-    meshes.push_back(new Mesh(vertices2, indices2));
+    gl()->glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 
     std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/shader/shader.vert";
     std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/shader/shader.frag";
     shaders.push_back(new Shader(vPath, fPath));
 
-    camera=new Camera(glm::vec3(-4,1,0),glm::vec3(0,1,0),
+    camera=new Camera(glm::vec3(-4,0,0),glm::vec3(0,1,0),
                       0,0,10,0.005,
                       PI/4,1,0.01,100);
 
-    std::string brickPath="C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/textures/brick.png";
-    std::string dirtPath="C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/textures/dirt.png";
-    brickTex=new Texture(brickPath);
-    dirtTex=new Texture(dirtPath);
+    light=new Light();
+
+    std::vector<Vertex> vertices={
+        //  x   y   z   nx, ny, nz
+        {-1, -1, -1,   0, -1,  0},  // 0, nv front
+        {-1, -1,  1,   0,  0,  1},  // 1, nv top
+        { 1, -1, -1,   0,  0,  0},  // 2
+        { 1, -1,  1,   1,  0,  0},  // 3, nv right
+        { 1,  1, -1,   0,  1,  0},  // 4, nv back
+        { 1,  1,  1,   0,  0,  0},  // 5
+        {-1,  1, -1,   0,  0, -1},  // 6, nv bottom
+        {-1,  1,  1,  -1,  0,  0}  // 7, nv left
+    };
+    std::vector<unsigned int> indices={
+        0, 2, 3,   0, 3, 1, // front
+        4, 6, 7,   4, 7, 5, // back
+        3, 2, 4,   3, 4, 5, // right
+        7, 6, 0,   7, 0, 1, // left
+        6, 4, 2,   6, 2, 0, // bottom
+        1, 3, 5,   1, 5, 7  // top
+    };
+    meshes.push_back(new Mesh(vertices,indices));
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -92,24 +82,18 @@ void GLWidget::paintGL(){
     GLuint uniformModel=shaders[0]->getModelLocation();
     GLuint uniformProjection=shaders[0]->getProjectionLocation();
     GLuint uniformView=shaders[0]->getViewLocation();
+    GLuint uniformColor=shaders[0]->getColorLocation();
+    GLuint uniformAmbientIntensity=shaders[0]->getAmbientIntensityLocation();
+    GLuint uniformDirection=shaders[0]->getDirectionLocation();
+    GLuint uniformDiffuseIntensity=shaders[0]->getDiffuseIntensityLocation();
+    light->setDirection(camera->getFront());
+    light->useLight(uniformColor,uniformAmbientIntensity,uniformDirection,uniformDiffuseIntensity);
     glm::mat4 model(1);
-    model = glm::translate(model, glm::vec3(0, 1, 0));
-    model = glm::rotate(model, PI / 2, glm::vec3(0, -1, 0));
-    model = glm::rotate(model, PI / 2, glm::vec3(-1, 0, 0));
     gl()->glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     gl()->glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(camera->calculateProjectionMatrix()));
     gl()->glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera->calculateViewMatrix()));
-    brickTex->useTexture();
     meshes[0]->renderMesh();
 
-    model = glm::mat4(1);
-    model = glm::rotate(model, -PI / 2, glm::vec3(1, 0, 0));
-    model = glm::scale(model, glm::vec3(5, 5, 5));
-    gl()->glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-    dirtTex->useTexture();
-    meshes[1]->renderMesh();
-
-    Texture::unUseTexture();
     Shader::unUseShader();
 }
 

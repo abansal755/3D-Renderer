@@ -19,6 +19,7 @@ INCLUDEPATH += lib/glm
 
 SOURCES += \
     src/OpenGL/camera.cpp \
+    src/OpenGL/light.cpp \
     src/OpenGL/texture.cpp \
     src/OpenGL/version.cpp \
     src\OpenGL\shader.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 HEADERS += \
     lib/stb_image.h \
     src/OpenGL/camera.h \
+    src/OpenGL/light.h \
     src/OpenGL/texture.h \
     src/OpenGL/version.h \
     src/OpenGL/vertex.h \
