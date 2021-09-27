@@ -33,12 +33,12 @@ void GLWidget::resizeGL(int width, int height){
 void GLWidget::initializeGL(){
     gl()->glEnable(GL_DEPTH_TEST);
 
-    std::vector<GLfloat> vertices = {
+    std::vector<Vertex> vertices = {
         //x,y,z		u,v
-        -1,-1,-1,	0,0,
-        1,-1,-1,	1,0,
-        0,1,-1,		0.5,0,
-        0,0,1,		0.5,1
+        {-1,-1,-1,	0,0},
+        {1,-1,-1,	1,0},
+        {0,1,-1,	0.5,0},
+        {0,0,1,		0.5,1}
     };
     std::vector<unsigned int> indices = {
         0,2,1,
@@ -48,12 +48,12 @@ void GLWidget::initializeGL(){
     };
     meshes.push_back(new Mesh(vertices, indices));
 
-    std::vector<GLfloat> vertices2 = {
+    std::vector<Vertex> vertices2 = {
         //x,y,z		u,v
-        -1,-1,0,	0,0,
-        1,-1,0,		2,0,
-        1,1,0,		2,2,
-        -1,1,0,		0,2
+        {-1,-1,0,	0,0},
+        {1,-1,0,    2,0},
+        {1,1,0,		2,2},
+        {-1,1,0,	0,2}
     };
     std::vector<unsigned int> indices2 = {
         0,1,2,

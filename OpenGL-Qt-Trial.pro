@@ -32,10 +32,12 @@ HEADERS += \
     src/OpenGL/camera.h \
     src/OpenGL/texture.h \
     src/OpenGL/version.h \
+    src/OpenGL/vertex.h \
     src\OpenGL\shader.h \
     src\GUI\glwidget.h \
     src\GUI\mainwindow.h \
-    src\OpenGL\mesh.h
+    src\OpenGL\mesh.h \
+    src\OpenGL\vertex.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

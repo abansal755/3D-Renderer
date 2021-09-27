@@ -1,6 +1,9 @@
 #include "mesh.h"
 
-Mesh::Mesh(std::vector<GLfloat>& vertices, std::vector<unsigned int>& indices){
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices,
+           GLenum usageMode, GLenum drawMode)
+    :usageMode(usageMode), drawMode(drawMode)
+{
     createMesh(vertices, indices);
 }
 
@@ -8,7 +11,15 @@ Mesh::~Mesh() {
     clearMesh();
 }
 
-void Mesh::createMesh(std::vector<GLfloat>& vertices, std::vector<unsigned int>& indices) {
+void Mesh::describeData(std::vector<Vertex> &vertices){
+    gl()->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+    gl()->glEnableVertexAttribArray(0);
+
+    gl()->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vertices[0].getPos())));
+    gl()->glEnableVertexAttribArray(1);
+}
+
+void Mesh::createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
     clearMesh();
     numVertices = vertices.size();
     numIndices = indices.size();
@@ -16,13 +27,8 @@ void Mesh::createMesh(std::vector<GLfloat>& vertices, std::vector<unsigned int>&
     gl()->glBindVertexArray(VAO);
         gl()->glGenBuffers(1, &VBO);
         gl()->glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            gl()->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numVertices, &vertices[0], GL_STATIC_DRAW);
-
-            gl()->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 5, 0);
-            gl()->glEnableVertexAttribArray(0);
-
-            gl()->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 5, (void*)(sizeof(vertices[0]) * 3));
-            gl()->glEnableVertexAttribArray(1);
+            gl()->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numVertices, &vertices[0], usageMode);
+            describeData(vertices);
         gl()->glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         gl()->glGenBuffers(1, &IBO);
@@ -52,7 +58,7 @@ void Mesh::clearMesh() {
 void Mesh::renderMesh() {
     gl()->glBindVertexArray(VAO);
         gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-            gl()->glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+            gl()->glDrawElements(drawMode, numIndices, GL_UNSIGNED_INT, 0);
         gl()->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     gl()->glBindVertexArray(0);
 }
