@@ -37,7 +37,7 @@ HEADERS += \
     src\GUI\glwidget.h \
     src\GUI\mainwindow.h \
     src\OpenGL\mesh.h \
-    src\OpenGL\vertex.h
+    src\OpenGL\simplevertex.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
