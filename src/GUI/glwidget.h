@@ -9,6 +9,8 @@
 #include <vector>
 #include <QElapsedTimer>
 
+class ListWidget;
+
 class Camera;
 
 class GLWidget : public QOpenGLWidget{
@@ -27,8 +29,10 @@ class GLWidget : public QOpenGLWidget{
 
     GLfloat lastTime;
     QElapsedTimer timer;
+
+    ListWidget*modelsListWidget;
 public:
-    GLWidget(QWidget*parent=NULL);
+    GLWidget(ListWidget*modelsListWidget,QWidget*parent=NULL);
     ~GLWidget();
 
     bool isWPressed(){return wPressed;}

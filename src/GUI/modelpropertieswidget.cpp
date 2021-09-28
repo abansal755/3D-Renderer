@@ -1,21 +1,33 @@
 #include "modelpropertieswidget.h"
 #include "src/OpenGL/model.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
+#include "sliderfloat.h"
 
 #include <QDebug>
 
-ModelPropertiesWidget::ModelPropertiesWidget(Model*model):model(model){
+ModelPropertiesWidget::ModelPropertiesWidget(){
+    model=new Model();
+
     translateX=new SliderFloat("translateX",NULL,-500,500,100);
     translateY=new SliderFloat("translateY",NULL,-500,500,100);
     translateZ=new SliderFloat("translateZ",NULL,-500,500,100);
+    translateX->setValue(0);
+    translateY->setValue(0);
+    translateZ->setValue(0);
 
     rotateX=new SliderFloat("rotateX",NULL,-500,500,100);
     rotateY=new SliderFloat("rotateY",NULL,-500,500,100);
     rotateZ=new SliderFloat("rotateZ",NULL,-500,500,100);
+    rotateX->setValue(0);
+    rotateY->setValue(0);
+    rotateZ->setValue(0);
 
     scaleX=new SliderFloat("scaleX",NULL,-500,500,100);
     scaleY=new SliderFloat("scaleY",NULL,-500,500,100);
     scaleZ=new SliderFloat("scaleZ",NULL,-500,500,100);
+    scaleX->setValue(1);
+    scaleY->setValue(1);
+    scaleZ->setValue(1);
 
     vb1=new QVBoxLayout;
     for(int i=0;i<3;i++){
@@ -48,6 +60,10 @@ ModelPropertiesWidget::ModelPropertiesWidget(Model*model):model(model){
     connect(scaleX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
     connect(scaleY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
     connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+}
+
+ModelPropertiesWidget::~ModelPropertiesWidget(){
+    delete model;
 }
 
 

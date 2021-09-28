@@ -1,10 +1,10 @@
-#include "sliderfloat.h"
-
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+class SliderFloat;
 class Model;
+class Mesh;
 
 class ModelPropertiesWidget : public QWidget{
     Q_OBJECT
@@ -19,7 +19,8 @@ class ModelPropertiesWidget : public QWidget{
 private slots:
     void valueChanged();
 public:
-    ModelPropertiesWidget(Model*model=NULL);
+    ModelPropertiesWidget();
+    ~ModelPropertiesWidget();
 
     void setModel(Model*model){this->model=model;}
     Model* getModel(){return model;}

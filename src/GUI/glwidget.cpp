@@ -1,12 +1,17 @@
 #include "glwidget.h"
 #include "src/OpenGL/camera.h"
 #include "lib/glm/gtc/type_ptr.hpp"
+#include "src/GUI/listwidget.h"
+#include "src/GUI/listwidgetitem.h"
+#include "src/GUI/modelpropertieswidget.h"
 
 #include <string>
 #include <QDebug>
 #include <QKeyEvent>
 
-GLWidget::GLWidget(QWidget*parent):QOpenGLWidget(parent){
+GLWidget::GLWidget(ListWidget*modelsListWidget,QWidget*parent)
+    :modelsListWidget(modelsListWidget),QOpenGLWidget(parent)
+{
     connect(this,SIGNAL(frameSwapped()),this,SLOT(update()));
     setFocusPolicy(Qt::StrongFocus);
     makeCurrent();
@@ -15,7 +20,6 @@ GLWidget::GLWidget(QWidget*parent):QOpenGLWidget(parent){
 GLWidget::~GLWidget(){
     delete flatShader;
     delete cubeMesh;
-    delete model;
     delete camera;
     delete light;
 }
@@ -65,8 +69,10 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(vertices,indices);
 
-    model=new Model(cubeMesh);
-    model->setShader(flatShader);
+    ListWidgetItem*item=new ListWidgetItem;
+    item->getModelPropertiesWidget()->getModel()->setMesh(cubeMesh);
+    item->getModelPropertiesWidget()->getModel()->setShader(flatShader);
+    modelsListWidget->addItem(item);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -84,7 +90,12 @@ void GLWidget::paintGL(){
 
     light->setDirection(camera->getFront());
     light->useLight(flatShader);
-    model->renderModel(camera);
+
+    int count=modelsListWidget->count();
+    for(int i=0;i<count;i++){
+        Model*model=modelsListWidget->getCustomItem(i)->getModelPropertiesWidget()->getModel();
+        model->renderModel(camera);
+    }
 }
 
 void GLWidget::keyPressEvent(QKeyEvent *event){

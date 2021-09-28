@@ -1,6 +1,7 @@
-#include "modelpropertieswidget.h"
-
 #include <QListWidgetItem>
+
+class ModelPropertiesWidget;
+class Mesh;
 
 class ListWidgetItem : public QListWidgetItem{
     ModelPropertiesWidget*widget;

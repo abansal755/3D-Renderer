@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
+    src/GUI/listwidget.cpp \
     src/GUI/listwidgetitem.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/camera.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
     lib/stb_image.h \
+    src/GUI/listwidget.h \
     src/GUI/listwidgetitem.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/camera.h \
