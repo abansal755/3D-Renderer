@@ -3,8 +3,9 @@
 
 #include "src/OpenGL/mesh.h"
 
-ListWidgetItem::ListWidgetItem(){
-    widget=new ModelPropertiesWidget;
+ListWidgetItem::ListWidgetItem(QString text){
+    widget=new ModelPropertiesWidget(this,text);
+    setText(text);
 }
 
 ListWidgetItem::~ListWidgetItem(){

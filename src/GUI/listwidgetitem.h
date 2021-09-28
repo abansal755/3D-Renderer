@@ -6,8 +6,10 @@ class Mesh;
 class ListWidgetItem : public QListWidgetItem{
     ModelPropertiesWidget*widget;
 public:
-    ListWidgetItem();
+    ListWidgetItem(QString text="Model");
     ~ListWidgetItem();
 
     ModelPropertiesWidget* getModelPropertiesWidget(){return widget;}
+    void changeText(QString text){setText(text);}
+    QString getText(){return text();}
 };

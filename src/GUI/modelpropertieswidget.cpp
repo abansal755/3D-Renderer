@@ -2,10 +2,13 @@
 #include "src/OpenGL/model.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
 #include "sliderfloat.h"
+#include "listwidgetitem.h"
 
 #include <QDebug>
 
-ModelPropertiesWidget::ModelPropertiesWidget(){
+ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
+    :item(item)
+{
     model=new Model();
 
     translateX=new SliderFloat("translateX",NULL,-500,500,100);
@@ -30,22 +33,20 @@ ModelPropertiesWidget::ModelPropertiesWidget(){
     scaleZ->setValue(1);
 
     vb1=new QVBoxLayout;
-    for(int i=0;i<3;i++){
-        hb[i]=new QHBoxLayout;
-        vb1->addLayout(hb[i]);
-    }
+    lineEdit1=new QLineEdit(text);
 
-    hb[0]->addWidget(translateX);
-    hb[0]->addWidget(translateY);
-    hb[0]->addWidget(translateZ);
+    vb1->addWidget(lineEdit1);
+    vb1->addWidget(translateX);
+    vb1->addWidget(translateY);
+    vb1->addWidget(translateZ);
 
-    hb[1]->addWidget(rotateX);
-    hb[1]->addWidget(rotateY);
-    hb[1]->addWidget(rotateZ);
+    vb1->addWidget(rotateX);
+    vb1->addWidget(rotateY);
+    vb1->addWidget(rotateZ);
 
-    hb[2]->addWidget(scaleX);
-    hb[2]->addWidget(scaleY);
-    hb[2]->addWidget(scaleZ);
+    vb1->addWidget(scaleX);
+    vb1->addWidget(scaleY);
+    vb1->addWidget(scaleZ);
 
     setLayout(vb1);
 
@@ -60,6 +61,8 @@ ModelPropertiesWidget::ModelPropertiesWidget(){
     connect(scaleX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
     connect(scaleY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
     connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+
+    connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangeSlot(const QString&)));
 }
 
 ModelPropertiesWidget::~ModelPropertiesWidget(){
@@ -78,4 +81,8 @@ void ModelPropertiesWidget::valueChanged(){
     modelmat=glm::scale(modelmat,glm::vec3(scaleX->getValue(),scaleY->getValue(),scaleZ->getValue()));
 
     model->setModelMatrix(modelmat);
+}
+
+void ModelPropertiesWidget::textChangeSlot(const QString& text){
+    item->setText(text);
 }
