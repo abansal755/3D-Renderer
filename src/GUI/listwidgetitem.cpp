@@ -11,3 +11,7 @@ ListWidgetItem::ListWidgetItem(QString text){
 ListWidgetItem::~ListWidgetItem(){
     delete widget;
 }
+
+void ListWidgetItem::changeText(QString text){
+    widget->setText(text);
+}

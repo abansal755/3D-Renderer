@@ -10,6 +10,6 @@ public:
     ~ListWidgetItem();
 
     ModelPropertiesWidget* getModelPropertiesWidget(){return widget;}
-    void changeText(QString text){setText(text);}
+    void changeText(QString text);
     QString getText(){return text();}
 };

@@ -11,6 +11,10 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
 {
     model=new Model();
 
+    colorDialog=new QColorDialog(model->getColor(),this);
+    colorDialog->setOptions(QColorDialog::ShowAlphaChannel);
+    btn1=new QPushButton("Change Color");
+
     translateX=new SliderFloat("translateX",NULL,-500,500,100);
     translateY=new SliderFloat("translateY",NULL,-500,500,100);
     translateZ=new SliderFloat("translateZ",NULL,-500,500,100);
@@ -48,6 +52,8 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     vb1->addWidget(scaleY);
     vb1->addWidget(scaleZ);
 
+    vb1->addWidget(btn1);
+
     setLayout(vb1);
 
     connect(translateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
@@ -62,7 +68,10 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     connect(scaleY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
     connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
 
-    connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangeSlot(const QString&)));
+    connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangedSlot(const QString&)));
+
+    connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
+    connect(colorDialog,SIGNAL(colorSelected(const QColor&)),this,SLOT(colorChanged(const QColor&)));
 }
 
 ModelPropertiesWidget::~ModelPropertiesWidget(){
@@ -83,6 +92,19 @@ void ModelPropertiesWidget::valueChanged(){
     model->setModelMatrix(modelmat);
 }
 
-void ModelPropertiesWidget::textChangeSlot(const QString& text){
+void ModelPropertiesWidget::setText(QString text){
+    lineEdit1->setText(text);
+    textChangedSlot(text);
+}
+
+void ModelPropertiesWidget::textChangedSlot(const QString& text){
     item->setText(text);
+}
+
+void ModelPropertiesWidget::btn1Clicked(){
+    colorDialog->open();
+}
+
+void ModelPropertiesWidget::colorChanged(const QColor& color){
+    model->setColor(color);
 }
