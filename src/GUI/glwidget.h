@@ -3,6 +3,7 @@
 #include "src/OpenGL/shader.h"
 #include "src/OpenGL/texture.h"
 #include "src/OpenGL/light.h"
+#include "src/OpenGL/model.h"
 
 #include <QOpenGLWidget>
 #include <vector>
@@ -18,8 +19,9 @@ class GLWidget : public QOpenGLWidget{
 
     void clearBuffer();
 
-    std::vector<Mesh*> meshes;
-    std::vector<Shader*> shaders;
+    Shader*flatShader;
+    Mesh*cubeMesh;
+    Model*model;
     Camera*camera;
     Light*light;
 

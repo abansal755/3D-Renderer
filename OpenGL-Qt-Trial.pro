@@ -18,20 +18,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
+    src/GUI/listwidgetitem.cpp \
+    src/GUI/sliderfloat.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
+    src/OpenGL/model.cpp \
     src/OpenGL/texture.cpp \
     src/OpenGL/version.cpp \
     src\OpenGL\shader.cpp \
     src\GUI\glwidget.cpp \
     src\main.cpp \
     src\GUI\mainwindow.cpp \
-    src\OpenGL\mesh.cpp
+    src\OpenGL\mesh.cpp \
+    src/GUI/modelpropertieswidget.cpp
 
 HEADERS += \
     lib/stb_image.h \
+    src/GUI/listwidgetitem.h \
+    src/GUI/sliderfloat.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \
+    src/OpenGL/model.h \
     src/OpenGL/texture.h \
     src/OpenGL/version.h \
     src/OpenGL/vertex.h \
@@ -39,7 +46,8 @@ HEADERS += \
     src\GUI\glwidget.h \
     src\GUI\mainwindow.h \
     src\OpenGL\mesh.h \
-    src\OpenGL\simplevertex.h
+    src\OpenGL\simplevertex.h \
+    src/GUI/modelpropertieswidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -47,5 +55,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    shaders/shader/shader.frag \
-    shaders/shader/shader.vert
+    shaders/shader/flatShader.frag \
+    shaders/shader/flatShader.vert

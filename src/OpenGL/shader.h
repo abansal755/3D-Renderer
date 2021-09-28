@@ -4,8 +4,9 @@
 
 class Shader{
     GLuint program = 0, uniformModel = 0, uniformProjection = 0, uniformView = 0;
-    GLuint uniformColor=0,uniformAmbientIntensity=0;
+    GLuint uniformLightColor=0,uniformAmbientIntensity=0;
     GLuint uniformDirection=0,uniformDiffuseIntensity=0;
+    GLuint uniformModelColor=0;
     void addShader(std::string& shaderCode, GLenum shaderType);
     std::string readFile(std::string& path);
 
@@ -23,10 +24,11 @@ public:
     GLuint getModelLocation() { return uniformModel; }
     GLuint getProjectionLocation() { return uniformProjection; }
     GLuint getViewLocation() { return uniformView; }
-    GLuint getColorLocation(){return uniformColor;}
+    GLuint getLightColorLocation(){return uniformLightColor;}
     GLuint getAmbientIntensityLocation(){return uniformAmbientIntensity;}
     GLuint getDirectionLocation(){return uniformDirection;}
     GLuint getDiffuseIntensityLocation(){return uniformDiffuseIntensity;}
+    GLuint getModelColorLocation(){return uniformModelColor;}
 
     bool empty() { return (program == 0); }
 

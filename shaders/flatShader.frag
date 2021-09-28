@@ -13,6 +13,7 @@ struct DirectionalLight{
 };
 
 uniform DirectionalLight directionalLight;
+uniform vec4 modelColor;
 
 void main(){
     vec4 ambientColor=vec4(directionalLight.color,1)*directionalLight.ambientIntensity;
@@ -20,5 +21,5 @@ void main(){
     float diffuseFactor=max(dot(normalize(directionalLight.direction),normalize(normal)),0);
     vec4 diffuseColor=vec4(directionalLight.color,1)*directionalLight.diffuseIntensity*diffuseFactor;
 
-    color=vec4(0.5,0.5,0.5,1)*(ambientColor+diffuseColor);
+    color=modelColor*(ambientColor+diffuseColor);
 }
