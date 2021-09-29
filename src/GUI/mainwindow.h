@@ -23,9 +23,6 @@ private slots:
     void exitApp();
     void addCube();
     void settings();
-public slots:
-    void setBGColor(const QColor& color);
-    void setLightColor(const QColor& color);
 public:
     MainWindow(QWidget*parent=NULL);
 };

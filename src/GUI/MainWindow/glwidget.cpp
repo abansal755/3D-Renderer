@@ -4,13 +4,14 @@
 #include "listwidget.h"
 #include "ListWidget/listwidgetitem.h"
 #include "ListWidget/modelpropertieswidget.h"
+#include "src/GUI/settingsdialog.h"
 
 #include <string>
 #include <QDebug>
 #include <QKeyEvent>
 
-GLWidget::GLWidget(ListWidget*modelsListWidget,QWidget*parent)
-    :modelsListWidget(modelsListWidget),QOpenGLWidget(parent)
+GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsDialog*settingsDialog,QWidget*parent)
+    :modelsListWidget(modelsListWidget),settingsDialog(settingsDialog),QOpenGLWidget(parent)
 {
     connect(this,SIGNAL(frameSwapped()),this,SLOT(update()));
     setFocusPolicy(Qt::StrongFocus);
@@ -68,6 +69,7 @@ void GLWidget::initializeGL(){
 }
 
 void GLWidget::paintGL(){
+    QColor bgColor=settingsDialog->getColor();
     gl()->glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
     gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -124,12 +126,4 @@ int GLWidget::getYChange(){
     int ans=yChange;
     yChange=0;
     return ans;
-}
-
-void GLWidget::setBGColor(QColor color){
-    bgColor=color;
-}
-
-void GLWidget::setLightColor(QColor color){
-    light->setColor(color);
 }

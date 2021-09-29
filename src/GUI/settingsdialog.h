@@ -5,8 +5,6 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-class MainWindow;
-
 class SettingsDialog : public QDialog{
     Q_OBJECT
     QColorDialog*bgColorDialog;
@@ -17,5 +15,7 @@ class SettingsDialog : public QDialog{
 private slots:
     void btn1Clicked();
 public:
-    SettingsDialog(MainWindow*parent=NULL);
+    SettingsDialog(QWidget*parent=NULL);
+
+    QColor getColor(){return bgColorDialog->currentColor();}
 };

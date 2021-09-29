@@ -11,8 +11,8 @@
 #include <QColor>
 
 class ListWidget;
-
 class Camera;
+class SettingsDialog;
 
 class GLWidget : public QOpenGLWidget{
     Q_OBJECT
@@ -29,10 +29,9 @@ class GLWidget : public QOpenGLWidget{
     QElapsedTimer timer;
 
     ListWidget*modelsListWidget;
-
-    QColor bgColor;
+    SettingsDialog*settingsDialog;
 public:
-    GLWidget(ListWidget*modelsListWidget,QWidget*parent=NULL);
+    GLWidget(ListWidget*modelsListWidget,SettingsDialog*settingsDialog,QWidget*parent=NULL);
     ~GLWidget();
 
     bool isWPressed(){return wPressed;}
@@ -45,8 +44,6 @@ public:
 
     Mesh* getCubeMesh(){return cubeMesh;}
     Shader* getFlatShader(){return flatShader;}
-    void setBGColor(QColor color);
-    void setLightColor(QColor color);
 protected:
     void initializeGL();
     void resizeGL(int width, int height);

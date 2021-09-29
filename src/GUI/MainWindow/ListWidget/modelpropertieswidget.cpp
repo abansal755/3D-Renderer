@@ -12,7 +12,7 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     model=new Model();
 
     colorDialog=new QColorDialog(model->getColor(),this);
-    colorDialog->setOptions(QColorDialog::ShowAlphaChannel);
+    colorDialog->setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
     btn1=new QPushButton("Change Color");
 
     translateX=new SliderFloat("translateX",NULL,-500,500,100);
@@ -71,7 +71,7 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangedSlot(const QString&)));
 
     connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
-    connect(colorDialog,SIGNAL(colorSelected(const QColor&)),this,SLOT(colorChanged(const QColor&)));
+    connect(colorDialog,SIGNAL(currentColorChanged(const QColor&)),this,SLOT(colorChanged(const QColor&)));
 }
 
 ModelPropertiesWidget::~ModelPropertiesWidget(){

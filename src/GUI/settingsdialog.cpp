@@ -1,16 +1,15 @@
 #include "settingsdialog.h"
 #include "mainwindow.h"
 
-SettingsDialog::SettingsDialog(MainWindow*parent):QDialog((QWidget*)parent){
+SettingsDialog::SettingsDialog(QWidget*parent):QDialog(parent){
     setWindowFlag(Qt::WindowContextHelpButtonHint,false);
 
     QColor defaultBGColor(0,0,0);
     bgColorDialog=new QColorDialog(defaultBGColor,this);
-    parent->setBGColor(defaultBGColor);
+    bgColorDialog->setOptions(QColorDialog::NoButtons|QColorDialog::ShowAlphaChannel);
 
     btn1=new QPushButton("Change Color");
     connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
-    connect(bgColorDialog,SIGNAL(colorSelected(const QColor&)),parent,SLOT(setBGColor(const QColor&)));
 
     hb[0]=new QHBoxLayout;
     vb1=new QVBoxLayout;

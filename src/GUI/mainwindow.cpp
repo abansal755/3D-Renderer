@@ -25,15 +25,14 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     vb1=new QVBoxLayout;
     central=new QWidget;
     listWidget=new ListWidget(vb1);
-    glwidget=new GLWidget(listWidget);
+    settingsDialog=new SettingsDialog(this);
+    glwidget=new GLWidget(listWidget,settingsDialog);
 
     setCentralWidget(central);
     central->setLayout(hb1);
     hb1->addWidget(glwidget,1);
     hb1->addLayout(vb1);
     vb1->addWidget(listWidget);
-
-    settingsDialog=new SettingsDialog(this);
 }
 
 void MainWindow::exitApp(){
@@ -52,12 +51,4 @@ void MainWindow::addCube(){
 
 void MainWindow::settings(){
     settingsDialog->open();
-}
-
-void MainWindow::setBGColor(const QColor& color){
-    glwidget->setBGColor(color);
-}
-
-void MainWindow::setLightColor(const QColor& color){
-    glwidget->setLightColor(color);
 }
