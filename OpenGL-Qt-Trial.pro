@@ -20,6 +20,7 @@ INCLUDEPATH += lib/glm
 SOURCES += \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
+    src/GUI/settingsdialog.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     lib/stb_image.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
+    src/GUI/settingsdialog.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \

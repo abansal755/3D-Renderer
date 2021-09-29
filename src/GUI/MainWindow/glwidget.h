@@ -8,6 +8,7 @@
 #include <QOpenGLWidget>
 #include <vector>
 #include <QElapsedTimer>
+#include <QColor>
 
 class ListWidget;
 
@@ -19,8 +20,6 @@ class GLWidget : public QOpenGLWidget{
 
     int lastX,lastY,xChange=0,yChange=0;
 
-    void clearBuffer();
-
     Shader*flatShader;
     Mesh*cubeMesh;
     Camera*camera;
@@ -30,6 +29,8 @@ class GLWidget : public QOpenGLWidget{
     QElapsedTimer timer;
 
     ListWidget*modelsListWidget;
+
+    QColor bgColor;
 public:
     GLWidget(ListWidget*modelsListWidget,QWidget*parent=NULL);
     ~GLWidget();
@@ -44,6 +45,8 @@ public:
 
     Mesh* getCubeMesh(){return cubeMesh;}
     Shader* getFlatShader(){return flatShader;}
+    void setBGColor(QColor color);
+    void setLightColor(QColor color);
 protected:
     void initializeGL();
     void resizeGL(int width, int height);

@@ -23,11 +23,6 @@ GLWidget::~GLWidget(){
     delete light;
 }
 
-void GLWidget::clearBuffer(){
-    gl()->glClearColor(0,0,0,1);
-    gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-}
-
 void GLWidget::resizeGL(int width, int height){
     gl()->glViewport(0,0,width,height);
     camera->setAspect((GLfloat)width/height);
@@ -73,7 +68,8 @@ void GLWidget::initializeGL(){
 }
 
 void GLWidget::paintGL(){
-    clearBuffer();
+    gl()->glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
+    gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
     GLfloat currTime=(GLfloat)timer.elapsed()/1000;
     GLfloat deltaTime=currTime-lastTime;
@@ -128,4 +124,12 @@ int GLWidget::getYChange(){
     int ans=yChange;
     yChange=0;
     return ans;
+}
+
+void GLWidget::setBGColor(QColor color){
+    bgColor=color;
+}
+
+void GLWidget::setLightColor(QColor color){
+    light->setColor(color);
 }
