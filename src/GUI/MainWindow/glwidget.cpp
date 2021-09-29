@@ -1,9 +1,9 @@
 #include "glwidget.h"
 #include "src/OpenGL/camera.h"
 #include "lib/glm/gtc/type_ptr.hpp"
-#include "src/GUI/listwidget.h"
-#include "src/GUI/listwidgetitem.h"
-#include "src/GUI/modelpropertieswidget.h"
+#include "listwidget.h"
+#include "ListWidget/listwidgetitem.h"
+#include "ListWidget/modelpropertieswidget.h"
 
 #include <string>
 #include <QDebug>

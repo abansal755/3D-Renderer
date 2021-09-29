@@ -1,5 +1,5 @@
-#include "glwidget.h"
-#include "listwidget.h"
+#include "MainWindow/glwidget.h"
+#include "MainWindow/listwidget.h"
 
 #include <QMainWindow>
 #include <QMenuBar>

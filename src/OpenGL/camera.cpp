@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "src/GUI/glwidget.h"
+#include "src/GUI/MainWindow/glwidget.h"
 
 Camera::Camera(glm::vec3 startPos, glm::vec3 startWorldUp,
                GLfloat startYaw, GLfloat startPitch,

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "src/GUI/modelpropertieswidget.h"
-#include "listwidgetitem.h"
+#include "MainWindow/ListWidget/modelpropertieswidget.h"
+#include "MainWindow/ListWidget/listwidgetitem.h"
 
 #include <QApplication>
 #include <QDebug>

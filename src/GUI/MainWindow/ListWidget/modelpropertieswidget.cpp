@@ -1,7 +1,7 @@
 #include "modelpropertieswidget.h"
 #include "src/OpenGL/model.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
-#include "sliderfloat.h"
+#include "src/GUI/sliderfloat.h"
 #include "listwidgetitem.h"
 
 #include <QDebug>

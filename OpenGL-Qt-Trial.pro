@@ -18,8 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
-    src/GUI/listwidget.cpp \
-    src/GUI/listwidgetitem.cpp \
+    src/GUI/MainWindow/listwidget.cpp \
+    src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
@@ -27,16 +27,16 @@ SOURCES += \
     src/OpenGL/texture.cpp \
     src/OpenGL/version.cpp \
     src\OpenGL\shader.cpp \
-    src\GUI\glwidget.cpp \
-    src\main.cpp \
-    src\GUI\mainwindow.cpp \
-    src\OpenGL\mesh.cpp \
-    src/GUI/modelpropertieswidget.cpp
+    src/GUI/MainWindow/glwidget.cpp \
+    src/main.cpp \
+    src/GUI/mainwindow.cpp \
+    src/OpenGL/mesh.cpp \
+    src/GUI/MainWindow/ListWidget/modelpropertieswidget.cpp
 
 HEADERS += \
     lib/stb_image.h \
-    src/GUI/listwidget.h \
-    src/GUI/listwidgetitem.h \
+    src/GUI/MainWindow/listwidget.h \
+    src/GUI/MainWindow/ListWidget/listwidgetitem.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \
@@ -44,12 +44,12 @@ HEADERS += \
     src/OpenGL/texture.h \
     src/OpenGL/version.h \
     src/OpenGL/vertex.h \
-    src\OpenGL\shader.h \
-    src\GUI\glwidget.h \
-    src\GUI\mainwindow.h \
-    src\OpenGL\mesh.h \
-    src\OpenGL\simplevertex.h \
-    src/GUI/modelpropertieswidget.h
+    src/OpenGL/shader.h \
+    src/GUI/MainWindow/glwidget.h \
+    src/GUI/mainwindow.h \
+    src/OpenGL/mesh.h \
+    src/OpenGL/simplevertex.h \
+    src/GUI/MainWindow/ListWidget/modelpropertieswidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
