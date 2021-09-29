@@ -1,13 +1,26 @@
 #include "mainwindow.h"
 #include "MainWindow/ListWidget/modelpropertieswidget.h"
 #include "MainWindow/ListWidget/listwidgetitem.h"
-#include "settingsdialog.h"
+#include "settingswidget.h"
 
 #include <QApplication>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
+
+    hb1=new QHBoxLayout;
+    vb1=new QVBoxLayout;
+    central=new QWidget;
+    listWidget=new ListWidget(vb1);
+    settingsWidget=new SettingsWidget;
+    glwidget=new GLWidget(listWidget,settingsWidget);
+
+    setCentralWidget(central);
+    central->setLayout(hb1);
+    hb1->addWidget(glwidget,1);
+    hb1->addLayout(vb1);
+    vb1->addWidget(listWidget);
 
     QMenu* fileMenu=menuBar()->addMenu("File");
     QMenu* addPrimitivesMenu=fileMenu->addMenu("Add Primitives");
@@ -20,19 +33,10 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QMenu* viewMenu=menuBar()->addMenu("View");
     QAction* settingsAction=viewMenu->addAction("Settings");
     connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
+}
 
-    hb1=new QHBoxLayout;
-    vb1=new QVBoxLayout;
-    central=new QWidget;
-    listWidget=new ListWidget(vb1);
-    settingsDialog=new SettingsDialog(this);
-    glwidget=new GLWidget(listWidget,settingsDialog);
-
-    setCentralWidget(central);
-    central->setLayout(hb1);
-    hb1->addWidget(glwidget,1);
-    hb1->addLayout(vb1);
-    vb1->addWidget(listWidget);
+MainWindow::~MainWindow(){
+    delete settingsWidget;
 }
 
 void MainWindow::exitApp(){
@@ -50,5 +54,5 @@ void MainWindow::addCube(){
 }
 
 void MainWindow::settings(){
-    settingsDialog->open();
+    settingsWidget->show();
 }

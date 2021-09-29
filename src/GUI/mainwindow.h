@@ -6,7 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-class SettingsDialog;
+class SettingsWidget;
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow{
     QHBoxLayout*hb1;
     QVBoxLayout*vb1;
 
-    SettingsDialog*settingsDialog;
+    SettingsWidget*settingsWidget;
 
     int cubeCount=0;
 private slots:
@@ -25,4 +25,5 @@ private slots:
     void settings();
 public:
     MainWindow(QWidget*parent=NULL);
+    ~MainWindow();
 };

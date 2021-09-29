@@ -12,7 +12,7 @@
 
 class ListWidget;
 class Camera;
-class SettingsDialog;
+class SettingsWidget;
 
 class GLWidget : public QOpenGLWidget{
     Q_OBJECT
@@ -29,9 +29,9 @@ class GLWidget : public QOpenGLWidget{
     QElapsedTimer timer;
 
     ListWidget*modelsListWidget;
-    SettingsDialog*settingsDialog;
+    SettingsWidget*settingsWidget;
 public:
-    GLWidget(ListWidget*modelsListWidget,SettingsDialog*settingsDialog,QWidget*parent=NULL);
+    GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent=NULL);
     ~GLWidget();
 
     bool isWPressed(){return wPressed;}

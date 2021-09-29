@@ -4,14 +4,14 @@
 #include "listwidget.h"
 #include "ListWidget/listwidgetitem.h"
 #include "ListWidget/modelpropertieswidget.h"
-#include "src/GUI/settingsdialog.h"
+#include "src/GUI/settingswidget.h"
 
 #include <string>
 #include <QDebug>
 #include <QKeyEvent>
 
-GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsDialog*settingsDialog,QWidget*parent)
-    :modelsListWidget(modelsListWidget),settingsDialog(settingsDialog),QOpenGLWidget(parent)
+GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent)
+    :modelsListWidget(modelsListWidget),settingsWidget(settingsWidget),QOpenGLWidget(parent)
 {
     connect(this,SIGNAL(frameSwapped()),this,SLOT(update()));
     setFocusPolicy(Qt::StrongFocus);
@@ -69,7 +69,7 @@ void GLWidget::initializeGL(){
 }
 
 void GLWidget::paintGL(){
-    QColor bgColor=settingsDialog->getColor();
+    QColor bgColor=settingsWidget->getBGColor();
     gl()->glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
     gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -81,7 +81,10 @@ void GLWidget::paintGL(){
     camera->keyControl(this,deltaTime);
 
     light->setDirection(camera->getFront());
+    light->setColor(settingsWidget->getLightColor());
     light->useLight(flatShader);
+    light->setAmbientIntensity(settingsWidget->getAmbientLightIntensity());
+    light->setDiffuseIntensity(settingsWidget->getDiffuseLightIntensity());
 
     std::vector<Model*> models=modelsListWidget->getModels();
     for(Model*model:models) model->renderModel(camera);
