@@ -1,6 +1,8 @@
 #include <QListWidget>
 #include <QVBoxLayout>
+#include <vector>
 
+class Model;
 class ListWidgetItem;
 
 class ListWidget : public QListWidget{
@@ -13,4 +15,5 @@ public:
 
     ListWidgetItem* getCustomCurrentItem();
     ListWidgetItem* getCustomItem(int row);
+    std::vector<Model*> getModels();
 };

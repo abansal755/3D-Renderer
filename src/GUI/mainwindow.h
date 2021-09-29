@@ -13,8 +13,11 @@ class MainWindow : public QMainWindow{
     ListWidget*listWidget;
     QHBoxLayout*hb1;
     QVBoxLayout*vb1;
+
+    int cubeCount=0;
 private slots:
     void exitApp();
+    void addCube();
 public:
     MainWindow(QWidget*parent=NULL);
 };

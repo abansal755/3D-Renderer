@@ -14,7 +14,6 @@ GLWidget::GLWidget(ListWidget*modelsListWidget,QWidget*parent)
 {
     connect(this,SIGNAL(frameSwapped()),this,SLOT(update()));
     setFocusPolicy(Qt::StrongFocus);
-    makeCurrent();
 }
 
 GLWidget::~GLWidget(){
@@ -37,10 +36,6 @@ void GLWidget::resizeGL(int width, int height){
 void GLWidget::initializeGL(){
     gl()->glEnable(GL_DEPTH_TEST);
     gl()->glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
-
-    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.vert";
-    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.frag";
-    flatShader=new Shader(vPath, fPath);
 
     camera=new Camera(glm::vec3(-4,0,0),glm::vec3(0,1,0),
                       0,0,10,0.005,
@@ -69,10 +64,9 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(vertices,indices);
 
-    ListWidgetItem*item=new ListWidgetItem;
-    item->getModelPropertiesWidget()->getModel()->setMesh(cubeMesh);
-    item->getModelPropertiesWidget()->getModel()->setShader(flatShader);
-    modelsListWidget->addItem(item);
+    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.vert";
+    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.frag";
+    flatShader=new Shader(vPath, fPath);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -91,11 +85,8 @@ void GLWidget::paintGL(){
     light->setDirection(camera->getFront());
     light->useLight(flatShader);
 
-    int count=modelsListWidget->count();
-    for(int i=0;i<count;i++){
-        Model*model=modelsListWidget->getCustomItem(i)->getModelPropertiesWidget()->getModel();
-        model->renderModel(camera);
-    }
+    std::vector<Model*> models=modelsListWidget->getModels();
+    for(Model*model:models) model->renderModel(camera);
 }
 
 void GLWidget::keyPressEvent(QKeyEvent *event){

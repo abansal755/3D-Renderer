@@ -20,6 +20,19 @@ void ListWidget::currentItemChanged(QListWidgetItem*currPtr,QListWidgetItem*prev
     ListWidgetItem*curr=(ListWidgetItem*)currPtr;
     ListWidgetItem*prev=(ListWidgetItem*)prevPtr;
 
-    if(prev) layout->removeWidget(prev->getModelPropertiesWidget());
+    if(prev){
+        layout->removeWidget(prev->getModelPropertiesWidget());
+        prev->getModelPropertiesWidget()->hide();
+    }
     layout->addWidget(curr->getModelPropertiesWidget());
+    curr->getModelPropertiesWidget()->show();
+}
+
+std::vector<Model*> ListWidget::getModels(){
+    std::vector<Model*> models;
+    for(int i=0;i<count();i++){
+        Model* model=getCustomItem(i)->getModelPropertiesWidget()->getModel();
+        models.push_back(model);
+    }
+    return models;
 }
