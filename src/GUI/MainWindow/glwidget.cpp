@@ -60,8 +60,8 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(vertices,indices);
 
-    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.vert";
-    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/OpenGL-Qt-Trial/shaders/flatShader.frag";
+    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/shaders/flatShader.vert";
+    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/shaders/flatShader.frag";
     flatShader=new Shader(vPath, fPath);
 
     timer.start();
