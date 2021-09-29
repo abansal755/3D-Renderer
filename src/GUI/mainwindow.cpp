@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
     connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
 
-    QMenu* viewMenu=menuBar()->addMenu("View");
-    QAction* settingsAction=viewMenu->addAction("Settings");
+    QMenu* windowMenu=menuBar()->addMenu("Window");
+    QAction* settingsAction=windowMenu->addAction("Settings");
     connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
 }
 

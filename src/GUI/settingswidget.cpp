@@ -3,6 +3,7 @@
 
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowTitle("Settings");
 
     QColor defaultBGColor(0,0,0);
     bgColorDialog=new QColorDialog(defaultBGColor,this);

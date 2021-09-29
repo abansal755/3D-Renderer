@@ -24,8 +24,10 @@ void ListWidget::currentItemChanged(QListWidgetItem*currPtr,QListWidgetItem*prev
         layout->removeWidget(prev->getModelPropertiesWidget());
         prev->getModelPropertiesWidget()->hide();
     }
-    layout->addWidget(curr->getModelPropertiesWidget());
-    curr->getModelPropertiesWidget()->show();
+    if(curr){
+        layout->addWidget(curr->getModelPropertiesWidget());
+        curr->getModelPropertiesWidget()->show();
+    }
 }
 
 std::vector<Model*> ListWidget::getModels(){

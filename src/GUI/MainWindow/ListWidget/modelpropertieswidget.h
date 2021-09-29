@@ -23,12 +23,13 @@ class ModelPropertiesWidget : public QWidget{
     QLineEdit*lineEdit1;
 
     QColorDialog*colorDialog;
-    QPushButton*btn1;
+    QPushButton*btn1,*btn2;
 private slots:
     void valueChanged();
     void textChangedSlot(const QString& text);
     void btn1Clicked();
     void colorChanged(const QColor& color);
+    void btn2Clicked();
 public:
     ModelPropertiesWidget(ListWidgetItem*item,QString text);
     ~ModelPropertiesWidget();

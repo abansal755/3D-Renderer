@@ -3,6 +3,7 @@
 #include "lib/glm/gtc/matrix_transform.hpp"
 #include "src/GUI/sliderfloat.h"
 #include "listwidgetitem.h"
+#include "src/GUI/MainWindow/listwidget.h"
 
 #include <QDebug>
 
@@ -14,6 +15,8 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     colorDialog=new QColorDialog(model->getColor(),this);
     colorDialog->setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
     btn1=new QPushButton("Change Color");
+
+    btn2=new QPushButton("Delete");
 
     translateX=new SliderFloat("translateX",NULL,-500,500,100);
     translateY=new SliderFloat("translateY",NULL,-500,500,100);
@@ -53,6 +56,7 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     vb1->addWidget(scaleZ);
 
     vb1->addWidget(btn1);
+    vb1->addWidget(btn2);
 
     setLayout(vb1);
 
@@ -72,6 +76,8 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
 
     connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
     connect(colorDialog,SIGNAL(currentColorChanged(const QColor&)),this,SLOT(colorChanged(const QColor&)));
+
+    connect(btn2,SIGNAL(clicked()),this,SLOT(btn2Clicked()));
 }
 
 ModelPropertiesWidget::~ModelPropertiesWidget(){
@@ -107,4 +113,11 @@ void ModelPropertiesWidget::btn1Clicked(){
 
 void ModelPropertiesWidget::colorChanged(const QColor& color){
     model->setColor(color);
+}
+
+void ModelPropertiesWidget::btn2Clicked(){
+    QListWidget*listWidget=item->listWidget();
+    int row=listWidget->row(item);
+    listWidget->takeItem(row);
+    delete item;
 }

@@ -16,7 +16,7 @@ public:
     Mesh() {};
     Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices,
          GLenum usageMode=GL_STATIC_DRAW, GLenum drawMode=GL_TRIANGLES);
-    ~Mesh();
+    virtual ~Mesh();
 
     void createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
     void clearMesh();
