@@ -20,7 +20,7 @@ class GLWidget : public QOpenGLWidget{
     int lastX,lastY,xChange=0,yChange=0;
 
     FlatShader*flatShader;
-    Mesh*cubeMesh;
+    Mesh*planeMesh,*cubeMesh;
     Camera*camera;
     Light*light;
 
@@ -42,6 +42,7 @@ public:
     int getYChange();
 
     Mesh* getCubeMesh(){return cubeMesh;}
+    Mesh* getPlaneMesh(){return planeMesh;}
     FlatShader* getFlatShader(){return flatShader;}
 protected:
     void initializeGL();

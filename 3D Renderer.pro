@@ -63,5 +63,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    src/OpenGL/Shaders/gridshader.frag \
+    src/OpenGL/Shaders/gridshader.vert \
     src/OpenGl/Shaders/flatShader.frag \
     src/OpenGl/Shaders/shader/flatShader.vert

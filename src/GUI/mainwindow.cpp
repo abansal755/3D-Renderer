@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
         QAction* newSceneAction=fileMenu->addAction("New Scene");
             connect(newSceneAction,SIGNAL(triggered()),this,SLOT(newScene()));
         QMenu* addPrimitivesMenu=fileMenu->addMenu("Add Primitives");
+            QAction* addPlaneAction=addPrimitivesMenu->addAction("Plane");
+                connect(addPlaneAction,SIGNAL(triggered()),this,SLOT(addPlane()));
             QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
                 connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
         QAction* exitAction=fileMenu->addAction("Exit");
@@ -44,6 +46,16 @@ MainWindow::~MainWindow(){
 
 void MainWindow::exitApp(){
     QApplication::exit(0);
+}
+
+void MainWindow::addPlane(){
+    Mesh* planeMesh=glwidget->getPlaneMesh();
+    ListWidgetItem* item=new ListWidgetItem("Plane"+QString::number(planeCount++));
+    FlatModel* model=item->getModelPropertiesWidget()->getModel();
+    model->setMesh(planeMesh);
+    model->setShader(glwidget->getFlatShader());
+
+    listWidget->addItem(item);
 }
 
 void MainWindow::addCube(){
@@ -68,5 +80,6 @@ void MainWindow::newScene(){
 }
 
 void MainWindow::resetCounts(){
+    planeCount=0;
     cubeCount=0;
 }

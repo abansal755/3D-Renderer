@@ -21,6 +21,7 @@ GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWi
 
 GLWidget::~GLWidget(){
     delete flatShader;
+    delete planeMesh;
     delete cubeMesh;
     delete camera;
     delete light;
@@ -41,7 +42,20 @@ void GLWidget::initializeGL(){
 
     light=new Light;
 
-    std::vector<Vertex> vertices={
+    std::vector<Vertex> verticesPlane={
+        //x y z nx ny nz
+        {-1,0,-1,0,1,0},  //bottom left
+        {1,0,-1,0,1,0},   //bottom right
+        {1,0,1,0,1,0}, //top right
+        {-1,0,1,0,1,0}  //top left
+    };
+    std::vector<unsigned int> indicesPlane={
+        0,1,2,
+        2,3,0
+    };
+    planeMesh=new Mesh(verticesPlane,indicesPlane);
+
+    std::vector<Vertex> verticesCube={
         //  x   y   z   nx, ny, nz
         {-1, -1, -1,   0, -1,  0},  // 0, nv front
         {-1, -1,  1,   0,  0,  1},  // 1, nv top
@@ -52,7 +66,7 @@ void GLWidget::initializeGL(){
         {-1,  1, -1,   0,  0, -1},  // 6, nv bottom
         {-1,  1,  1,  -1,  0,  0}  // 7, nv left
     };
-    std::vector<unsigned int> indices={
+    std::vector<unsigned int> indicesCube={
         0, 2, 3,   0, 3, 1, // front
         4, 6, 7,   4, 7, 5, // back
         3, 2, 4,   3, 4, 5, // right
@@ -60,10 +74,10 @@ void GLWidget::initializeGL(){
         6, 4, 2,   6, 2, 0, // bottom
         1, 3, 5,   1, 5, 7  // top
     };
-    cubeMesh=new Mesh(vertices,indices);
+    cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatShader.vert";
-    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatShader.frag";
+    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.vert";
+    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.frag";
     flatShader=new FlatShader;
     flatShader->loadShader(vPath,fPath);
 
