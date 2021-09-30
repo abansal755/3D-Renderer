@@ -52,3 +52,13 @@ void GridModel::populateUniforms(){
     GLuint uniformModelColor=shader->getModelColorLocation();
     gl()->glUniform4f(uniformModelColor,color.redF(),color.greenF(),color.blueF(),color.alphaF());
 }
+
+void GridModel::setNumLines(GLint numLines){
+    this->numLines=numLines;
+    initMesh();
+}
+
+void GridModel::setSideLength(GLfloat sideLength){
+    this->sideLength=sideLength;
+    initMesh();
+}
