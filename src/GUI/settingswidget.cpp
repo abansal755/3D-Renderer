@@ -13,6 +13,10 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     lightColorDialog=new QColorDialog(defaultLightColor,this);
     lightColorDialog->setOptions(QColorDialog::NoButtons);
 
+    QColor defaultGridColor(255,255,255);
+    gridColorDialog=new QColorDialog(defaultGridColor,this);
+    gridColorDialog->setOptions(QColorDialog::NoButtons);
+
     QVBoxLayout*vb1=new QVBoxLayout;
         QHBoxLayout*hb1=new QHBoxLayout;
             QLabel*label1=new QLabel("Background Color");
@@ -36,6 +40,23 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
             float defaultDiffuseLightIntensity=1;
             slider2->setValue(defaultDiffuseLightIntensity);
         vb1->addWidget(slider2);
+        QHBoxLayout*hb3=new QHBoxLayout;
+            QLabel*label3=new QLabel("Grid Color");
+            hb3->addWidget(label3);
+            QPushButton*btn3=new QPushButton("Change Grid Color");
+                connect(btn3,SIGNAL(clicked()),this,SLOT(btn3Clicked()));
+            hb3->addWidget(btn3);
+        vb1->addLayout(hb3);
+        slider3=new SliderFloat("Grid Side Length",NULL,1,1000,100);
+            float defaultGridSideLength=5;
+            slider3->setValue(defaultGridSideLength);
+                connect(slider3,SIGNAL(valueChanged(double)),this,SLOT(gridChanged()));
+        vb1->addWidget(slider3);
+        slider4=new SliderInt("Grid Number Of Lines",NULL,2,50);
+            int defaultGridNumLines=10;
+            slider4->setValue(defaultGridNumLines);
+                connect(slider4,SIGNAL(valueChanged(int)),this,SLOT(gridChanged()));
+        vb1->addWidget(slider4);
     setLayout(vb1);
 }
 
@@ -45,4 +66,20 @@ void SettingsWidget::btn1Clicked(){
 
 void SettingsWidget::btn2Clicked(){
     lightColorDialog->open();
+}
+
+void SettingsWidget::btn3Clicked(){
+    gridColorDialog->open();
+}
+
+bool SettingsWidget::isChangeInGrid(){
+    if(changeInGrid){
+        changeInGrid=false;
+        return true;
+    }
+    return false;
+}
+
+void SettingsWidget::gridChanged(){
+    changeInGrid=true;
 }

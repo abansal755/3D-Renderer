@@ -48,6 +48,7 @@ public:
     Mesh* getCubeMesh(){return cubeMesh;}
     Mesh* getPlaneMesh(){return planeMesh;}
     FlatShader* getFlatShader(){return flatShader;}
+    GridModel* getGridModel(){return grid;}
 protected:
     void initializeGL();
     void resizeGL(int width, int height);

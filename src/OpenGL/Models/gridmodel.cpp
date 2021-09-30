@@ -62,3 +62,9 @@ void GridModel::setSideLength(GLfloat sideLength){
     this->sideLength=sideLength;
     initMesh();
 }
+
+void GridModel::setGridConfig(GLint numLines, GLfloat sideLength){
+    this->numLines=numLines;
+    this->sideLength=sideLength;
+    initMesh();
+}

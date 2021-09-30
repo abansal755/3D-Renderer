@@ -12,7 +12,7 @@ class GridModel:public Model{
 protected:
     void populateUniforms();
 public:
-    GridModel(GLint numLines=20,GLfloat sideLength=5,\
+    GridModel(GLint numLines=20,GLfloat sideLength=5,
               QColor color=QColor(255,255,255),GridShader*shader=NULL);
 
     void setColor(QColor color){this->color=color;}
@@ -21,4 +21,5 @@ public:
     GLint getNumLines(){return numLines;}
     void setSideLength(GLfloat sideLength);
     GLfloat getSideLength(){return sideLength;}
+    void setGridConfig(GLint numLines,GLfloat sideLength);
 };

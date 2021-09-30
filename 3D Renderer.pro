@@ -36,7 +36,8 @@ SOURCES += \
     src/main.cpp \
     src/GUI/mainwindow.cpp \
     src/OpenGL/mesh.cpp \
-    src/GUI/MainWindow/ListWidget/modelpropertieswidget.cpp
+    src/GUI/MainWindow/ListWidget/modelpropertieswidget.cpp \
+    src/GUI/sliderint.cpp
 
 HEADERS += \
     lib/stb_image.h \
@@ -58,7 +59,8 @@ HEADERS += \
     src/GUI/MainWindow/glwidget.h \
     src/GUI/mainwindow.h \
     src/OpenGL/mesh.h \
-    src/GUI/MainWindow/ListWidget/modelpropertieswidget.h
+    src/GUI/MainWindow/ListWidget/modelpropertieswidget.h \
+    src/GUI/sliderint.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
