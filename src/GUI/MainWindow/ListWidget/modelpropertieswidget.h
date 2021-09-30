@@ -5,7 +5,7 @@
 #include <QPushButton>
 
 class SliderFloat;
-class Model;
+class FlatModel;
 class Mesh;
 class ListWidgetItem;
 
@@ -13,7 +13,7 @@ class ModelPropertiesWidget : public QWidget{
     Q_OBJECT
     ListWidgetItem*item;
 
-    Model*model;
+    FlatModel*model;
 
     SliderFloat*translateX,*translateY,*translateZ;
     SliderFloat*rotateX,*rotateY,*rotateZ;
@@ -32,8 +32,8 @@ public:
     ModelPropertiesWidget(ListWidgetItem*item,QString text);
     ~ModelPropertiesWidget();
 
-    void setModel(Model*model){this->model=model;}
-    Model* getModel(){return model;}
+    void setModel(FlatModel*model){this->model=model;}
+    FlatModel* getModel(){return model;}
     void setText(QString text);
     QString getText(){return lineEdit1->text();}
 };

@@ -3,10 +3,6 @@
 #include <QDebug>
 #include <fstream>
 
-Shader::Shader(std::string& vPath, std::string& fPath) {
-    loadShader(vPath, fPath);
-}
-
 void Shader::loadShader(std::string& vPath, std::string& fPath) {
     clearShader();
 
@@ -42,11 +38,7 @@ void Shader::loadShader(std::string& vPath, std::string& fPath) {
     uniformModel = gl()->glGetUniformLocation(program, "model");
     uniformProjection = gl()->glGetUniformLocation(program, "projection");
     uniformView = gl()->glGetUniformLocation(program, "view");
-    uniformLightColor=gl()->glGetUniformLocation(program,"directionalLight.color");
-    uniformAmbientIntensity=gl()->glGetUniformLocation(program,"directionalLight.ambientIntensity");
-    uniformDirection=gl()->glGetUniformLocation(program,"directionalLight.direction");
-    uniformDiffuseIntensity=gl()->glGetUniformLocation(program,"directionalLight.diffuseIntensity");
-    uniformModelColor=gl()->glGetUniformLocation(program,"modelColor");
+    setupUniforms();
 }
 
 void Shader::clearShader() {
@@ -54,10 +46,7 @@ void Shader::clearShader() {
     uniformModel = 0;
     uniformProjection = 0;
     uniformView = 0;
-    uniformLightColor=0;
-    uniformAmbientIntensity=0;
-    uniformDirection=0;
-    uniformDiffuseIntensity=0;
+    clearUniforms();
 }
 
 Shader::~Shader() {

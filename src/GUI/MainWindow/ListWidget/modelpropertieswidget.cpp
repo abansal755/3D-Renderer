@@ -1,5 +1,5 @@
 #include "modelpropertieswidget.h"
-#include "src/OpenGL/model.h"
+#include "src/OpenGL/Models/flatmodel.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
 #include "src/GUI/sliderfloat.h"
 #include "listwidgetitem.h"
@@ -10,7 +10,7 @@
 ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
     :item(item)
 {
-    model=new Model();
+    model=new FlatModel();
 
     colorDialog=new QColorDialog(model->getColor(),this);
     colorDialog->setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);

@@ -2,6 +2,8 @@
 #include "MainWindow/ListWidget/modelpropertieswidget.h"
 #include "MainWindow/ListWidget/listwidgetitem.h"
 #include "settingswidget.h"
+#include "src/OpenGL/Models/flatmodel.h"
+#include "src/OpenGL/Shaders/flatshader.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -47,7 +49,7 @@ void MainWindow::exitApp(){
 void MainWindow::addCube(){
     Mesh* cubeMesh=glwidget->getCubeMesh();
     ListWidgetItem* item=new ListWidgetItem("Cube"+QString::number(cubeCount++));
-    Model* model=item->getModelPropertiesWidget()->getModel();
+    FlatModel* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(cubeMesh);
     model->setShader(glwidget->getFlatShader());
 

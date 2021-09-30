@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <vector>
 
+class FlatModel;
 class Model;
 class ListWidgetItem;
 

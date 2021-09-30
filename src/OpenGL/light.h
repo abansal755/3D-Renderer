@@ -3,7 +3,7 @@
 
 #include <QColor>
 
-class Shader;
+class FlatShader;
 
 class Light{
     QColor color;
@@ -15,7 +15,7 @@ public:
     Light(glm::vec3 direction=glm::vec3(0,-1,0), QColor color=QColor(255,255,255),
           GLfloat diffuseIntensity=1, GLfloat ambientIntensity=0.5);
 
-    void useLight(Shader*shader);
+    void useLight(FlatShader*shader);
 
     void setColor(QColor color){this->color=color;}
     QColor getColor(){return color;}

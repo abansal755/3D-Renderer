@@ -5,6 +5,8 @@
 #include "ListWidget/listwidgetitem.h"
 #include "ListWidget/modelpropertieswidget.h"
 #include "src/GUI/settingswidget.h"
+#include "src/OpenGL/Shaders/flatshader.h"
+#include "src/OpenGL/model.h"
 
 #include <string>
 #include <QDebug>
@@ -60,9 +62,10 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(vertices,indices);
 
-    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/shaders/flatShader.vert";
-    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/shaders/flatShader.frag";
-    flatShader=new Shader(vPath, fPath);
+    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatShader.vert";
+    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatShader.frag";
+    flatShader=new FlatShader;
+    flatShader->loadShader(vPath,fPath);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;

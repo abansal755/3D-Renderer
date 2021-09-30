@@ -22,6 +22,8 @@ SOURCES += \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
+    src/OpenGL/Models/flatmodel.cpp \
+    src/OpenGL/Shaders/flatshader.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
     src/OpenGL/model.cpp \
@@ -40,6 +42,8 @@ HEADERS += \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
     src/GUI/settingswidget.h \
     src/GUI/sliderfloat.h \
+    src/OpenGL/Models/flatmodel.h \
+    src/OpenGL/Shaders/flatshader.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \
     src/OpenGL/model.h \
@@ -59,5 +63,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    shaders/shader/flatShader.frag \
-    shaders/shader/flatShader.vert
+    src/OpenGl/Shaders/flatShader.frag \
+    src/OpenGl/Shaders/shader/flatShader.vert
