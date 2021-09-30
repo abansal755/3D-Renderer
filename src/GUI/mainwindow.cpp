@@ -24,18 +24,16 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     setCentralWidget(central);
 
     QMenu* fileMenu=menuBar()->addMenu("File");
-    QAction* newSceneAction=fileMenu->addAction("New Scene");
-    connect(newSceneAction,SIGNAL(triggered()),this,SLOT(newScene()));
-    QMenu* addPrimitivesMenu=fileMenu->addMenu("Add Primitives");
-    QAction* exitAction=fileMenu->addAction("Exit");
-    connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
-
-    QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
-    connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
-
+        QAction* newSceneAction=fileMenu->addAction("New Scene");
+            connect(newSceneAction,SIGNAL(triggered()),this,SLOT(newScene()));
+        QMenu* addPrimitivesMenu=fileMenu->addMenu("Add Primitives");
+            QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
+                connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
+        QAction* exitAction=fileMenu->addAction("Exit");
+            connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
-    QAction* settingsAction=windowMenu->addAction("Settings");
-    connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
+        QAction* settingsAction=windowMenu->addAction("Settings");
+            connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
 }
 
 MainWindow::~MainWindow(){
