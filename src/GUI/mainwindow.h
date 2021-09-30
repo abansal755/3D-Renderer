@@ -10,12 +10,8 @@ class SettingsWidget;
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
-    QWidget*central;
     GLWidget*glwidget;
     ListWidget*listWidget;
-    QHBoxLayout*hb1;
-    QVBoxLayout*vb1;
-
     SettingsWidget*settingsWidget;
 
     int cubeCount=0;

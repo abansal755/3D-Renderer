@@ -19,11 +19,9 @@ class ModelPropertiesWidget : public QWidget{
     SliderFloat*rotateX,*rotateY,*rotateZ;
     SliderFloat*scaleX,*scaleY,*scaleZ;
 
-    QVBoxLayout*vb1;
     QLineEdit*lineEdit1;
 
     QColorDialog*colorDialog;
-    QPushButton*btn1,*btn2;
 private slots:
     void valueChanged();
     void textChangedSlot(const QString& text);

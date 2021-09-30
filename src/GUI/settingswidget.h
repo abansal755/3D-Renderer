@@ -10,19 +10,15 @@
 class SettingsWidget : public QWidget{
     Q_OBJECT
     QColorDialog*bgColorDialog,*lightColorDialog;
-    QPushButton* btn[2];
-    QHBoxLayout*hb[4];
-    QVBoxLayout*vb1;
-    QLabel*label[2];
-    SliderFloat*slider[2];
+    SliderFloat*slider1,*slider2;
 private slots:
-    void btn0Clicked();
     void btn1Clicked();
+    void btn2Clicked();
 public:
     SettingsWidget(QWidget*parent=NULL);
 
     QColor getBGColor(){return bgColorDialog->currentColor();}
     QColor getLightColor(){return lightColorDialog->currentColor();}
-    double getAmbientLightIntensity(){return slider[0]->getValue();}
-    double getDiffuseLightIntensity(){return slider[1]->getValue();}
+    double getAmbientLightIntensity(){return slider1->getValue();}
+    double getDiffuseLightIntensity(){return slider2->getValue();}
 };

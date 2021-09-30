@@ -10,18 +10,18 @@
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
 
-    hb1=new QHBoxLayout;
-    vb1=new QVBoxLayout;
-    central=new QWidget;
-    listWidget=new ListWidget(vb1);
     settingsWidget=new SettingsWidget;
-    glwidget=new GLWidget(listWidget,settingsWidget);
 
+    QWidget*central=new QWidget;
+        QHBoxLayout*hb1=new QHBoxLayout;
+            QVBoxLayout*vb1=new QVBoxLayout;
+            listWidget=new ListWidget(vb1);
+            glwidget=new GLWidget(listWidget,settingsWidget);
+            hb1->addWidget(glwidget,1);
+            hb1->addLayout(vb1);
+                vb1->addWidget(listWidget);
+        central->setLayout(hb1);
     setCentralWidget(central);
-    central->setLayout(hb1);
-    hb1->addWidget(glwidget,1);
-    hb1->addLayout(vb1);
-    vb1->addWidget(listWidget);
 
     QMenu* fileMenu=menuBar()->addMenu("File");
     QAction* newSceneAction=fileMenu->addAction("New Scene");
