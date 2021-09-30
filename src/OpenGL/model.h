@@ -7,10 +7,10 @@ class Shader;
 class Camera;
 
 class Model{
-    Mesh*mesh;
     glm::mat4 model;
     Shader*shader;
 protected:
+    Mesh*mesh;
     virtual void populateUniforms(){}
 public:
     Model(Mesh*mesh=NULL,glm::mat4 model=glm::mat4(1),Shader*shader=NULL)

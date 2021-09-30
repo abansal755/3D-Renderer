@@ -12,6 +12,8 @@ class ListWidget;
 class Camera;
 class SettingsWidget;
 class FlatShader;
+class GridModel;
+class GridShader;
 
 class GLWidget : public QOpenGLWidget{
     Q_OBJECT
@@ -20,9 +22,11 @@ class GLWidget : public QOpenGLWidget{
     int lastX,lastY,xChange=0,yChange=0;
 
     FlatShader*flatShader;
+    GridShader*gridShader;
     Mesh*planeMesh,*cubeMesh;
     Camera*camera;
     Light*light;
+    GridModel*grid;
 
     GLfloat lastTime;
     QElapsedTimer timer;

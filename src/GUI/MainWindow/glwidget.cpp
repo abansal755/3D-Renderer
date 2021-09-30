@@ -6,7 +6,8 @@
 #include "ListWidget/modelpropertieswidget.h"
 #include "src/GUI/settingswidget.h"
 #include "src/OpenGL/Shaders/flatshader.h"
-#include "src/OpenGL/model.h"
+#include "src/OpenGL/Models/gridmodel.h"
+#include "src/OpenGL/Shaders/gridshader.h"
 
 #include <string>
 #include <QDebug>
@@ -25,6 +26,8 @@ GLWidget::~GLWidget(){
     delete cubeMesh;
     delete camera;
     delete light;
+    delete grid;
+    delete gridShader;
 }
 
 void GLWidget::resizeGL(int width, int height){
@@ -76,10 +79,18 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    std::string vPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.vert";
-    std::string fPath = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.frag";
+    std::string vPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.vert";
+    std::string fPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.frag";
     flatShader=new FlatShader;
-    flatShader->loadShader(vPath,fPath);
+    flatShader->loadShader(vPathFlat,fPathFlat);
+
+    std::string vPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.vert";
+    std::string fPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.frag";
+    gridShader=new GridShader;
+    gridShader->loadShader(vPathGrid,fPathGrid);
+
+    grid=new GridModel;
+    grid->setShader(gridShader);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -103,6 +114,7 @@ void GLWidget::paintGL(){
     light->setAmbientIntensity(settingsWidget->getAmbientLightIntensity());
     light->setDiffuseIntensity(settingsWidget->getDiffuseLightIntensity());
 
+    grid->renderModel(camera);
     std::vector<Model*> models=modelsListWidget->getModels();
     for(Model*model:models) model->renderModel(camera);
 }

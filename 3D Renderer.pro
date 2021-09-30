@@ -23,7 +23,9 @@ SOURCES += \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/Models/flatmodel.cpp \
+    src/OpenGL/Models/gridmodel.cpp \
     src/OpenGL/Shaders/flatshader.cpp \
+    src/OpenGL/Shaders/gridshader.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
     src/OpenGL/model.cpp \
@@ -43,7 +45,9 @@ HEADERS += \
     src/GUI/settingswidget.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/Models/flatmodel.h \
+    src/OpenGL/Models/gridmodel.h \
     src/OpenGL/Shaders/flatshader.h \
+    src/OpenGL/Shaders/gridshader.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \
     src/OpenGL/model.h \
