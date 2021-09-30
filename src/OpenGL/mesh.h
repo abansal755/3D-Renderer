@@ -10,13 +10,11 @@ class Mesh{
 
     Mesh(const Mesh& mesh);
     Mesh operator=(const Mesh& mesh);
-protected:
-    virtual void describeData(std::vector<Vertex>& vertices);
 public:
     Mesh() {};
     Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices,
          GLenum usageMode=GL_STATIC_DRAW, GLenum drawMode=GL_TRIANGLES);
-    virtual ~Mesh();
+    ~Mesh();
 
     void createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
     void clearMesh();

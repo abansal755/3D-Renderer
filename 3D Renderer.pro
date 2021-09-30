@@ -58,7 +58,6 @@ HEADERS += \
     src/GUI/MainWindow/glwidget.h \
     src/GUI/mainwindow.h \
     src/OpenGL/mesh.h \
-    src/OpenGL/simplevertex.h \
     src/GUI/MainWindow/ListWidget/modelpropertieswidget.h
 
 # Default rules for deployment.

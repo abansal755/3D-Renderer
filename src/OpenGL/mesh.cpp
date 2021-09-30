@@ -11,14 +11,6 @@ Mesh::~Mesh() {
     clearMesh();
 }
 
-void Mesh::describeData(std::vector<Vertex> &vertices){
-    gl()->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-    gl()->glEnableVertexAttribArray(0);
-
-    gl()->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vertices[0].getPos())));
-    gl()->glEnableVertexAttribArray(1);
-}
-
 void Mesh::createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
     clearMesh();
     numVertices = vertices.size();
@@ -28,7 +20,12 @@ void Mesh::createMesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& 
         gl()->glGenBuffers(1, &VBO);
         gl()->glBindBuffer(GL_ARRAY_BUFFER, VBO);
             gl()->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numVertices, &vertices[0], usageMode);
-            describeData(vertices);
+
+            gl()->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+            gl()->glEnableVertexAttribArray(0);
+
+            gl()->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(vertices[0].getPos())));
+            gl()->glEnableVertexAttribArray(1);
         gl()->glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         gl()->glGenBuffers(1, &IBO);
