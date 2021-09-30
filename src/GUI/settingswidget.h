@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QCheckBox>
 
 #include "sliderfloat.h"
 #include "sliderint.h"
@@ -13,6 +14,7 @@ class SettingsWidget : public QWidget{
     QColorDialog*bgColorDialog,*lightColorDialog,*gridColorDialog;
     SliderFloat*slider1,*slider2,*slider3;
     SliderInt*slider4;
+    QCheckBox*chb1;
 
     bool changeInGrid=true;
 private slots:
@@ -31,4 +33,5 @@ public:
     double getGridSideLength(){return slider3->getValue();}
     bool isChangeInGrid();
     int getGridNumLines(){return slider4->getValue();}
+    bool isShowGridChecked(){return chb1->checkState()==Qt::Checked;}
 };

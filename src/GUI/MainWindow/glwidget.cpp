@@ -117,7 +117,7 @@ void GLWidget::paintGL(){
     grid->setColor(settingsWidget->getGridColor());
     if(settingsWidget->isChangeInGrid())
         grid->setGridConfig(settingsWidget->getGridNumLines(),settingsWidget->getGridSideLength());
-    grid->renderModel(camera);
+    if(settingsWidget->isShowGridChecked()) grid->renderModel(camera);
     std::vector<Model*> models=modelsListWidget->getModels();
     for(Model*model:models) model->renderModel(camera);
 }

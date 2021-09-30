@@ -57,6 +57,9 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
             slider4->setValue(defaultGridNumLines);
                 connect(slider4,SIGNAL(valueChanged(int)),this,SLOT(gridChanged()));
         vb1->addWidget(slider4);
+        chb1=new QCheckBox("Show Grid");
+            chb1->setCheckState(Qt::Checked);
+        vb1->addWidget(chb1);
     setLayout(vb1);
 }
 
