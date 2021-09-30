@@ -5,6 +5,7 @@
 
 #include <QApplication>
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -23,6 +24,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     vb1->addWidget(listWidget);
 
     QMenu* fileMenu=menuBar()->addMenu("File");
+    QAction* newSceneAction=fileMenu->addAction("New Scene");
+    connect(newSceneAction,SIGNAL(triggered()),this,SLOT(newScene()));
     QMenu* addPrimitivesMenu=fileMenu->addMenu("Add Primitives");
     QAction* exitAction=fileMenu->addAction("Exit");
     connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
@@ -55,4 +58,15 @@ void MainWindow::addCube(){
 
 void MainWindow::settings(){
     settingsWidget->show();
+}
+
+void MainWindow::newScene(){
+    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene?",QMessageBox::Yes|QMessageBox::No);
+    if(response!=QMessageBox::Yes) return;
+    listWidget->clear();
+    resetCounts();
+}
+
+void MainWindow::resetCounts(){
+    cubeCount=0;
 }

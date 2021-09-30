@@ -19,10 +19,12 @@ class MainWindow : public QMainWindow{
     SettingsWidget*settingsWidget;
 
     int cubeCount=0;
+    void resetCounts();
 private slots:
     void exitApp();
     void addCube();
     void settings();
+    void newScene();
 public:
     MainWindow(QWidget*parent=NULL);
     ~MainWindow();
