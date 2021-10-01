@@ -5,7 +5,7 @@
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h"
 
 FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*item,QString text)
-    :ModelPropertiesWidget((ListWidgetItem*)item)
+    :ModelPropertiesWidget((ListWidgetItem*)item,text)
 {
     setModel(new FlatModel());
     FlatModel*model=(FlatModel*)getModel();
@@ -15,13 +15,6 @@ FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*ite
     connect(colorDialog,SIGNAL(currentColorChanged(const QColor&)),this,SLOT(colorChanged(const QColor&)));
 
     QVBoxLayout*vb1=new QVBoxLayout;
-        lineEdit1=new QLineEdit(text);
-            connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangedSlot(const QString&)));
-        vb1->addWidget(lineEdit1);
-        chb1=new QCheckBox("Visible");
-            chb1->setCheckState(Qt::Checked);
-        vb1->addWidget(chb1);
-
         translateX=new SliderFloat("translateX",NULL,-500,500,100);
             translateX->setValue(0);
             connect(translateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
@@ -74,7 +67,7 @@ FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*ite
         QPushButton*btn2=new QPushButton("Delete");
             connect(btn2,SIGNAL(clicked()),this,SLOT(btn2Clicked()));
         vb1->addWidget(btn2);
-    setLayout(vb1);
+    getContainer()->setLayout(vb1);
 }
 
 void FlatModelPropertiesWidget::valueChanged(){
@@ -88,15 +81,6 @@ void FlatModelPropertiesWidget::valueChanged(){
     modelmat=glm::scale(modelmat,glm::vec3(scaleX->getValue(),scaleY->getValue(),scaleZ->getValue()));
 
     getModel()->setModelMatrix(modelmat);
-}
-
-void FlatModelPropertiesWidget::setText(QString text){
-    lineEdit1->setText(text);
-    textChangedSlot(text);
-}
-
-void FlatModelPropertiesWidget::textChangedSlot(const QString& text){
-    getItem()->setText(text);
 }
 
 void FlatModelPropertiesWidget::btn1Clicked(){
