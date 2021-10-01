@@ -1,7 +1,6 @@
 #include "listwidget.h"
 #include "ListWidget/listwidgetitem.h"
 #include "ListWidget/modelpropertieswidget.h"
-#include "src/OpenGL/Models/flatmodel.h"
 
 #include <QDebug>
 
@@ -29,13 +28,4 @@ void ListWidget::currentItemChanged(QListWidgetItem*currPtr,QListWidgetItem*prev
         layout->addWidget(curr->getModelPropertiesWidget());
         curr->getModelPropertiesWidget()->show();
     }
-}
-
-std::vector<Model*> ListWidget::getModels(){
-    std::vector<Model*> models;
-    for(int i=0;i<count();i++){
-        FlatModel* model=getCustomItem(i)->getModelPropertiesWidget()->getModel();
-        models.push_back(model);
-    }
-    return models;
 }

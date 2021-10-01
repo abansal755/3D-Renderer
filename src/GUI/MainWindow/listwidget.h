@@ -16,5 +16,4 @@ public:
 
     ListWidgetItem* getCustomCurrentItem();
     ListWidgetItem* getCustomItem(int row);
-    std::vector<Model*> getModels();
 };

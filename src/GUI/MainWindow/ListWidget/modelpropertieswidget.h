@@ -3,6 +3,7 @@
 #include <QLineEdit>
 #include <QColorDialog>
 #include <QPushButton>
+#include <QCheckBox>
 
 class SliderFloat;
 class FlatModel;
@@ -20,6 +21,7 @@ class ModelPropertiesWidget : public QWidget{
     SliderFloat*scaleX,*scaleY,*scaleZ;
 
     QLineEdit*lineEdit1;
+    QCheckBox*chb1;
 
     QColorDialog*colorDialog;
 private slots:
@@ -36,4 +38,5 @@ public:
     FlatModel* getModel(){return model;}
     void setText(QString text);
     QString getText(){return lineEdit1->text();}
+    bool isVisible(){return (chb1->checkState()==Qt::Checked);}
 };

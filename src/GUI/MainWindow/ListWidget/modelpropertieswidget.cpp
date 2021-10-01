@@ -18,61 +18,64 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
 
     QVBoxLayout*vb1=new QVBoxLayout;
         lineEdit1=new QLineEdit(text);
-        connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangedSlot(const QString&)));
+            connect(lineEdit1,SIGNAL(textChanged(const QString&)),this,SLOT(textChangedSlot(const QString&)));
         vb1->addWidget(lineEdit1);
+        chb1=new QCheckBox("Visible");
+            chb1->setCheckState(Qt::Checked);
+        vb1->addWidget(chb1);
 
         translateX=new SliderFloat("translateX",NULL,-500,500,100);
-        translateX->setValue(0);
-        connect(translateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            translateX->setValue(0);
+            connect(translateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(translateX);
 
         translateY=new SliderFloat("translateY",NULL,-500,500,100);
-        translateY->setValue(0);
-        connect(translateY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            translateY->setValue(0);
+            connect(translateY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(translateY);
 
         translateZ=new SliderFloat("translateZ",NULL,-500,500,100);
-        translateZ->setValue(0);
-        connect(translateZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            translateZ->setValue(0);
+            connect(translateZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(translateZ);
 
         rotateX=new SliderFloat("rotateX",NULL,-500,500,100);
-        rotateX->setValue(0);
-        connect(rotateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            rotateX->setValue(0);
+            connect(rotateX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(rotateX);
 
         rotateY=new SliderFloat("rotateY",NULL,-500,500,100);
-        rotateY->setValue(0);
-        connect(rotateY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            rotateY->setValue(0);
+            connect(rotateY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(rotateY);
 
         rotateZ=new SliderFloat("rotateZ",NULL,-500,500,100);
-        rotateZ->setValue(0);
-        connect(rotateZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            rotateZ->setValue(0);
+            connect(rotateZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(rotateZ);
 
         scaleX=new SliderFloat("scaleX",NULL,-500,500,100);
-        scaleX->setValue(1);
-        connect(scaleX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            scaleX->setValue(1);
+            connect(scaleX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(scaleX);
 
         scaleY=new SliderFloat("scaleY",NULL,-500,500,100);
-        scaleY->setValue(1);
-        connect(scaleY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            scaleY->setValue(1);
+            connect(scaleY,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(scaleY);
 
         scaleZ=new SliderFloat("scaleZ",NULL,-500,500,100);
-        scaleZ->setValue(1);
-        connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+            scaleZ->setValue(1);
+            connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(scaleZ);
 
         QPushButton*btn1=new QPushButton("Change Color");
-        connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
+            connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
         vb1->addWidget(btn1);
 
         QPushButton*btn2=new QPushButton("Delete");
+            connect(btn2,SIGNAL(clicked()),this,SLOT(btn2Clicked()));
         vb1->addWidget(btn2);
-        connect(btn2,SIGNAL(clicked()),this,SLOT(btn2Clicked()));
     setLayout(vb1);
 }
 

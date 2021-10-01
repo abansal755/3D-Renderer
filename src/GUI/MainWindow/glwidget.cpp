@@ -8,6 +8,7 @@
 #include "src/OpenGL/Shaders/flatshader.h"
 #include "src/OpenGL/Models/gridmodel.h"
 #include "src/OpenGL/Shaders/gridshader.h"
+#include "src/OpenGL/Models/flatmodel.h"
 
 #include <string>
 #include <QDebug>
@@ -123,8 +124,16 @@ void GLWidget::paintGL(){
     if(settingsWidget->isChangeInGrid())
         grid->setGridConfig(settingsWidget->getGridNumLines(),settingsWidget->getGridSideLength());
     if(settingsWidget->isShowGridChecked()) grid->renderModel(camera);
-    std::vector<Model*> models=modelsListWidget->getModels();
-    for(Model*model:models) model->renderModel(camera);
+
+    int countModels=modelsListWidget->count();
+    for(int i=0;i<countModels;i++){
+        ListWidgetItem*item=modelsListWidget->getCustomItem(i);
+        ModelPropertiesWidget*widget=item->getModelPropertiesWidget();
+        if(widget->isVisible()){
+            Model*model=widget->getModel();
+            model->renderModel(camera);
+        }
+    }
 }
 
 void GLWidget::keyPressEvent(QKeyEvent *event){
