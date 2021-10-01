@@ -107,6 +107,11 @@ void GLWidget::paintGL(){
 
     camera->mouseControl(getXChange(),getYChange());
     camera->keyControl(this,deltaTime);
+    camera->setMoveSpeed(settingsWidget->getCameraMoveSpeed());
+    camera->setTurnSpeed(settingsWidget->getCameraTurnSpeed());
+    camera->setFov(settingsWidget->getCameraFOV());
+    camera->setZNear(settingsWidget->getCameraZNear());
+    camera->setZFar(settingsWidget->getCameraZFar());
 
     light->setDirection(camera->getFront());
     light->setColor(settingsWidget->getLightColor());

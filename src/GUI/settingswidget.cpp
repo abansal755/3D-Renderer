@@ -1,5 +1,6 @@
 #include "settingswidget.h"
 #include "mainwindow.h"
+#include "src/OpenGL/camera.h"
 
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
@@ -60,6 +61,32 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
         chb1=new QCheckBox("Show Grid");
             chb1->setCheckState(Qt::Checked);
         vb1->addWidget(chb1);
+        slider5=new SliderFloat("Camera Move Speed",NULL,1,2000,100);
+            float defaultCameraMoveSpeed=10;
+            slider5->setValue(defaultCameraMoveSpeed);
+        vb1->addWidget(slider5);
+        slider6=new SliderFloat("Camera Turn Speed",NULL,1,10000,100000);
+            float defaultCameraTurnSpeed=0.005;
+            slider6->setSpinBoxWidth(150);
+            slider6->setDecimals(4);
+            slider6->setValue(defaultCameraTurnSpeed);
+        vb1->addWidget(slider6);
+        slider7=new SliderFloat("Camera FOV",NULL,1,1000,320);
+            float defaultCameraFOV=PI/4;
+            slider7->setValue(defaultCameraFOV);
+        vb1->addWidget(slider7);
+        slider8=new SliderFloat("Camera Near Z-Plane",NULL,1,10000,1000);
+            float defaultCameraZNear=0.01;
+            slider8->setDecimals(3);
+            slider8->setSpinBoxWidth(100);
+            slider8->setValue(defaultCameraZNear);
+        vb1->addWidget(slider8);
+        slider9=new SliderFloat("Camera Far Z-Plane",NULL,1,10000,10);
+            float defaultCameraZFar=100;
+            slider9->setDecimals(3);
+            slider9->setSpinBoxWidth(100);
+            slider9->setValue(defaultCameraZFar);
+        vb1->addWidget(slider9);
     setLayout(vb1);
 }
 

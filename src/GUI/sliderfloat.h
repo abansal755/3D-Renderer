@@ -27,4 +27,8 @@ public:
     QString getText(){return label->text();}
     void setValue(double val);
     double getValue(){return db1->value();}
+    void setDecimals(int numDecimals){db1->setDecimals(numDecimals);}
+    int decimals(){return db1->decimals();}
+    void setSpinBoxWidth(int width){db1->setMaximumWidth(width);}
+    int spinBoxWidth(){return db1->maximumWidth();}
 };
