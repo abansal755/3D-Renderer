@@ -18,6 +18,7 @@ class FlatModelPropertiesWidget : public ModelPropertiesWidget{
     SliderFloat*translateX,*translateY,*translateZ;
     SliderFloat*rotateX,*rotateY,*rotateZ;
     SliderFloat*scaleX,*scaleY,*scaleZ;
+    SliderFloat*scaleUniform;
 
     QColorDialog*colorDialog;
 private slots:

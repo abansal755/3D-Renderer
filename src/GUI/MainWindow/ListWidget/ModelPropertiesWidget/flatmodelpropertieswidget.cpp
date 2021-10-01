@@ -45,6 +45,11 @@ FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*ite
             connect(rotateZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(rotateZ);
 
+        scaleUniform=new SliderFloat("scaleUniform",NULL,-500,500,100);
+            scaleUniform->setValue(1);
+            connect(scaleUniform,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
+        vb1->addWidget(scaleUniform);
+
         scaleX=new SliderFloat("scaleX",NULL,-500,500,100);
             scaleX->setValue(1);
             connect(scaleX,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
@@ -79,6 +84,8 @@ void FlatModelPropertiesWidget::valueChanged(){
     modelmat=glm::rotate(modelmat,(float)rotateZ->getValue(),glm::vec3(0,0,1));
 
     modelmat=glm::scale(modelmat,glm::vec3(scaleX->getValue(),scaleY->getValue(),scaleZ->getValue()));
+
+    modelmat=glm::scale(modelmat,glm::vec3(scaleUniform->getValue(),scaleUniform->getValue(),scaleUniform->getValue()));
 
     getModel()->setModelMatrix(modelmat);
 }
