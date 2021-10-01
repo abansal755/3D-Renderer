@@ -10,20 +10,26 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QSplitter>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
 
+    QVBoxLayout*vb1=new QVBoxLayout;
     settingsWidget=new SettingsWidget;
+    listWidget=new ListWidget(vb1);
 
     QWidget*central=new QWidget;
         QHBoxLayout*hb1=new QHBoxLayout;
-            QVBoxLayout*vb1=new QVBoxLayout;
-            listWidget=new ListWidget(vb1);
-            glwidget=new GLWidget(listWidget,settingsWidget);
-            hb1->addWidget(glwidget,1);
-            hb1->addLayout(vb1);
-                vb1->addWidget(listWidget);
+            QSplitter*sp1=new QSplitter(Qt::Horizontal);
+                glwidget=new GLWidget(listWidget,settingsWidget);
+                sp1->addWidget(glwidget);
+                QWidget*sidePanel=new QWidget;
+                        vb1->addWidget(listWidget);
+                    sidePanel->setLayout(vb1);
+                sp1->addWidget(sidePanel);
+                sp1->setStretchFactor(0,1);
+            hb1->addWidget(sp1);
         central->setLayout(hb1);
     setCentralWidget(central);
 
