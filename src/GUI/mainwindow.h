@@ -22,6 +22,7 @@ private slots:
     void addCube();
     void settings();
     void newScene();
+    void renderViewport();
 public:
     MainWindow(QWidget*parent=NULL);
     ~MainWindow();

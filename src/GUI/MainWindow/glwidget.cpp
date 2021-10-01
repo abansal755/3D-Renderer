@@ -176,3 +176,21 @@ int GLWidget::getYChange(){
     yChange=0;
     return ans;
 }
+
+QImage GLWidget::renderViewport(){
+//    unsigned char* data=new unsigned char[3*width*height];
+//    gl()->glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_BYTE,data);
+//    QImage image(width,height,QImage::Format_RGB888);
+//    unsigned char* ptr=data;
+//    for(int y=height-1;y>=0;y--){
+//        for(int x=0;x<width;x++){
+//            int r=*(ptr++);
+//            int g=*(ptr++);
+//            int b=*(ptr++);
+//            image.setPixelColor(x,y,QColor(r,g,b));
+//        }
+//    }
+//    delete[]data;
+//    return image;
+    return grabFramebuffer();
+}

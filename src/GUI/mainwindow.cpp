@@ -8,6 +8,8 @@
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -38,6 +40,9 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QMenu* windowMenu=menuBar()->addMenu("Window");
         QAction* settingsAction=windowMenu->addAction("Settings");
             connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
+    QMenu* renderMenu=menuBar()->addMenu("Render");
+        QAction* renderViewportAction=renderMenu->addAction("Render Viewport");
+            connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
 }
 
 MainWindow::~MainWindow(){
@@ -82,4 +87,12 @@ void MainWindow::newScene(){
 void MainWindow::resetCounts(){
     planeCount=0;
     cubeCount=0;
+}
+
+void MainWindow::renderViewport(){
+    QString path=QFileDialog::getSaveFileName(NULL,"Save Render",QString(),"*.bmp *.jpg *.jpeg *.png *.ppm *.xbm *.xpm");
+    if(path.isEmpty()) return;
+    QImage image=glwidget->renderViewport();
+    bool res=image.save(path);
+    if(!res) QMessageBox::critical(NULL,"Critical","Unable to save the render at the path specified");
 }

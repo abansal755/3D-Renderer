@@ -49,6 +49,7 @@ public:
     Mesh* getPlaneMesh(){return planeMesh;}
     FlatShader* getFlatShader(){return flatShader;}
     GridModel* getGridModel(){return grid;}
+    QImage renderViewport();
 protected:
     void initializeGL();
     void resizeGL(int width, int height);
