@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "MainWindow/ListWidget/modelpropertieswidget.h"
-#include "MainWindow/ListWidget/listwidgetitem.h"
+#include "MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h"
 #include "settingswidget.h"
 #include "src/OpenGL/Models/flatmodel.h"
 #include "src/OpenGL/Shaders/flatshader.h"
@@ -50,8 +50,8 @@ void MainWindow::exitApp(){
 
 void MainWindow::addPlane(){
     Mesh* planeMesh=glwidget->getPlaneMesh();
-    ListWidgetItem* item=new ListWidgetItem("Plane"+QString::number(planeCount++));
-    FlatModel* model=item->getModelPropertiesWidget()->getModel();
+    FlatModelListWidgetItem* item=new FlatModelListWidgetItem("Plane"+QString::number(planeCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(planeMesh);
     model->setShader(glwidget->getFlatShader());
 
@@ -60,8 +60,8 @@ void MainWindow::addPlane(){
 
 void MainWindow::addCube(){
     Mesh* cubeMesh=glwidget->getCubeMesh();
-    ListWidgetItem* item=new ListWidgetItem("Cube"+QString::number(cubeCount++));
-    FlatModel* model=item->getModelPropertiesWidget()->getModel();
+    FlatModelListWidgetItem* item=new FlatModelListWidgetItem("Cube"+QString::number(cubeCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(cubeMesh);
     model->setShader(glwidget->getFlatShader());
 

@@ -7,9 +7,9 @@ class ListWidgetItem : public QListWidgetItem{
     ModelPropertiesWidget*widget;
 public:
     ListWidgetItem(QString text="Model");
-    ~ListWidgetItem();
+    virtual ~ListWidgetItem();
 
     ModelPropertiesWidget* getModelPropertiesWidget(){return widget;}
-    void changeText(QString text);
+    void setModelPropertiesWidget(ModelPropertiesWidget*widget){this->widget=widget;}
     QString getText(){return text();}
 };

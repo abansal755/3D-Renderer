@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/flatmodelpropertieswidget.cpp \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/GUI/settingswidget.cpp \
@@ -41,6 +43,8 @@ SOURCES += \
 
 HEADERS += \
     lib/stb_image.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/flatmodelpropertieswidget.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
     src/GUI/settingswidget.h \
