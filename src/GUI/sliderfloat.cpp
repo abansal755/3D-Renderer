@@ -1,7 +1,7 @@
 #include "sliderfloat.h"
 
-SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVal=1,int steps=100)
-    :minVal(minVal),maxVal(maxVal),steps(steps),QWidget(parent)
+SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVal=100,int divisor=100)
+    :minVal(minVal),maxVal(maxVal),divisor(divisor),QWidget(parent)
 {
     label=new QLabel(text);
     slider=new QSlider(Qt::Horizontal);
@@ -17,10 +17,10 @@ SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVa
     slider->setMaximum(maxVal);
     slider->setValue(minVal);
     db1->setDisabled(true);
-    db1->setMinimum((double)minVal/steps);
-    db1->setMaximum((double)maxVal/steps);
-    db1->setSingleStep((double)(maxVal-minVal)/steps);
-    db1->setValue((double)minVal/steps);
+    db1->setMinimum((double)minVal/divisor);
+    db1->setMaximum((double)maxVal/divisor);
+    db1->setSingleStep((double)(maxVal-minVal)/divisor);
+    db1->setValue((double)minVal/divisor);
 
     db1->setMaximumWidth(60);
 
@@ -28,6 +28,6 @@ SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVa
 }
 
 void SliderFloat::setValue(double val){
-    slider->setValue(val*steps);
+    slider->setValue(val*divisor);
     db1->setValue(val);
 }

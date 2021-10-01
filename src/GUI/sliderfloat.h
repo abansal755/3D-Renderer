@@ -11,17 +11,17 @@ class SliderFloat : public QWidget{
     QDoubleSpinBox*db1;
     QHBoxLayout*hb1;
 
-    int minVal,maxVal,steps;
+    int minVal,maxVal,divisor;
 signals:
     void valueChanged(double val);
 private slots:
     void valueChanged(int val){
-        double newVal=(double)val/steps;
+        double newVal=(double)val/divisor;
         db1->setValue(newVal);
         emit valueChanged(newVal);
     }
 public:
-    SliderFloat(QString text,QWidget*parent,int minVal,int maxVal,int steps);
+    SliderFloat(QString text,QWidget*parent,int minVal,int maxVal,int divisor);
 
     void setText(QString text){label->setText(text);}
     QString getText(){return label->text();}
