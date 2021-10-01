@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 #include "MainWindow/ListWidget/modelpropertieswidget.h"
-#include "MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h"
+#include "MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 #include "settingswidget.h"
-#include "src/OpenGL/Models/flatmodel.h"
-#include "src/OpenGL/Shaders/flatshader.h"
+#include "src/OpenGL/Models/colormodel.h"
+#include "src/OpenGL/Shaders/lightshader.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -61,7 +61,7 @@ void MainWindow::exitApp(){
 
 void MainWindow::addPlane(){
     Mesh* planeMesh=glwidget->getPlaneMesh();
-    FlatModelListWidgetItem* item=new FlatModelListWidgetItem("Plane"+QString::number(planeCount++));
+    ColorModelListWidgetItem* item=new ColorModelListWidgetItem("Plane"+QString::number(planeCount++));
     Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(planeMesh);
     model->setShader(glwidget->getFlatShader());
@@ -71,7 +71,7 @@ void MainWindow::addPlane(){
 
 void MainWindow::addCube(){
     Mesh* cubeMesh=glwidget->getCubeMesh();
-    FlatModelListWidgetItem* item=new FlatModelListWidgetItem("Cube"+QString::number(cubeCount++));
+    ColorModelListWidgetItem* item=new ColorModelListWidgetItem("Cube"+QString::number(cubeCount++));
     Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(cubeMesh);
     model->setShader(glwidget->getFlatShader());

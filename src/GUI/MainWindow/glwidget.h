@@ -11,7 +11,7 @@
 class ListWidget;
 class Camera;
 class SettingsWidget;
-class FlatShader;
+class LightShader;
 class GridModel;
 class GridShader;
 
@@ -21,7 +21,7 @@ class GLWidget : public QOpenGLWidget{
 
     int lastX,lastY,xChange=0,yChange=0;
 
-    FlatShader*flatShader;
+    LightShader*flatShader;
     GridShader*gridShader;
     Mesh*planeMesh,*cubeMesh;
     Camera*camera;
@@ -47,7 +47,7 @@ public:
 
     Mesh* getCubeMesh(){return cubeMesh;}
     Mesh* getPlaneMesh(){return planeMesh;}
-    FlatShader* getFlatShader(){return flatShader;}
+    LightShader* getFlatShader(){return flatShader;}
     GridModel* getGridModel(){return grid;}
     QImage renderViewport();
 protected:

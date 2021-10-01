@@ -1,7 +1,7 @@
-#include "flatshader.h"
+#include "lightshader.h"
 #include <QDebug>
 
-void FlatShader::setupUniforms(){
+void LightShader::setupUniforms(){
     uniformLightColor=gl()->glGetUniformLocation(program,"light.color");
     uniformAmbientIntensity=gl()->glGetUniformLocation(program,"light.ambientIntensity");
     uniformDirection=gl()->glGetUniformLocation(program,"light.direction");
@@ -9,7 +9,7 @@ void FlatShader::setupUniforms(){
     uniformModelColor=gl()->glGetUniformLocation(program,"modelColor");
 }
 
-void FlatShader::clearUniforms(){
+void LightShader::clearUniforms(){
     uniformLightColor=0;
     uniformAmbientIntensity=0;
     uniformDirection=0;

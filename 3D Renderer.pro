@@ -18,16 +18,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
-    src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.cpp \
-    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/flatmodelpropertieswidget.cpp \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.cpp \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
-    src/OpenGL/Models/flatmodel.cpp \
+    src/OpenGL/Models/colormodel.cpp \
     src/OpenGL/Models/gridmodel.cpp \
-    src/OpenGL/Shaders/flatshader.cpp \
     src/OpenGL/Shaders/gridshader.cpp \
+    src/OpenGL/Shaders/lightshader.cpp \
     src/OpenGL/camera.cpp \
     src/OpenGL/light.cpp \
     src/OpenGL/model.cpp \
@@ -43,16 +43,16 @@ SOURCES += \
 
 HEADERS += \
     lib/stb_image.h \
-    src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h \
-    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/flatmodelpropertieswidget.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
     src/GUI/settingswidget.h \
     src/GUI/sliderfloat.h \
-    src/OpenGL/Models/flatmodel.h \
+    src/OpenGL/Models/colormodel.h \
     src/OpenGL/Models/gridmodel.h \
-    src/OpenGL/Shaders/flatshader.h \
     src/OpenGL/Shaders/gridshader.h \
+    src/OpenGL/Shaders/lightshader.h \
     src/OpenGL/camera.h \
     src/OpenGL/light.h \
     src/OpenGL/model.h \

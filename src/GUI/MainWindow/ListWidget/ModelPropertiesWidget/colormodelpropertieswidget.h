@@ -7,12 +7,12 @@
 #include <QPushButton>
 #include <QCheckBox>
 
-class FlatModelListWidgetItem;
+class ColorModelListWidgetItem;
 class SliderFloat;
 class FlatModel;
 class Mesh;
 
-class FlatModelPropertiesWidget : public ModelPropertiesWidget{
+class ColorModelPropertiesWidget : public ModelPropertiesWidget{
     Q_OBJECT
 
     SliderFloat*translateX,*translateY,*translateZ;
@@ -27,5 +27,5 @@ private slots:
     void colorChanged(const QColor& color);
     void btn2Clicked();
 public:
-    FlatModelPropertiesWidget(FlatModelListWidgetItem*item,QString text);
+    ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text);
 };

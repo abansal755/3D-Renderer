@@ -2,13 +2,13 @@
 #include "src/OpenGL/camera.h"
 #include "lib/glm/gtc/type_ptr.hpp"
 #include "listwidget.h"
-#include "ListWidget/ListWidgetItem/flatmodellistwidgetitem.h"
-#include "ListWidget/ModelPropertiesWidget/flatmodelpropertieswidget.h"
+#include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
+#include "ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"
 #include "src/GUI/settingswidget.h"
-#include "src/OpenGL/Shaders/flatshader.h"
+#include "src/OpenGL/Shaders/lightshader.h"
 #include "src/OpenGL/Models/gridmodel.h"
 #include "src/OpenGL/Shaders/gridshader.h"
-#include "src/OpenGL/Models/flatmodel.h"
+#include "src/OpenGL/Models/colormodel.h"
 
 #include <string>
 #include <QDebug>
@@ -80,9 +80,9 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    std::string vPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.vert";
-    std::string fPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/flatshader.frag";
-    flatShader=new FlatShader;
+    std::string vPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.vert";
+    std::string fPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.frag";
+    flatShader=new LightShader;
     flatShader->loadShader(vPathFlat,fPathFlat);
 
     std::string vPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.vert";

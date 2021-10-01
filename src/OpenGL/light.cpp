@@ -1,5 +1,5 @@
 #include "light.h"
-#include "Shaders/flatshader.h"
+#include "Shaders/lightshader.h"
 #include <QDebug>
 
 Light::Light(glm::vec3 direction, QColor color,
@@ -9,7 +9,7 @@ Light::Light(glm::vec3 direction, QColor color,
     this->direction=-direction;
 }
 
-void Light::useLight(FlatShader*shader){
+void Light::useLight(LightShader*shader){
     shader->useShader();
     GLuint lightColorLocation=shader->getLightColorLocation();
     GLuint ambientIntensityLocation=shader->getAmbientIntensityLocation();

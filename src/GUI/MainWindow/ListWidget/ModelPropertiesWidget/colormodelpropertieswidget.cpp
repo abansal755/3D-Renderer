@@ -1,14 +1,14 @@
-#include "flatmodelpropertieswidget.h"
-#include "src/OpenGL/Models/flatmodel.h"
+#include "colormodelpropertieswidget.h"
+#include "src/OpenGL/Models/colormodel.h"
 #include "src/GUI/sliderfloat.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
-#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/flatmodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 
-FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*item,QString text)
+ColorModelPropertiesWidget::ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text)
     :ModelPropertiesWidget((ListWidgetItem*)item,text)
 {
-    setModel(new FlatModel());
-    FlatModel*model=(FlatModel*)getModel();
+    setModel(new ColorModel());
+    ColorModel*model=(ColorModel*)getModel();
 
     colorDialog=new QColorDialog(model->getColor(),this);
     colorDialog->setOptions(QColorDialog::ShowAlphaChannel|QColorDialog::NoButtons);
@@ -75,7 +75,7 @@ FlatModelPropertiesWidget::FlatModelPropertiesWidget(FlatModelListWidgetItem*ite
     getContainer()->setLayout(vb1);
 }
 
-void FlatModelPropertiesWidget::valueChanged(){
+void ColorModelPropertiesWidget::valueChanged(){
     glm::mat4 modelmat(1);
     modelmat=glm::translate(modelmat,glm::vec3(translateX->getValue(),translateY->getValue(),translateZ->getValue()));
 
@@ -90,16 +90,16 @@ void FlatModelPropertiesWidget::valueChanged(){
     getModel()->setModelMatrix(modelmat);
 }
 
-void FlatModelPropertiesWidget::btn1Clicked(){
+void ColorModelPropertiesWidget::btn1Clicked(){
     colorDialog->open();
 }
 
-void FlatModelPropertiesWidget::colorChanged(const QColor& color){
-    FlatModel*model=(FlatModel*)getModel();
+void ColorModelPropertiesWidget::colorChanged(const QColor& color){
+    ColorModel*model=(ColorModel*)getModel();
     model->setColor(color);
 }
 
-void FlatModelPropertiesWidget::btn2Clicked(){
+void ColorModelPropertiesWidget::btn2Clicked(){
     QListWidget*listWidget=getItem()->listWidget();
     int row=listWidget->row(getItem());
     listWidget->takeItem(row);
