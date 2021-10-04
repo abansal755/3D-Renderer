@@ -18,7 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
-    src/GUI/MainWindow/ListWidget/ListWidgetItem/ColorModelListWidgetItems/conemodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.cpp \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.cpp \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.cpp \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.cpp \
@@ -44,7 +44,7 @@ SOURCES += \
 
 HEADERS += \
     lib/stb_image.h \
-    src/GUI/MainWindow/ListWidget/ListWidgetItem/ColorModelListWidgetItems/conemodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h \

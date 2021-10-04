@@ -1,5 +1,5 @@
 #include "conemodelpropertieswidget.h"
-#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/ColorModelListWidgetItems/conemodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
 #include "src/GUI/MainWindow/glwidget.h"
 #include "src/OpenGL/Models/colormodel.h"
 
@@ -11,7 +11,7 @@ ConeModelPropertiesWidget::ConeModelPropertiesWidget(ConeModelListWidgetItem*ite
     QWidget*container=getNestedContainer();
     QVBoxLayout*vb1=new QVBoxLayout;
         slider1=new SliderFloat("Radius",NULL,1,1000,100);
-            float defaultRadius=1;
+            float defaultRadius=0.5;
             slider1->setValue(defaultRadius);
             connect(slider1,SIGNAL(valueChanged(double)),this,SLOT(updateMesh()));
         vb1->addWidget(slider1);
@@ -21,7 +21,7 @@ ConeModelPropertiesWidget::ConeModelPropertiesWidget(ConeModelListWidgetItem*ite
             connect(slider2,SIGNAL(valueChanged(double)),this,SLOT(updateMesh()));
         vb1->addWidget(slider2);
         slider3=new SliderInt("Number of lines",NULL,3,1000);
-            int defaultNumLines=20;
+            int defaultNumLines=50;
             slider3->setValue(defaultNumLines);
             connect(slider3,SIGNAL(valueChanged(int)),this,SLOT(updateMesh()));
         vb1->addWidget(slider3);

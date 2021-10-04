@@ -4,7 +4,7 @@
 #include "settingswidget.h"
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/OpenGL/Shaders/lightshader.h"
-#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/ColorModelListWidgetItems/conemodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
 
 #include <QApplication>
 #include <QDebug>
