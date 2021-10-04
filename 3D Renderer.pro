@@ -32,7 +32,6 @@ SOURCES += \
     src/OpenGL/light.cpp \
     src/OpenGL/model.cpp \
     src/OpenGL/texture.cpp \
-    src/OpenGL/version.cpp \
     src\OpenGL\shader.cpp \
     src/GUI/MainWindow/glwidget.cpp \
     src/main.cpp \
@@ -57,7 +56,6 @@ HEADERS += \
     src/OpenGL/light.h \
     src/OpenGL/model.h \
     src/OpenGL/texture.h \
-    src/OpenGL/version.h \
     src/OpenGL/vertex.h \
     src/OpenGL/shader.h \
     src/GUI/MainWindow/glwidget.h \

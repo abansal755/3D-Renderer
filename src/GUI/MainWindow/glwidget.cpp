@@ -32,13 +32,14 @@ GLWidget::~GLWidget(){
 }
 
 void GLWidget::resizeGL(int width, int height){
-    gl()->glViewport(0,0,width,height);
+    glViewport(0,0,width,height);
     camera->setAspect((GLfloat)width/height);
 }
 
 void GLWidget::initializeGL(){
-    gl()->glEnable(GL_DEPTH_TEST);
-    gl()->glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+    initializeOpenGLFunctions();
+    glEnable(GL_DEPTH_TEST);
+    glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 
     camera=new Camera(glm::vec3(-4,0,0),glm::vec3(0,1,0),
                       0,0,10,0.005,
@@ -99,8 +100,8 @@ void GLWidget::initializeGL(){
 
 void GLWidget::paintGL(){
     QColor bgColor=settingsWidget->getBGColor();
-    gl()->glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
-    gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
     GLfloat currTime=(GLfloat)timer.elapsed()/1000;
     GLfloat deltaTime=currTime-lastTime;

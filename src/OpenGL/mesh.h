@@ -1,8 +1,11 @@
-#include "version.h"
-#include "vertex.h"
-#include <vector>
+#pragma once
 
-class Mesh{
+#include "vertex.h"
+
+#include <vector>
+#include <QOpenGLFunctions_3_3_Core>
+
+class Mesh: protected QOpenGLFunctions_3_3_Core{
     GLsizei numIndices=0,numVertices=0;
     GLuint VAO=0,VBO=0,IBO=0;
 
@@ -11,7 +14,7 @@ class Mesh{
     Mesh(const Mesh& mesh);
     Mesh operator=(const Mesh& mesh);
 public:
-    Mesh() {};
+    Mesh();
     Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices,
          GLenum usageMode=GL_STATIC_DRAW, GLenum drawMode=GL_TRIANGLES);
     ~Mesh();

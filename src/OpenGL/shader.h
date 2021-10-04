@@ -1,11 +1,10 @@
 #pragma once
 
-#include "version.h"
-
+#include <QOpenGLFunctions_3_3_Core>
 #include <string>
 #include <QDebug>
 
-class Shader{
+class Shader: protected QOpenGLFunctions_3_3_Core{
     GLuint program=0;
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
     void addShader(std::string& shaderCode, GLenum shaderType);
@@ -17,7 +16,7 @@ protected:
     virtual void setupUniforms(){}
     virtual void clearUniforms(){}
 public:
-    Shader(){}
+    Shader();
     virtual ~Shader();
 
     void loadShader(std::string& vPath, std::string& fPath);
@@ -31,5 +30,5 @@ public:
     bool empty() { return (program == 0); }
 
     void useShader();
-    static void unUseShader();
+    void unUseShader();
 };

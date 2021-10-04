@@ -49,7 +49,7 @@ void GridModel::initMesh(){
 void GridModel::populateUniforms(){
     GridShader*shader=(GridShader*)getShader();
     GLuint uniformModelColor=shader->getModelColorLocation();
-    gl()->glUniform4f(uniformModelColor,color.redF(),color.greenF(),color.blueF(),color.alphaF());
+    glUniform4f(uniformModelColor,color.redF(),color.greenF(),color.blueF(),color.alphaF());
 }
 
 void GridModel::setNumLines(GLint numLines){

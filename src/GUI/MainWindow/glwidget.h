@@ -1,5 +1,4 @@
 #include "src/OpenGL/mesh.h"
-#include "src/OpenGL/version.h"
 #include "src/OpenGL/texture.h"
 #include "src/OpenGL/light.h"
 
@@ -7,6 +6,7 @@
 #include <vector>
 #include <QElapsedTimer>
 #include <QColor>
+#include <QOpenGLFunctions_3_3_Core>
 
 class ListWidget;
 class Camera;
@@ -15,7 +15,7 @@ class LightShader;
 class GridModel;
 class GridShader;
 
-class GLWidget : public QOpenGLWidget{
+class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     Q_OBJECT
     bool wPressed=false,aPressed=false,sPressed=false,dPressed=false;
 

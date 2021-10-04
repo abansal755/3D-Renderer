@@ -5,12 +5,16 @@
 
 #include <QDebug>
 
+Texture::Texture(){
+    initializeOpenGLFunctions();
+}
+
 Texture::Texture(std::string& fileLoc) {
     loadTexture(fileLoc);
 }
 
 Texture::~Texture() {
-    if (textureId) gl()->glDeleteTextures(1, &textureId);
+    if (textureId) glDeleteTextures(1, &textureId);
 }
 
 void Texture::loadTexture(std::string& fileLoc) {
@@ -22,23 +26,23 @@ void Texture::loadTexture(std::string& fileLoc) {
         return;
     }
 
-    gl()->glGenTextures(1, &textureId);
-    gl()->glBindTexture(GL_TEXTURE_2D, textureId);
-    gl()->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    gl()->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    gl()->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    gl()->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glGenTextures(1, &textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    gl()->glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
-    gl()->glGenerateMipmap(GL_TEXTURE_2D);
-    gl()->glBindTexture(GL_TEXTURE_2D, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     stbi_image_free(texData);
 }
 
 void Texture::clearTexture() {
     if (textureId) {
-        gl()->glDeleteTextures(1, &textureId);
+        glDeleteTextures(1, &textureId);
         textureId = 0;
     }
     width = 0;
@@ -47,9 +51,9 @@ void Texture::clearTexture() {
 }
 
 void Texture::useTexture() {
-    gl()->glBindTexture(GL_TEXTURE_2D, textureId);
+    glBindTexture(GL_TEXTURE_2D, textureId);
 }
 
 void Texture::unUseTexture() {
-    gl()->glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
