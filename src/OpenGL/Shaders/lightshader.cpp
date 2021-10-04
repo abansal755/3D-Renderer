@@ -2,11 +2,11 @@
 #include <QDebug>
 
 void LightShader::setupUniforms(){
-    uniformLightColor=gl()->glGetUniformLocation(program,"light.color");
-    uniformAmbientIntensity=gl()->glGetUniformLocation(program,"light.ambientIntensity");
-    uniformDirection=gl()->glGetUniformLocation(program,"light.direction");
-    uniformDiffuseIntensity=gl()->glGetUniformLocation(program,"light.diffuseIntensity");
-    uniformModelColor=gl()->glGetUniformLocation(program,"modelColor");
+    uniformLightColor=gl()->glGetUniformLocation(getShaderID(),"light.color");
+    uniformAmbientIntensity=gl()->glGetUniformLocation(getShaderID(),"light.ambientIntensity");
+    uniformDirection=gl()->glGetUniformLocation(getShaderID(),"light.direction");
+    uniformDiffuseIntensity=gl()->glGetUniformLocation(getShaderID(),"light.diffuseIntensity");
+    uniformModelColor=gl()->glGetUniformLocation(getShaderID(),"modelColor");
 }
 
 void LightShader::clearUniforms(){

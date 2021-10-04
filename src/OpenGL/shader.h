@@ -6,6 +6,7 @@
 #include <QDebug>
 
 class Shader{
+    GLuint program=0;
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
     void addShader(std::string& shaderCode, GLenum shaderType);
     std::string readFile(std::string& path);
@@ -13,7 +14,6 @@ class Shader{
     Shader(const Shader& shader);
     Shader operator=(const Shader& shader);
 protected:
-    GLuint program=0;
     virtual void setupUniforms(){}
     virtual void clearUniforms(){}
 public:

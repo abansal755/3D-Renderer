@@ -1,7 +1,7 @@
 #include "gridshader.h"
 
 void GridShader::setupUniforms(){
-    uniformModelColor=gl()->glGetUniformLocation(program,"modelColor");
+    uniformModelColor=gl()->glGetUniformLocation(getShaderID(),"modelColor");
 }
 
 void GridShader::clearUniforms(){
