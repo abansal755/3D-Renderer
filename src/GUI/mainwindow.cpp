@@ -4,6 +4,7 @@
 #include "settingswidget.h"
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/OpenGL/Shaders/lightshader.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/ColorModelListWidgetItems/conemodellistwidgetitem.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -41,6 +42,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 connect(addPlaneAction,SIGNAL(triggered()),this,SLOT(addPlane()));
             QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
                 connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
+            QAction* addConeAction=addPrimitivesMenu->addAction("Cone");
+                connect(addConeAction,SIGNAL(triggered()),this,SLOT(addCone()));
         QAction* exitAction=fileMenu->addAction("Exit");
             connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
@@ -74,6 +77,14 @@ void MainWindow::addCube(){
     ColorModelListWidgetItem* item=new ColorModelListWidgetItem("Cube"+QString::number(cubeCount++));
     Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(cubeMesh);
+    model->setShader(glwidget->getFlatShader());
+
+    listWidget->addItem(item);
+}
+
+void MainWindow::addCone(){
+    ConeModelListWidgetItem* item=new ConeModelListWidgetItem(glwidget,"Cone"+QString::number(coneCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);

@@ -1,6 +1,7 @@
 #include "glwidget.h"
 #include "src/OpenGL/camera.h"
 #include "lib/glm/gtc/type_ptr.hpp"
+#include "lib/glm/gtx/rotate_vector.hpp"
 #include "listwidget.h"
 #include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 #include "ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"
@@ -194,4 +195,42 @@ QImage GLWidget::renderViewport(){
 //    delete[]data;
 //    return image;
     return grabFramebuffer();
+}
+
+Mesh* GLWidget::getConeMesh(GLfloat radius,GLfloat height,GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=2*PI/numLines;
+    for(int i=0;i<numLines;i++){
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=0;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    vertices.push_back(Vertex(0,0,0,0,-1,0));
+    vertices.push_back(Vertex(0,height,0,0,0,0));
+    for(int i=0;i<numLines;i++){
+        indices.push_back(numLines);
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+        indices.push_back(numLines+1);
+    }
+
+    return new Mesh(vertices,indices);
 }

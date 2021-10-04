@@ -1,3 +1,5 @@
+#pragma once
+
 #include "src/GUI/MainWindow/ListWidget/listwidgetitem.h"
 
 class ColorModelPropertiesWidget;

@@ -14,12 +14,13 @@ class MainWindow : public QMainWindow{
     ListWidget*listWidget;
     SettingsWidget*settingsWidget;
 
-    int planeCount=0,cubeCount=0;
+    int planeCount=0,cubeCount=0,coneCount=0;
     void resetCounts();
 private slots:
     void exitApp();
     void addPlane();
     void addCube();
+    void addCone();
     void settings();
     void newScene();
     void renderViewport();
