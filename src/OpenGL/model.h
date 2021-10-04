@@ -10,9 +10,9 @@ class Camera;
 
 class Model{
     glm::mat4 model;
+    Mesh*mesh;
     Shader*shader;
 protected:
-    Mesh*mesh;
     virtual void populateUniforms(){}
 public:
     Model(Mesh*mesh=NULL,glm::mat4 model=glm::mat4(1),Shader*shader=NULL)
