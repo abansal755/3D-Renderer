@@ -9,6 +9,7 @@
                 <ol>
                     <li><a href="#vertex">Vertex</a></li>
                     <li><a href="#mesh">Mesh</a></li>
+                    <li><a href="#shader">Shader</a></li>
                 </ol>
             </li>
             <li><a href="">GUI Classes</a></li>
@@ -23,12 +24,12 @@
                         <div>
                             <div>Included in "src/OpenGL/vertex.h"</div>
                             <div>As the name suggests, vertex class represents a vertex in 3D space. An instance of this class stores the position and normal vectors.</div>
-                            <h4>Properties</h4>
+                            <h5>Properties</h5>
                             <ul>
                                 <li>glm::vec3 pos</li>
                                 <li>glm::vec3 norm</li>
                             </ul>
-                            <h4>Public Functions</h4>
+                            <h5>Public Functions</h5>
                             <ul>
                                 <li>Vertex(glm::vec3 pos = glm::vec3(), glm::vec3 norm = glm::vec3())</li>
                                 <li>Vertex(GLfloat x, GLfloat y, GLfloat z, GLfloat nx, GLfloat ny, GLfloat nz)</li>
@@ -43,7 +44,7 @@
                         <h4 id="mesh">Mesh</h4>
                         <div>Included in "src/OpenGL/mesh.h"</div>
                         <div>Mesh class represents a 3D geometry. An instance of this class stores the IDs of Vertex Array Objects(VAO), Vertex Buffer Objects(VBO) and Index Buffer Objects(IBO). The data of these objects is stored in the GPU and is accessible via these IDs. VAOs are containers for VBOs and IBOs and contain the information of how to interpret the the data stored in VBOs and IBOs. VBOs store all the data of vertices. IBOs store the indices of vertices which represent which vertices form the polygons specified. For example if the drawMode enum is set to GL_TRIANGLES, then the 3D object is composed of triangles. First 3 vertices as specified in the IBO represent a triangle, the next 3 represent another triangle and so on.</div>
-                        <h4>Properties</h4>
+                        <h5>Properties</h5>
                         <ul>
                             <li>
                                 <div>GLsizei numIndices</div>
@@ -74,7 +75,7 @@
                                 <div>Determines which primitives to render. Refer to <a href="http://docs.gl/gl3/glDrawElements">http://docs.gl/gl3/glDrawElements</a> for the available options.</div>
                             </li>
                         </ul>
-                        <h4>Public Functions</h4>
+                        <h5>Public Functions</h5>
                         <ul>
                             <li>
                                 <div>Mesh()</div>
@@ -82,7 +83,7 @@
                             </li>
                             <li>
                                 <div>Mesh(std::vector&lt;Vertex&gt;& vertices, std::vector&lt;unsigned int&gt;& indices, GLenum usageMode = GL_STATIC_DRAW, GLenum drawMode = GL_TRIANGLES)</div>
-                                <div>Contructs the mesh with the given vertex of vertices, indices, usageMode and drawMode. The constructor only calls Mesh::createMesh() function.</div>
+                                <div>Contructs the mesh with the given vector of vertices and indices, usageMode and drawMode. The constructor only calls Mesh::createMesh() function.</div>
                             </li>
                             <li>
                                 <div>~Mesh()</div>
@@ -116,6 +117,63 @@
                                 <div>void updateIndexBuffer(std::vector&lt;unsigned int&gt;& indices, GLintptr offset = 0)</div>
                                 <div>Updates the data of IBO from offset index to offset + indices.size() -1 index both inclusive. Therefore offset + indices.size() must be less than or equal to numIndices. Call this function only if the buffers are dynamic.</div>
                             </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h4 id="shader">Shader</h4>
+                        <div>Included in "src/OpenGL/shader.h"</div>
+                        <div>Shader class provides a mechanism of loading codes for vertex and fragment shaders which are programmable steps of the rendering pipeline in OpenGL. In order to use this mechanism, use the void Shader::loadShader(std::string& vPath, std::string& fPath) function. By default this class only allows support for 3 uniform variables: model matrix, view matrix and projection matrix. It is necessary to set the values of these uniform variables. To have more uniform variables, subclass Shader class and then override void Shader::setupUniforms and void Shader::clearUniforms virtual functions.</div>
+                        <h5>Private Properties</h5>
+                        <ul>
+                            <li>
+                                <div>GLuint program</div>
+                                <div>ID of the program object. In OpenGL, in order to use shaders, we are supposed to create a program object and then link shaders to this program object and then bind this program object. Also, unforms variables are setup through the program object as well.</div>
+                            </li>
+                            <li>
+                                <div>GLuint uniformModel</div>
+                                <div>The location of model matrix uniform.</div>
+                            </li>
+                            <li>
+                                <div>GLuint uniformProjection</div>
+                                <div>The location of projection matrix uniform.</div>
+                            </li>
+                            <li>
+                                <div>uniformView</div>
+                                <div>The location of view matrix uniform.</div>
+                            </li>
+                        </ul>
+                        <h5>Private Functions</h5>
+                        <ul>
+                            <li>
+                                <div>void addShader(std::string& shaderCode, GLenum shaderType)</div>
+                                <div>This function creates a shader of type shaderType with the code shaderCode and then links it to the program object.</div>
+                            </li>
+                            <li>
+                                <div>std::string readFile(std::string& path)</div>
+                                <div>This functions returns the content of the file at path.</div>
+                            </li>
+                        </ul>
+                        <h5>Protected Functions</h5>
+                        <ul>
+                            <li>virtual void setupUniforms()</li>
+                            <li>virtual void clearUniforms()</li>
+                        </ul>
+                        <h5>Public Functions</h5>
+                        <ul>
+                            <li>Shader()</li>
+                            <li>virtual ~Shader()</li>
+                            <li>void loadShader(std::string& vPath, std::string fPath)</li>
+                            <li>void clearShader</li>
+                            <li>GLuint getShaderId()</li>
+                            <li>Gluint getModelLocation()</li>
+                            <li>GLuint getProjectionLocation()</li>
+                            <li>GLuint getViewLocation()</li>
+                            <li>bool empty()</li>
+                            <li>void useShader()</li>
+                        </ul>
+                        <h5>Public Static Functions</h5>
+                        <ul>
+                            <li>void unUseShader()</li>
                         </ul>
                     </li>
                 </ol>
