@@ -78,3 +78,5 @@ DISTFILES += \
     src/OpenGL/Shaders/gridshader.vert \
     src/OpenGl/Shaders/flatShader.frag \
     src/OpenGl/Shaders/shader/flatShader.vert
+
+RC_ICONS = etc/appicon.ico
