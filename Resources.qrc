@@ -5,5 +5,6 @@
         <file alias="shaders/lightshader.frag">src/OpenGL/Shaders/lightshader.frag</file>
         <file alias="shaders/gridshader.vert">src/OpenGL/Shaders/gridshader.vert</file>
         <file alias="shaders/gridshader.frag">src/OpenGL/Shaders/gridshader.frag</file>
+        <file alias="qss/aboutdialog.qss">src/GUI/QSS/aboutdialog.qss</file>
     </qresource>
 </RCC>

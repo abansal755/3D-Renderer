@@ -25,6 +25,7 @@ SOURCES += \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/GUI/aboutdialog.cpp \
+    src/GUI/qssloader.cpp \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/Models/colormodel.cpp \
@@ -68,7 +69,8 @@ HEADERS += \
     src/GUI/mainwindow.h \
     src/OpenGL/mesh.h \
     src/GUI/MainWindow/ListWidget/modelpropertieswidget.h \
-    src/GUI/sliderint.h
+    src/GUI/sliderint.h \
+    src/GUI/qssloader.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

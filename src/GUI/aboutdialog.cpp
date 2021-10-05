@@ -1,4 +1,5 @@
 #include "aboutdialog.h"
+#include "qssloader.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -40,15 +41,7 @@ AboutDialog::AboutDialog(QWidget*parent):QDialog(parent){
         hb1->addLayout(vb1);
     setLayout(hb1);
 
-    setStyleSheet("#app-name {"
-                  "font-weight: bold;"
-                  "font-size: 20px;"
-                  "}"
-                  ""
-                  "#dev-name {"
-                  "font-weight: bold;"
-                  "font-size: 15px;"
-                  "}");
+    qssLoader(this,":/qss/aboutdialog.qss");
 
     adjustSize();
     setFixedSize(size());

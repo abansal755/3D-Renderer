@@ -1,0 +1,9 @@
+#app-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#dev-name {
+    font-weight: bold;
+    font-size: 15px;
+}
