@@ -1,5 +1,6 @@
 #include "modelpropertieswidget.h"
 #include "listwidgetitem.h"
+#include "src/OpenGL/model.h"
 
 #include <QVBoxLayout>
 
