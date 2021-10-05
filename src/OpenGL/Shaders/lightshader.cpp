@@ -14,4 +14,5 @@ void LightShader::clearUniforms(){
     uniformAmbientIntensity=0;
     uniformDirection=0;
     uniformDiffuseIntensity=0;
+    uniformModelColor=0;
 }

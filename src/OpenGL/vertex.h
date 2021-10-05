@@ -1,3 +1,5 @@
+#pragma once
+
 #include "lib/glm/glm.hpp"
 #include <QOpenGLFunctions_3_3_Core>
 

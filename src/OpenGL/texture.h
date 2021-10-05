@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QOpenGLFunctions_3_3_Core>
 
 class Texture: protected QOpenGLFunctions_3_3_Core{
