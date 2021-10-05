@@ -82,13 +82,13 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    std::string vPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.vert";
-    std::string fPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.frag";
+    QString vPathFlat = ":/shaders/lightshader.vert";
+    QString fPathFlat = ":/shaders/lightshader.frag";
     flatShader=new LightShader;
     flatShader->loadShader(vPathFlat,fPathFlat);
 
-    std::string vPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.vert";
-    std::string fPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.frag";
+    QString vPathGrid = ":/shaders/gridshader.vert";
+    QString fPathGrid = ":/shaders/gridshader.frag";
     gridShader=new GridShader;
     gridShader->loadShader(vPathGrid,fPathGrid);
 

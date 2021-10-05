@@ -2,12 +2,13 @@
 
 #include <QDebug>
 #include <fstream>
+#include <QFile>
 
 Shader::Shader(){
     initializeOpenGLFunctions();
 }
 
-void Shader::loadShader(std::string& vPath, std::string& fPath) {
+void Shader::loadShader(QString& vPath, QString& fPath) {
     clearShader();
 
     program = glCreateProgram();
@@ -90,17 +91,9 @@ void Shader::unUseShader() {
     glUseProgram(0);
 }
 
-std::string Shader::readFile(std::string& path) {
-    std::ifstream iFile(path);
-    if (!iFile.is_open()) {
-        qDebug() << "Unable to read from: " << QString::fromStdString(path) << '\n';
-        return "";
-    }
-    std::string content, line;
-    while (!iFile.eof()) {
-        std::getline(iFile, line);
-        content += line + '\n';
-    }
-    iFile.close();
-    return content;
+std::string Shader::readFile(QString& path) {
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) return "";
+    return file.readAll().toStdString();
+    file.close();
 }

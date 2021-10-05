@@ -8,7 +8,7 @@ class Shader: protected QOpenGLFunctions_3_3_Core{
     GLuint program=0;
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
     void addShader(std::string& shaderCode, GLenum shaderType);
-    std::string readFile(std::string& path);
+    std::string readFile(QString& path);
 
     Shader(const Shader& shader);
     Shader operator=(const Shader& shader);
@@ -19,7 +19,7 @@ public:
     Shader();
     virtual ~Shader();
 
-    void loadShader(std::string& vPath, std::string& fPath);
+    void loadShader(QString& vPath, QString& fPath);
     void clearShader();
 
     GLuint getShaderID() { return program; }
