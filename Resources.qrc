@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="images/logo.png">etc/logo.png</file>
+        <file alias="shaders/lightshader.vert">src/OpenGL/Shaders/lightshader.vert</file>
+        <file alias="shaders/lightshader.frag">src/OpenGL/Shaders/lightshader.frag</file>
+        <file alias="shaders/gridshader.vert">src/OpenGL/Shaders/gridshader.vert</file>
+        <file alias="shaders/gridshader.frag">src/OpenGL/Shaders/gridshader.frag</file>
+    </qresource>
+</RCC>

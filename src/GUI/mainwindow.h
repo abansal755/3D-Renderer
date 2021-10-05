@@ -1,5 +1,6 @@
 #include "MainWindow/glwidget.h"
 #include "MainWindow/listwidget.h"
+#include "aboutdialog.h"
 
 #include <QMainWindow>
 #include <QMenuBar>
@@ -13,6 +14,7 @@ class MainWindow : public QMainWindow{
     GLWidget*glwidget;
     ListWidget*listWidget;
     SettingsWidget*settingsWidget;
+    AboutDialog*aboutDialog;
 
     int planeCount=0,cubeCount=0,coneCount=0;
     void resetCounts();
@@ -22,6 +24,7 @@ private slots:
     void addCube();
     void addCone();
     void settings();
+    void about();
     void newScene();
     void renderViewport();
 public:

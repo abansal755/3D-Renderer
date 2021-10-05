@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QVBoxLayout*vb1=new QVBoxLayout;
     settingsWidget=new SettingsWidget;
     listWidget=new ListWidget(vb1);
+    aboutDialog=new AboutDialog(this);
 
     QWidget*central=new QWidget;
         QHBoxLayout*hb1=new QHBoxLayout;
@@ -49,6 +50,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QMenu* windowMenu=menuBar()->addMenu("Window");
         QAction* settingsAction=windowMenu->addAction("Settings");
             connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
+        QAction* aboutAction=windowMenu->addAction("About");
+            connect(aboutAction,SIGNAL(triggered()),this,SLOT(about()));
     QMenu* renderMenu=menuBar()->addMenu("Render");
         QAction* renderViewportAction=renderMenu->addAction("Render Viewport");
             connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
@@ -56,6 +59,7 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
 
 MainWindow::~MainWindow(){
     delete settingsWidget;
+//    delete aboutDialog;
 }
 
 void MainWindow::exitApp(){
@@ -92,6 +96,10 @@ void MainWindow::addCone(){
 
 void MainWindow::settings(){
     settingsWidget->show();
+}
+
+void MainWindow::about(){
+    aboutDialog->open();
 }
 
 void MainWindow::newScene(){

@@ -24,6 +24,7 @@ SOURCES += \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.cpp \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
+    src/GUI/aboutdialog.cpp \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/Models/colormodel.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
+    src/GUI/aboutdialog.h \
     src/GUI/settingswidget.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/Models/colormodel.h \
@@ -80,3 +82,6 @@ DISTFILES += \
     src/OpenGl/Shaders/shader/flatShader.vert
 
 RC_ICONS = etc/appicon.ico
+
+RESOURCES += \
+    Resources.qrc
