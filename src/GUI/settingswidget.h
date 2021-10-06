@@ -1,10 +1,6 @@
 #include <QWidget>
 #include <QColorDialog>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QCheckBox>
+#include <QGroupBox>
 
 #include "sliderfloat.h"
 #include "sliderint.h"
@@ -15,7 +11,8 @@ class SettingsWidget : public QWidget{
     SliderFloat*slider1,*slider2,*slider3,*slider5,*slider6,*slider7,
     *slider8,*slider9;
     SliderInt*slider4;
-    QCheckBox*chb1;
+
+    QGroupBox*box3;
 
     bool changeInGrid=true;
 private slots:
@@ -34,7 +31,7 @@ public:
     float getGridSideLength(){return slider3->getValue();}
     bool isChangeInGrid();
     int getGridNumLines(){return slider4->getValue();}
-    bool isShowGridChecked(){return chb1->checkState()==Qt::Checked;}
+    bool isShowGridChecked(){return box3->isChecked();}
     float getCameraMoveSpeed(){return slider5->getValue();}
     float getCameraTurnSpeed(){return slider6->getValue();}
     float getCameraFOV(){return slider7->getValue();}
