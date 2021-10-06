@@ -5,6 +5,7 @@
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/OpenGL/Shaders/lightshader.h"
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
+#include "qssloader.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -12,6 +13,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSplitter>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -27,6 +29,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 glwidget=new GLWidget(listWidget,settingsWidget);
                 sp1->addWidget(glwidget);
                 QWidget*sidePanel=new QWidget;
+                        sidePanel->setObjectName("side-panel");
+                        vb1->setContentsMargins(0,0,0,0);
                         vb1->addWidget(listWidget);
                     sidePanel->setLayout(vb1);
                 sp1->addWidget(sidePanel);
@@ -55,11 +59,17 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QMenu* renderMenu=menuBar()->addMenu("Render");
         QAction* renderViewportAction=renderMenu->addAction("Render Viewport");
             connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
+
+    qssLoader(this,":/qss/mainwindow.qss");
 }
 
 MainWindow::~MainWindow(){
     delete settingsWidget;
-//    delete aboutDialog;
+    delete aboutDialog;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event){
+    QApplication::exit(0);
 }
 
 void MainWindow::exitApp(){

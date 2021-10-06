@@ -10,6 +10,7 @@ ConeModelPropertiesWidget::ConeModelPropertiesWidget(ConeModelListWidgetItem*ite
 {
     QWidget*container=getNestedContainer();
     QVBoxLayout*vb1=new QVBoxLayout;
+        vb1->setContentsMargins(0,0,0,0);
         slider1=new SliderFloat("Radius",NULL,1,1000,100);
             float defaultRadius=0.5;
             slider1->setValue(defaultRadius);

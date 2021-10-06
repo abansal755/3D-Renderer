@@ -11,6 +11,7 @@ SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVa
     hb1->addWidget(label);
     hb1->addWidget(slider);
     hb1->addWidget(db1);
+    hb1->setContentsMargins(0,5,0,5);
     setLayout(hb1);
 
     slider->setMinimum(minVal);
@@ -25,6 +26,8 @@ SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVa
     db1->setMaximumWidth(60);
 
     connect(slider,SIGNAL(valueChanged(int)),this,SLOT(valueChanged(int)));
+
+    db1->setButtonSymbols(QAbstractSpinBox::NoButtons);
 }
 
 void SliderFloat::setValue(double val){

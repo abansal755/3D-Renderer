@@ -11,6 +11,7 @@ SliderInt::SliderInt(QString text,QWidget*parent=NULL,int minVal=0,int maxVal=1)
     hb1->addWidget(label);
     hb1->addWidget(slider);
     hb1->addWidget(sb1);
+    hb1->setContentsMargins(0,5,0,5);
     setLayout(hb1);
 
     slider->setMinimum(minVal);
@@ -24,6 +25,8 @@ SliderInt::SliderInt(QString text,QWidget*parent=NULL,int minVal=0,int maxVal=1)
     sb1->setMaximumWidth(60);
 
     connect(slider,SIGNAL(valueChanged(int)),this,SLOT(valueChangedSlot(int)));
+
+    sb1->setButtonSymbols(QAbstractSpinBox::NoButtons);
 }
 
 void SliderInt::setValue(int val){

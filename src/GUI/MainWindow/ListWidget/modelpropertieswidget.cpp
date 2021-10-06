@@ -1,6 +1,7 @@
 #include "modelpropertieswidget.h"
 #include "listwidgetitem.h"
 #include "src/OpenGL/model.h"
+#include "src/GUI/qssloader.h"
 
 #include <QVBoxLayout>
 
@@ -17,6 +18,8 @@ ModelPropertiesWidget::ModelPropertiesWidget(ListWidgetItem*item,QString text)
         container=new QWidget;
         vb1->addWidget(container);
     setLayout(vb1);
+
+    qssLoader(this,":/qss/MainWindow/ListWidget/modelpropertieswidget.qss");
 }
 
 ModelPropertiesWidget::~ModelPropertiesWidget(){

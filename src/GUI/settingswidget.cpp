@@ -1,5 +1,6 @@
 #include "settingswidget.h"
 #include "mainwindow.h"
+#include "qssloader.h"
 
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -14,6 +15,7 @@
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
     setWindowTitle("Settings");
+    setObjectName("central");
 
     //setting default values
     defaultBGColor=QColor(0,0,0);
@@ -109,6 +111,8 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
             hb4->addWidget(btn4);
         vb1->addLayout(hb4);
     setLayout(vb1);
+
+    qssLoader(this,":/qss/settingswidget.qss");
 
     loadSettings();
 }
