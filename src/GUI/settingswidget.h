@@ -1,6 +1,8 @@
 #include <QWidget>
 #include <QColorDialog>
 #include <QGroupBox>
+#include <QComboBox>
+#include <QMessageBox>
 
 #include "sliderfloat.h"
 #include "sliderint.h"
@@ -15,6 +17,8 @@ class SettingsWidget : public QWidget{
 
     QGroupBox*box3;
 
+    QComboBox*cb1;
+
     bool changeInGrid=true;
 
     QJsonObject qColorToJson(QColor color,bool alpha=true);
@@ -25,6 +29,7 @@ class SettingsWidget : public QWidget{
 
     //default settings
     QColor defaultBGColor;
+    int defaultVsync=1;
     QColor defaultLightColor;
     float defaultAmbientLightIntensity=0.25;
     float defaultDiffuseLightIntensity=1;
@@ -42,6 +47,7 @@ private slots:
     void btn2Clicked();
     void btn3Clicked();
     void btn4Clicked();
+    void cb1Changed();
     void gridChanged();
 public:
     SettingsWidget(QWidget*parent=NULL);
@@ -49,6 +55,8 @@ public:
 
     QColor getBGColor(){return bgColorDialog->currentColor();}
     void setBGColor(QColor color){this->bgColorDialog->setCurrentColor(color);}
+    int getVsyncMode(){return cb1->currentIndex();}
+    void setVsyncMode(int value);
     QColor getLightColor(){return lightColorDialog->currentColor();}
     void setLightColor(QColor color){this->lightColorDialog->setCurrentColor(color);}
     float getAmbientLightIntensity(){return slider1->getValue();}

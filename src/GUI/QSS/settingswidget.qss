@@ -50,3 +50,13 @@ QGroupBox::title {
     margin-top: 10px;
     margin-left: 7px;
 }
+
+QComboBox {
+    padding: 3px;
+    background:rgb(60,60,60);
+}
+
+QComboBox QAbstractItemView {
+    selection-background-color: rgb(9, 71, 113);
+    outline: none;
+}

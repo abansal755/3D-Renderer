@@ -32,14 +32,27 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     gridColorDialog->setOptions(QColorDialog::NoButtons);
 
     QVBoxLayout*vb1=new QVBoxLayout;
-        QGroupBox*box1=new QGroupBox("Background");
-            QHBoxLayout*hb1=new QHBoxLayout;
-                QLabel*label1=new QLabel("Background Color");
-                hb1->addWidget(label1);
-                QPushButton*btn1=new QPushButton("Change Background Color");
-                    connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
-                hb1->addWidget(btn1);
-             box1->setLayout(hb1);
+        QGroupBox*box1=new QGroupBox("Viewport");
+            QVBoxLayout*vb5=new QVBoxLayout;
+                QHBoxLayout*hb1=new QHBoxLayout;
+                    QLabel*label1=new QLabel("Background Color");
+                    hb1->addWidget(label1);
+                    QPushButton*btn1=new QPushButton("Change Background Color");
+                        connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
+                    hb1->addWidget(btn1);
+                vb5->addLayout(hb1);
+                QHBoxLayout*hb5=new QHBoxLayout;
+                    QLabel*label4=new QLabel("V-Sync");
+                    hb5->addWidget(label4);
+                    cb1=new QComboBox;
+                        cb1->addItem("Off");
+                        cb1->addItem("On");
+                        cb1->addItem("Half");
+                        cb1->setCurrentIndex(defaultVsync);
+                        connect(cb1,SIGNAL(activated(int)),this,SLOT(cb1Changed()));
+                    hb5->addWidget(cb1);
+                vb5->addLayout(hb5);
+            box1->setLayout(vb5);
         vb1->addWidget(box1);
         QGroupBox*box2=new QGroupBox("Light");
             QVBoxLayout*vb2=new QVBoxLayout;
@@ -142,6 +155,7 @@ void SettingsWidget::btn3Clicked(){
 
 void SettingsWidget::btn4Clicked(){
     setBGColor(defaultBGColor);
+    setVsyncMode(defaultVsync);
     setLightColor(defaultLightColor);
     setAmbientLightIntensity(defaultAmbientLightIntensity);
     setDiffuseLightIntensity(defaultDiffuseLightIntensity);
@@ -154,6 +168,19 @@ void SettingsWidget::btn4Clicked(){
     setCameraFOV(defaultCameraFOV);
     setCameraZNear(defaultCameraZNear);
     setCameraZFar(defaultCameraZFar);
+
+    cb1Changed();
+}
+
+void SettingsWidget::cb1Changed(){
+    QMessageBox::information(this,"Information","Please restart the application in order to see V-Sync changes.");
+}
+
+void SettingsWidget::setVsyncMode(int value){
+    cb1->setCurrentIndex(value);
+    QSurfaceFormat format=QSurfaceFormat::defaultFormat();
+    format.setSwapInterval(value);
+    QSurfaceFormat::setDefaultFormat(format);
 }
 
 bool SettingsWidget::isChangeInGrid(){
@@ -196,9 +223,10 @@ QColor SettingsWidget::jsonToQColor(QJsonObject json){
 
 QJsonObject SettingsWidget::settingsToJson(){
     QJsonObject obj;
-        QJsonObject bgObj;
-            bgObj["backgroundColor"]=qColorToJson(getBGColor(),false);
-        obj["background"]=bgObj;
+        QJsonObject viewportObj;
+            viewportObj["backgroundColor"]=qColorToJson(getBGColor(),false);
+            viewportObj["vsync"]=getVsyncMode();
+        obj["viewport"]=viewportObj;
         QJsonObject lightObj;
             lightObj["lightColor"]=qColorToJson(getLightColor(),false);
             lightObj["ambientLightIntensity"]=getAmbientLightIntensity();
@@ -233,8 +261,9 @@ void SettingsWidget::loadSettings(){
         return;
     }
     QJsonObject obj=doc.object();
-        QJsonObject bgObj=obj["background"].toObject();
-            if(isColorJsonValid(bgObj["backgroundColor"].toObject())) setBGColor(jsonToQColor(bgObj["backgroundColor"].toObject()));
+        QJsonObject viewportObj=obj["viewport"].toObject();
+            if(isColorJsonValid(viewportObj["backgroundColor"].toObject())) setBGColor(jsonToQColor(viewportObj["backgroundColor"].toObject()));
+            if(viewportObj["vsync"].isDouble()) setVsyncMode(viewportObj["vsync"].toInt());
         QJsonObject lightObj=obj["light"].toObject();
             if(isColorJsonValid(lightObj["lightColor"].toObject())) setLightColor(jsonToQColor(lightObj["lightColor"].toObject()));
             if(lightObj["ambientLightIntensity"].isDouble()) setAmbientLightIntensity(lightObj["ambientLightIntensity"].toDouble());
