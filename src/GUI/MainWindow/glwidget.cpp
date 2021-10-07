@@ -42,9 +42,15 @@ void GLWidget::initializeGL(){
     glEnable(GL_DEPTH_TEST);
     glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 
-    camera=new Camera(glm::vec3(-4,0,0),glm::vec3(0,1,0),
-                      0,0,10,0.005,
-                      PI/4,1,0.01,100);
+    GLfloat theta=PI/4;
+    GLfloat alpha=PI/6;
+    GLfloat radius=8;
+
+    camera=new Camera(glm::vec3(radius*glm::cos(theta)*glm::cos(alpha),
+                                radius*glm::sin(alpha),radius*glm::cos(alpha)*glm::sin(theta)),
+                                glm::vec3(0,1,0),
+                                PI+theta,-alpha,10,0.005,
+                                PI/4,1,0.01,100);
 
     light=new Light;
 

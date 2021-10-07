@@ -18,6 +18,8 @@ class MainWindow : public QMainWindow{
 
     int planeCount=0,cubeCount=0,coneCount=0;
     void resetCounts();
+
+    bool change=false;
 protected:
     virtual void closeEvent(QCloseEvent*event);
 private slots:

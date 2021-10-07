@@ -14,6 +14,10 @@
 
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowFlag(Qt::CustomizeWindowHint);
+    setWindowFlag(Qt::WindowMaximizeButtonHint,false);
+    setWindowFlag(Qt::WindowMinimizeButtonHint,false);
+
     setWindowTitle("Settings");
     setObjectName("central");
 

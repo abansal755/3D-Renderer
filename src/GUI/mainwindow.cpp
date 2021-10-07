@@ -69,11 +69,22 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
-    QApplication::exit(0);
+    if(!change){
+        event->accept();
+        return;
+    }
+    int res=QMessageBox::question(this,"Question","Are you sure you want to exit? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
+    if(res==QMessageBox::Yes) event->accept();
+    else event->ignore();
 }
 
 void MainWindow::exitApp(){
-    QApplication::exit(0);
+    if(!change){
+        QApplication::exit(0);
+        return;
+    }
+    int res=QMessageBox::question(this,"Question","Are you sure you want to exit? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
+    if(res==QMessageBox::Yes) QApplication::exit(0);
 }
 
 void MainWindow::addPlane(){
@@ -84,6 +95,7 @@ void MainWindow::addPlane(){
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);
+    change=true;
 }
 
 void MainWindow::addCube(){
@@ -94,6 +106,7 @@ void MainWindow::addCube(){
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);
+    change=true;
 }
 
 void MainWindow::addCone(){
@@ -102,6 +115,7 @@ void MainWindow::addCone(){
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);
+    change=true;
 }
 
 void MainWindow::settings(){
@@ -113,7 +127,7 @@ void MainWindow::about(){
 }
 
 void MainWindow::newScene(){
-    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene?",QMessageBox::Yes|QMessageBox::No);
+    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
     if(response!=QMessageBox::Yes) return;
     listWidget->clear();
     resetCounts();
@@ -122,6 +136,8 @@ void MainWindow::newScene(){
 void MainWindow::resetCounts(){
     planeCount=0;
     cubeCount=0;
+    coneCount=0;
+    change=false;
 }
 
 void MainWindow::renderViewport(){
