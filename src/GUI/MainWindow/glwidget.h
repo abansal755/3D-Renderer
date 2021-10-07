@@ -21,7 +21,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
 
     int lastX,lastY,xChange=0,yChange=0;
 
-    LightShader*flatShader;
+    LightShader*flatShader,*phongShader;
     GridShader*gridShader;
     Mesh*planeMesh,*cubeMesh;
     Camera*camera;
@@ -51,6 +51,7 @@ public:
     Mesh* getCylinderMesh(GLfloat radius=1,GLfloat height=1,GLint numLines=10);
     Mesh* getSphereMesh(GLfloat radius=1,GLint numLines=10);
     LightShader* getFlatShader(){return flatShader;}
+    LightShader* getPhongShader(){return phongShader;}
     GridModel* getGridModel(){return grid;}
     QImage renderViewport();
 protected:

@@ -24,6 +24,7 @@ GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWi
 
 GLWidget::~GLWidget(){
     delete flatShader;
+    delete phongShader;
     delete planeMesh;
     delete cubeMesh;
     delete camera;
@@ -88,10 +89,15 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    QString vPathFlat = ":/shaders/lightshader.vert";
-    QString fPathFlat = ":/shaders/lightshader.frag";
+    QString vPathFlat = ":/shaders/flatshader.vert";
+    QString fPathFlat = ":/shaders/flatshader.frag";
     flatShader=new LightShader;
     flatShader->loadShader(vPathFlat,fPathFlat);
+
+    QString vPathPhong = ":/shaders/phongshader.vert";
+    QString fPathPhong = ":/shaders/phongshader.frag";
+    phongShader=new LightShader;
+    phongShader->loadShader(vPathPhong,fPathPhong);
 
     QString vPathGrid = ":/shaders/gridshader.vert";
     QString fPathGrid = ":/shaders/gridshader.frag";
@@ -125,6 +131,7 @@ void GLWidget::paintGL(){
     light->setDirection(camera->getFront());
     light->setColor(settingsWidget->getLightColor());
     light->useLight(flatShader);
+    light->useLight(phongShader);
     light->setAmbientIntensity(settingsWidget->getAmbientLightIntensity());
     light->setDiffuseIntensity(settingsWidget->getDiffuseLightIntensity());
 

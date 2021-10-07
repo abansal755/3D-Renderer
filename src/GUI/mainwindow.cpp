@@ -134,9 +134,9 @@ void MainWindow::addCylinder(){
 }
 
 void MainWindow::addSphere(){
-    SphereModelListWidgetItem* item=new SphereModelListWidgetItem(glwidget,"Cylinder"+QString::number(sphereCount++));
+    SphereModelListWidgetItem* item=new SphereModelListWidgetItem(glwidget,"Sphere"+QString::number(sphereCount++));
     Model* model=item->getModelPropertiesWidget()->getModel();
-    model->setShader(glwidget->getFlatShader());
+    model->setShader(glwidget->getPhongShader());
 
     listWidget->addItem(item);
     change=true;
