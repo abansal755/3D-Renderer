@@ -281,7 +281,7 @@ Mesh* GLWidget::getCylinderMesh(GLfloat radius, GLfloat height, GLint numLines){
         vertices.push_back(Vertex(pos,norm));
     }
     vertices.push_back(Vertex(0,0,0,0,-1,0));//2*numLines
-    vertices.push_back(Vertex(0,height,0,0,0,0));//2*numLines+1
+    vertices.push_back(Vertex(0,height,0,0,1,0));//2*numLines+1
 
     for(int i=0;i<numLines;i++){
         indices.push_back(2*numLines);
