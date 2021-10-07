@@ -240,3 +240,69 @@ Mesh* GLWidget::getConeMesh(GLfloat radius,GLfloat height,GLint numLines){
 
     return new Mesh(vertices,indices);
 }
+
+Mesh* GLWidget::getCylinderMesh(GLfloat radius, GLfloat height, GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=2*PI/numLines;
+    for(int i=0;i<numLines;i++){
+        //0 -> numLines-1
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=0;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    for(int i=0;i<numLines;i++){
+        //numLines -> 2*numLines-1
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=height;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    vertices.push_back(Vertex(0,0,0,0,-1,0));//2*numLines
+    vertices.push_back(Vertex(0,height,0,0,0,0));//2*numLines+1
+
+    for(int i=0;i<numLines;i++){
+        indices.push_back(2*numLines);
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(2*numLines+1);
+        indices.push_back(i+numLines);
+        indices.push_back((i+1)%numLines+numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+        indices.push_back(i+numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i+numLines);
+        indices.push_back((i+1)%numLines+numLines);
+        indices.push_back((i+1)%numLines);
+    }
+
+    return new Mesh(vertices,indices);
+}

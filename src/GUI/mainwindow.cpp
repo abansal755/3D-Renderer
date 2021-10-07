@@ -5,6 +5,7 @@
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/OpenGL/Shaders/lightshader.h"
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h"
 #include "qssloader.h"
 
 #include <QApplication>
@@ -49,6 +50,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
             QAction* addConeAction=addPrimitivesMenu->addAction("Cone");
                 connect(addConeAction,SIGNAL(triggered()),this,SLOT(addCone()));
+            QAction* addCylinderActiion=addPrimitivesMenu->addAction("Cylinder");
+                connect(addCylinderActiion,SIGNAL(triggered()),this,SLOT(addCylinder()));
         QAction* exitAction=fileMenu->addAction("Exit");
             connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
@@ -118,6 +121,15 @@ void MainWindow::addCone(){
     change=true;
 }
 
+void MainWindow::addCylinder(){
+    CylinderModelListWidgetItem* item=new CylinderModelListWidgetItem(glwidget,"Cylinder"+QString::number(cylinderCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
+    model->setShader(glwidget->getFlatShader());
+
+    listWidget->addItem(item);
+    change=true;
+}
+
 void MainWindow::settings(){
     settingsWidget->show();
 }
@@ -137,6 +149,7 @@ void MainWindow::resetCounts(){
     planeCount=0;
     cubeCount=0;
     coneCount=0;
+    cylinderCount=0;
     change=false;
 }
 

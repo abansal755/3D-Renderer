@@ -1,9 +1,9 @@
-#include "conemodelpropertieswidget.h"
-#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
+#include "cylindermodelpropertieswidget.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h"
 #include "src/GUI/MainWindow/glwidget.h"
 #include "src/OpenGL/Models/colormodel.h"
 
-ConeModelPropertiesWidget::ConeModelPropertiesWidget(ConeModelListWidgetItem*item,
+CylinderModelPropertiesWidget::CylinderModelPropertiesWidget(CylinderModelListWidgetItem*item,
                                                      GLWidget*glwidget,QString text)
     :ColorModelPropertiesWidget((ColorModelListWidgetItem*)item,text),
       glwidget(glwidget)
@@ -30,12 +30,12 @@ ConeModelPropertiesWidget::ConeModelPropertiesWidget(ConeModelListWidgetItem*ite
     updateMesh();
 }
 
-void ConeModelPropertiesWidget::updateMesh(){
+void CylinderModelPropertiesWidget::updateMesh(){
     ColorModel* model=(ColorModel*)getModel();
     if(model->getMesh()) delete model->getMesh();
-    model->setMesh(glwidget->getConeMesh(slider1->getValue(),slider2->getValue(),slider3->getValue()));
+    model->setMesh(glwidget->getCylinderMesh(slider1->getValue(),slider2->getValue(),slider3->getValue()));
 }
 
-ConeModelPropertiesWidget::~ConeModelPropertiesWidget(){
+CylinderModelPropertiesWidget::~CylinderModelPropertiesWidget(){
     delete getModel()->getMesh();
 }

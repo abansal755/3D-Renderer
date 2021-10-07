@@ -20,7 +20,9 @@ INCLUDEPATH += lib/glm
 SOURCES += \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.cpp \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.cpp \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.cpp \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.cpp \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
@@ -48,7 +50,9 @@ HEADERS += \
     lib/stb_image.h \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \

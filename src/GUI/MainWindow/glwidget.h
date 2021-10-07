@@ -48,6 +48,7 @@ public:
     Mesh* getCubeMesh(){return cubeMesh;}
     Mesh* getPlaneMesh(){return planeMesh;}
     Mesh* getConeMesh(GLfloat radius=1,GLfloat height=1,GLint numLines=10);
+    Mesh* getCylinderMesh(GLfloat radius=1,GLfloat height=1,GLint numLines=10);
     LightShader* getFlatShader(){return flatShader;}
     GridModel* getGridModel(){return grid;}
     QImage renderViewport();

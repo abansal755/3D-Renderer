@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow{
     SettingsWidget*settingsWidget;
     AboutDialog*aboutDialog;
 
-    int planeCount=0,cubeCount=0,coneCount=0;
+    int planeCount=0,cubeCount=0,coneCount=0,cylinderCount=0;
     void resetCounts();
 
     bool change=false;
@@ -27,6 +27,7 @@ private slots:
     void addPlane();
     void addCube();
     void addCone();
+    void addCylinder();
     void settings();
     void about();
     void newScene();
