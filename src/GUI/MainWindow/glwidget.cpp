@@ -306,3 +306,42 @@ Mesh* GLWidget::getCylinderMesh(GLfloat radius, GLfloat height, GLint numLines){
 
     return new Mesh(vertices,indices);
 }
+
+Mesh* GLWidget::getSphereMesh(GLfloat radius,GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=PI/(numLines+1);
+    GLfloat alpha=2*PI/(numLines+1);
+    for(int i=0;i<=numLines+1;i++){
+        for(int j=0;j<=numLines+1;j++){
+            glm::vec3 pos;
+            pos.x=radius*glm::cos(-PI/2+i*theta)*glm::cos(j*alpha);
+            pos.y=radius*glm::sin(-PI/2+i*theta);
+            pos.z=radius*glm::cos(-PI/2+i*theta)*glm::sin(j*alpha);
+
+            glm::vec3 norm;
+            norm.x=radius*glm::cos(-PI/2+i*theta+theta/2)*glm::cos(j*alpha+alpha/2);
+            norm.y=radius*glm::sin(-PI/2+i*theta+theta/2);
+            norm.z=radius*glm::cos(-PI/2+i*theta+theta/2)*glm::sin(j*alpha+alpha/2);
+
+            vertices.push_back(Vertex(pos,norm));
+        }
+    }
+
+
+    unsigned int n=numLines+2;
+    for(int i=0;i<=numLines;i++){
+        for(int j=0;j<=numLines;j++){
+            std::vector<unsigned int> quad={
+                n*i+j,n*i+j+1,n*(i+1)+j+1,
+                n*i+j,n*(i+1)+j,n*(i+1)+j+1
+            };
+            for(unsigned int i:quad) indices.push_back(i);
+        }
+    }
+
+    return new Mesh(vertices,indices);
+}
