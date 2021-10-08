@@ -45,11 +45,14 @@ void Model::renderModel(Camera*camera,std::vector<DirectionalLight*>&directional
     //set texture and color
     QColor color=getMaterial()->getColor();
     glUniform3f(shader->getModelColorLocation(),color.redF(),color.greenF(),color.blueF());
-    glUniform1i(shader->getIsTextureLocation(),getMaterial()->isTextureUsed());
-    if(getMaterial()->isTextureUsed()) getMaterial()->getTexture()->useTexture();
+    glUniform1i(shader->getIsTextureLocation(),mat->isTextureUsed());
+    if(mat->isTextureUsed()) mat->getTexture()->useTexture();
 
     //render mesh
     mesh->renderMesh();
+
+    //unuse texture
+    if(mat->isTextureUsed()) mat->getTexture()->unUseTexture();
 
     //unbind shader
     shader->unUseShader();
