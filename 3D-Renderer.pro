@@ -18,7 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
-    src/GUI/main.cpp \
+    src/GUI/MainWindow/glwidget.cpp \
+    src/main.cpp \
     src/GUI/mainwindow.cpp \
     src/OpenGL/Lights/directionallight.cpp \
     src/OpenGL/Shaders/lightshader.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     src/OpenGL/texture.cpp
 
 HEADERS += \
+    src/GUI/MainWindow/glwidget.h \
     src/GUI/mainwindow.h \
     src/OpenGL/Lights/directionallight.h \
     src/OpenGL/Shaders/lightshader.h \
@@ -46,3 +48,7 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    src/OpenGL/Shaders/flatshader.frag \
+    src/OpenGL/Shaders/flatshader.vert
