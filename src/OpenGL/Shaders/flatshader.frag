@@ -13,19 +13,22 @@ struct DirectionalLight{
 };
 
 uniform sampler2D texSampler;
-uniform int MAX_DIRECTIONAL_LIGHTS;
+const int MAX_DIRECTIONAL_LIGHTS=10;
 uniform int isTex;
 uniform vec3 modelColor;
+uniform int numDirectionalLights;
 uniform DirectionalLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
 
 void main(){
+    int n=min(numDirectionalLights,MAX_DIRECTIONAL_LIGHTS);
+
     vec4 ambientColor=vec4(0,0,0,1);
-    for(int i=0;i<MAX_DIRECTIONAL_LIGHTS;i++){
+    for(int i=0;i<n;i++){
         ambientColor+=vec4(directionalLights[i].lightColor,0)*directionalLights[i].ambientIntensity;
     }
 
     vec4 diffuseColor=vec4(0,0,0,1);
-    for(int i=0;i<MAX_DIRECTIONAL_LIGHTS;i++){
+    for(int i=0;i<n;i++){
         float diffuseFactor=max(dot(normalize(normal),normalize(directionalLights[i].direction)),0);
         diffuseColor+=vec4(directionalLights[i].lightColor,0)*directionalLights[i].diffuseIntensity*diffuseFactor;
     }

@@ -1,13 +1,15 @@
 #include "model.h"
 #include "lib/glm/gtc/type_ptr.hpp"
 
+#include <QDebug>
+
 Model::Model(Mesh *mesh, Material *mat, glm::mat4 modelMatrix)
     :mesh(mesh),mat(mat),modelMatrix(modelMatrix)
 {
     initializeOpenGLFunctions();
 }
 
-void Model::renderModel(){
+void Model::renderModel(Camera*camera,std::vector<DirectionalLight*>&directionalLights){
     //bind shader
     LightShader* shader=mat->getShader();
     shader->useShader();
@@ -18,14 +20,17 @@ void Model::renderModel(){
 
     //set camera values
     GLuint viewLocation=shader->getViewLocation();
-    glUniformMatrix4fv(viewLocation,1,GL_FALSE,glm::value_ptr(getCamera()->calculateViewMatrix()));
+    glUniformMatrix4fv(viewLocation,1,GL_FALSE,glm::value_ptr(camera->calculateViewMatrix()));
     GLuint projectionLocation=shader->getProjectionLocation();
-    glUniformMatrix4fv(projectionLocation,1,GL_FALSE,glm::value_ptr(getCamera()->calculateProjectionMatrix()));
+    glUniformMatrix4fv(projectionLocation,1,GL_FALSE,glm::value_ptr(camera->calculateProjectionMatrix()));
 
     //set light values
-    auto& vec=Model::directionalLights;
     auto uniforms=shader->getDirectionalLightUniforms();
-    for(int i=0;i<std::min((int)vec.size(),MAX_DIRECTIONAL_LIGHTS);i++){
+
+    GLuint numDirectionalLightsLocation=shader->getNumDirectionalLightsLocation();
+    glUniform1i(numDirectionalLightsLocation,directionalLights.size());
+
+    for(int i=0;i<std::min((int)directionalLights.size(),MAX_DIRECTIONAL_LIGHTS);i++){
         DirectionalLight* light=directionalLights[i];
         DirectionalLightUniform uniform=uniforms[i];
 
@@ -48,14 +53,4 @@ void Model::renderModel(){
 
     //unbind shader
     shader->unUseShader();
-}
-
-void Model::removeDirectionalLight(DirectionalLight*light){
-    auto& vec=Model::directionalLights;
-    for(int i=0;i<vec.size();i++){
-        if(vec[i]==light){
-            vec.erase(vec.begin()+i);
-            break;
-        }
-    }
 }

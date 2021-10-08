@@ -49,6 +49,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    src/OpenGL/Shaders/flatshader.frag \
-    src/OpenGL/Shaders/flatshader.vert
+RESOURCES += \
+    Resources.qrc

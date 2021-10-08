@@ -1,14 +1,11 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#include "MainWindow/glwidget.h"
 
 #include <QMainWindow>
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow{
     Q_OBJECT
-
+    GLWidget*glwidget;
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent=NULL);
     ~MainWindow();
 };
-#endif // MAINWINDOW_H

@@ -3,6 +3,7 @@
 #include <QElapsedTimer>
 
 #include "src/OpenGL/camera.h"
+#include "src/OpenGL/model.h"
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     Q_OBJECT
@@ -13,6 +14,10 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     QElapsedTimer timer;
 
     Camera*camera;
+    Model*model;
+    LightShader*flatShader;
+    Material*mat;
+    DirectionalLight*light1,*light2;
 protected:
     void initializeGL();
     void resizeGL(int width, int height);

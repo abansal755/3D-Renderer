@@ -2,14 +2,12 @@
 
 LightShader::LightShader(){
     directionalLightUniforms.assign(MAX_DIRECTIONAL_LIGHTS,DirectionalLightUniform());
-
-    GLuint uniformMaxNumLights=glGetUniformLocation(getShaderID(),"MAX_DIRECTIONAL_LIGHTS");
-    glUniform1i(uniformMaxNumLights,MAX_DIRECTIONAL_LIGHTS);
 }
 
 void LightShader::populateUniformLocations(){
     uniformModelColor=glGetUniformLocation(getShaderID(),"modelColor");
     uniformIsTex=glGetUniformLocation(getShaderID(),"isTex");
+    uniformNumDirectionalLights=glGetUniformLocation(getShaderID(),"numDirectionalLights");
 
     for(int i=0;i<MAX_DIRECTIONAL_LIGHTS;i++){
         std::string name="directionalLights["+std::to_string(i)+"].lightColor";
@@ -26,4 +24,7 @@ void LightShader::populateUniformLocations(){
 void LightShader::clearUniformLocations(){
     uniformModelColor=0;
     uniformIsTex=0;
+    uniformNumDirectionalLights=0;
+
+    for(auto& uniform:directionalLightUniforms) uniform=DirectionalLightUniform();
 }

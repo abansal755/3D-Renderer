@@ -13,6 +13,7 @@ struct DirectionalLightUniform{
 
 class LightShader : public Shader{
     GLuint uniformModelColor=0,uniformIsTex=0;
+    GLuint uniformNumDirectionalLights=0;
 
     std::vector<DirectionalLightUniform> directionalLightUniforms;
 protected:
@@ -23,5 +24,6 @@ public:
 
     GLuint getModelColorLocation(){return uniformModelColor;}
     GLuint getIsTextureLocation(){return uniformIsTex;}
+    GLuint getNumDirectionalLightsLocation(){return uniformNumDirectionalLights;}
     std::vector<DirectionalLightUniform> getDirectionalLightUniforms(){return directionalLightUniforms;}
 };

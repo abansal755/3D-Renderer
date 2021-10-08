@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="shaders/flatshader.frag">src/OpenGL/Shaders/flatshader.frag</file>
+        <file alias="shaders/flatshader.vert">src/OpenGL/Shaders/flatshader.vert</file>
+    </qresource>
+</RCC>
