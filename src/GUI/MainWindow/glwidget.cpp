@@ -26,44 +26,6 @@ void GLWidget::initializeGL(){
                                 PI+theta,-alpha,10,0.005,
                                 PI/4,1,0.01,100);
 
-    flatShader=new LightShader;
-    QString vPath=":/shaders/flatshader.vert";
-    QString fPath=":/shaders/flatshader.frag";
-    flatShader->loadShader(vPath,fPath);
-    mat=new Material(flatShader);
-
-    std::vector<Vertex> vertices={
-        //  x   y   z   nx, ny, nz
-        {-1, -1, -1,   0, -1,  0,   0,0},  // 0, nv front
-        {-1, -1,  1,   0,  0,  1,   0,0},  // 1, nv top
-        { 1, -1, -1,   0,  0,  0,   0,0},  // 2
-        { 1, -1,  1,   1,  0,  0,   0,0},  // 3, nv right
-        { 1,  1, -1,   0,  1,  0,   0,0},  // 4, nv back
-        { 1,  1,  1,   0,  0,  0,   0,0},  // 5
-        {-1,  1, -1,   0,  0, -1,   0,0},  // 6, nv bottom
-        {-1,  1,  1,  -1,  0,  0,   0,0}  // 7, nv left
-    };
-    std::vector<unsigned int> indices={
-        0, 2, 3,   0, 3, 1, // front
-        4, 6, 7,   4, 7, 5, // back
-        3, 2, 4,   3, 4, 5, // right
-        7, 6, 0,   7, 0, 1, // left
-        6, 4, 2,   6, 2, 0, // bottom
-        1, 3, 5,   1, 5, 7  // top
-    };
-    Mesh*mesh=new Mesh(vertices,indices);
-
-    model=new Model(mesh,mat);
-
-
-    light1=new DirectionalLight;
-    light1->setDirection(glm::vec3(-1,-2,-3));
-
-    light2=new DirectionalLight;
-    light2->setDirection(glm::vec3(1,0,0));
-    light2->setAmbientIntensity(0);
-    light2->setDiffuseIntensity(0.25);
-
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
 }
@@ -80,9 +42,6 @@ void GLWidget::paintGL(){
 
     camera->mouseControl(getXChange(),getYChange());
     camera->keyControl(this,deltaTime);
-
-    std::vector<DirectionalLight*> lights={light1,light2};
-    model->renderModel(camera,lights);
 }
 
 void GLWidget::keyPressEvent(QKeyEvent *event){

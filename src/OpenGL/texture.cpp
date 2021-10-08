@@ -10,6 +10,7 @@ Texture::Texture(){
 }
 
 Texture::Texture(QString& fileLoc) {
+    initializeOpenGLFunctions();
     loadTexture(fileLoc);
 }
 
