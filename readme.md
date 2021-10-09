@@ -11,4 +11,4 @@ This is my first attempt to make a basic 3D Renderer using OpenGL and Qt Framewo
 ## Contributing
 If you would like to contribute, you can contact me through any of the following:
 - Email: bansalakshitwork@gmail.com
-- LinkedIn: linkedin.com/in/abansal755
+- LinkedIn: www.linkedin.com/in/abansal755
