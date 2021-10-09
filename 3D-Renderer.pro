@@ -18,7 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
+    src/GUI/MainWindow/ListWidget/ListWidgetItems/modellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/PropertiesWidgets/modelpropertieswidget.cpp \
+    src/GUI/MainWindow/listwidget.cpp \
+    src/GUI/MainWindow/ListWidget/propertieswidget.cpp \
     src/GUI/MainWindow/glwidget.cpp \
+    src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
     src/main.cpp \
     src/GUI/mainwindow.cpp \
     src/OpenGL/Lights/directionallight.cpp \
@@ -30,7 +35,12 @@ SOURCES += \
     src/OpenGL/texture.cpp
 
 HEADERS += \
+    src/GUI/MainWindow/ListWidget/ListWidgetItems/modellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/PropertiesWidgets/modelpropertieswidget.h \
+    src/GUI/MainWindow/listwidget.h \
+    src/GUI/MainWindow/ListWidget/propertieswidget.h \
     src/GUI/MainWindow/glwidget.h \
+    src/GUI/MainWindow/ListWidget/listwidgetitem.h \
     src/GUI/mainwindow.h \
     src/OpenGL/Lights/directionallight.h \
     src/OpenGL/Shaders/lightshader.h \

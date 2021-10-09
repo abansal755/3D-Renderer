@@ -9,6 +9,7 @@ GLWidget::GLWidget(QWidget *parent):QOpenGLWidget(parent){
 
 GLWidget::~GLWidget(){
     delete camera;
+    delete flatShader;
 }
 
 void GLWidget::initializeGL(){
@@ -25,6 +26,11 @@ void GLWidget::initializeGL(){
                                 glm::vec3(0,1,0),
                                 PI+theta,-alpha,10,0.005,
                                 PI/4,1,0.01,100);
+
+    flatShader=new LightShader;
+    QString vPath=":/shaders/flatshader.vert";
+    QString fPath=":/shaders/flatshader.frag";
+    flatShader->loadShader(vPath,fPath);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -83,4 +89,21 @@ int GLWidget::getYChange(){
     int ans=yChange;
     yChange=0;
     return ans;
+}
+
+Mesh* GLWidget::getPlaneMesh(){
+    makeCurrent();
+
+    std::vector<Vertex> vertices={
+        {-1,0,-1,   0,1,0,  0,0},
+        {1,0,-1,    0,1,0,  1,0},
+        {1,0,1,     0,1,0,  1,1},
+        {-1,0,1,    0,1,0,  0,1}
+    };
+    std::vector<unsigned int> indices={
+        0,1,2,
+        2,3,0
+    };
+
+    return new Mesh(vertices,indices);
 }

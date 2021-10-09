@@ -14,6 +14,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     QElapsedTimer timer;
 
     Camera*camera;
+    LightShader*flatShader;
 protected:
     void initializeGL();
     void resizeGL(int width, int height);
@@ -34,4 +35,6 @@ public:
 
     int getXChange();
     int getYChange();
+
+    Mesh* getPlaneMesh();
 };
