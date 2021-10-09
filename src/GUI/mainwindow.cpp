@@ -76,11 +76,11 @@ MainWindow::~MainWindow(){
 
 void MainWindow::closeEvent(QCloseEvent *event){
     if(!change){
-        event->accept();
+        QApplication::exit(0);
         return;
     }
     int res=QMessageBox::question(this,"Question","Are you sure you want to exit? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
-    if(res==QMessageBox::Yes) event->accept();
+    if(res==QMessageBox::Yes) QApplication::exit(0);
     else event->ignore();
 }
 
