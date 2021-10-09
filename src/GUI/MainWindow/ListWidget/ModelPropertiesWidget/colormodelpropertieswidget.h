@@ -21,11 +21,14 @@ class ColorModelPropertiesWidget : public ModelPropertiesWidget{
     SliderFloat*scaleUniform;
 
     QColorDialog*colorDialog;
+    QWidget*nestedContainer;
 private slots:
     void valueChanged();
     void btn1Clicked();
     void colorChanged(const QColor& color);
     void btn2Clicked();
+protected:
+    QWidget* getNestedContainer(){return nestedContainer;};
 public:
     ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text);
 };

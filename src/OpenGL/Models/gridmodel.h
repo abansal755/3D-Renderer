@@ -1,5 +1,4 @@
 #include "src/OpenGL/model.h"
-#include "src/OpenGL/version.h"
 
 class GridShader;
 

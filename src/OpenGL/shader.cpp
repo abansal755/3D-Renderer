@@ -2,11 +2,16 @@
 
 #include <QDebug>
 #include <fstream>
+#include <QFile>
 
-void Shader::loadShader(std::string& vPath, std::string& fPath) {
+Shader::Shader(){
+    initializeOpenGLFunctions();
+}
+
+void Shader::loadShader(QString& vPath, QString& fPath) {
     clearShader();
 
-    program = gl()->glCreateProgram();
+    program = glCreateProgram();
     if (!program) {
         qDebug() << "Error creating shader program\n";
         return;
@@ -19,30 +24,30 @@ void Shader::loadShader(std::string& vPath, std::string& fPath) {
     GLint result;
     GLchar log[1024];
 
-    gl()->glLinkProgram(program);
-    gl()->glGetProgramiv(program, GL_LINK_STATUS, &result);
+    glLinkProgram(program);
+    glGetProgramiv(program, GL_LINK_STATUS, &result);
     if (!result) {
-        gl()->glGetProgramInfoLog(program, sizeof(log), NULL, log);
+        glGetProgramInfoLog(program, sizeof(log), NULL, log);
         qDebug() << "Error linking shader program\n" << log;
         return;
     }
 
-    gl()->glValidateProgram(program);
-    gl()->glGetShaderiv(program, GL_VALIDATE_STATUS, &result);
+    glValidateProgram(program);
+    glGetShaderiv(program, GL_VALIDATE_STATUS, &result);
     if (!result) {
-        gl()->glGetProgramInfoLog(program, sizeof(log), NULL, log);
+        glGetProgramInfoLog(program, sizeof(log), NULL, log);
         qDebug() << "Error validating shader program\n" << log;
         return;
     }
 
-    uniformModel = gl()->glGetUniformLocation(program, "model");
-    uniformProjection = gl()->glGetUniformLocation(program, "projection");
-    uniformView = gl()->glGetUniformLocation(program, "view");
+    uniformModel = glGetUniformLocation(program, "model");
+    uniformProjection = glGetUniformLocation(program, "projection");
+    uniformView = glGetUniformLocation(program, "view");
     setupUniforms();
 }
 
 void Shader::clearShader() {
-    if (!program) gl()->glDeleteProgram(program);
+    if (!program) glDeleteProgram(program);
     uniformModel = 0;
     uniformProjection = 0;
     uniformView = 0;
@@ -54,7 +59,7 @@ Shader::~Shader() {
 }
 
 void Shader::addShader(std::string& shaderCode, GLenum shaderType) {
-    GLuint shader = gl()->glCreateShader(shaderType);
+    GLuint shader = glCreateShader(shaderType);
 
     const GLchar* code[1];
     code[0] = &shaderCode[0];
@@ -62,41 +67,33 @@ void Shader::addShader(std::string& shaderCode, GLenum shaderType) {
     GLint codeLength[1];
     codeLength[0] = shaderCode.length();
 
-    gl()->glShaderSource(shader, 1, code, codeLength);
-    gl()->glCompileShader(shader);
+    glShaderSource(shader, 1, code, codeLength);
+    glCompileShader(shader);
 
     GLint result;
     GLchar log[1024];
 
-    gl()->glGetProgramiv(shader, GL_COMPILE_STATUS, &result);
+    glGetProgramiv(shader, GL_COMPILE_STATUS, &result);
     if (!result) {
-        gl()->glGetProgramInfoLog(shader, sizeof(log), NULL, log);
+        glGetProgramInfoLog(shader, sizeof(log), NULL, log);
         qDebug() << "Error compiling shader\n" << log;
         return;
     }
 
-    gl()->glAttachShader(program, shader);
+    glAttachShader(program, shader);
 }
 
 void Shader::useShader() {
-    gl()->glUseProgram(program);
+    glUseProgram(program);
 }
 
 void Shader::unUseShader() {
-    gl()->glUseProgram(0);
+    glUseProgram(0);
 }
 
-std::string Shader::readFile(std::string& path) {
-    std::ifstream iFile(path);
-    if (!iFile.is_open()) {
-        qDebug() << "Unable to read from: " << QString::fromStdString(path) << '\n';
-        return "";
-    }
-    std::string content, line;
-    while (!iFile.eof()) {
-        std::getline(iFile, line);
-        content += line + '\n';
-    }
-    iFile.close();
-    return content;
+std::string Shader::readFile(QString& path) {
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) return "";
+    return file.readAll().toStdString();
+    file.close();
 }

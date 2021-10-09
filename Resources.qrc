@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="images/logo.png">etc/logo.png</file>
+        <file alias="shaders/flatshader.vert">src/OpenGL/Shaders/flatshader.vert</file>
+        <file alias="shaders/flatshader.frag">src/OpenGL/Shaders/flatshader.frag</file>
+        <file alias="shaders/gridshader.vert">src/OpenGL/Shaders/gridshader.vert</file>
+        <file alias="shaders/gridshader.frag">src/OpenGL/Shaders/gridshader.frag</file>
+        <file alias="shaders/phongshader.vert">src/OpenGL/Shaders/phongshader.vert</file>
+        <file alias="shaders/phongshader.frag">src/OpenGL/Shaders/phongshader.frag</file>
+        <file alias="qss/aboutdialog.qss">src/GUI/QSS/aboutdialog.qss</file>
+        <file alias="qss/mainwindow.qss">src/GUI/QSS/mainwindow.qss</file>
+        <file alias="qss/MainWindow/ListWidget/modelpropertieswidget.qss">src/GUI/QSS/MainWindow/ListWidget/modelpropertieswidget.qss</file>
+        <file alias="qss/settingswidget.qss">src/GUI/QSS/settingswidget.qss</file>
+    </qresource>
+</RCC>

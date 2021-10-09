@@ -4,6 +4,10 @@
 #include "settingswidget.h"
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/OpenGL/Shaders/lightshader.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h"
+#include "src/GUI/MainWindow/ListWidget/ListWidgetItem/spheremodellistwidgetitem.h"
+#include "qssloader.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -11,6 +15,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QSplitter>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -18,6 +23,7 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QVBoxLayout*vb1=new QVBoxLayout;
     settingsWidget=new SettingsWidget;
     listWidget=new ListWidget(vb1);
+    aboutDialog=new AboutDialog(this);
 
     QWidget*central=new QWidget;
         QHBoxLayout*hb1=new QHBoxLayout;
@@ -25,6 +31,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 glwidget=new GLWidget(listWidget,settingsWidget);
                 sp1->addWidget(glwidget);
                 QWidget*sidePanel=new QWidget;
+                        sidePanel->setObjectName("side-panel");
+                        vb1->setContentsMargins(0,0,0,0);
                         vb1->addWidget(listWidget);
                     sidePanel->setLayout(vb1);
                 sp1->addWidget(sidePanel);
@@ -41,22 +49,48 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 connect(addPlaneAction,SIGNAL(triggered()),this,SLOT(addPlane()));
             QAction* addCubeAction=addPrimitivesMenu->addAction("Cube");
                 connect(addCubeAction,SIGNAL(triggered()),this,SLOT(addCube()));
+            QAction* addConeAction=addPrimitivesMenu->addAction("Cone");
+                connect(addConeAction,SIGNAL(triggered()),this,SLOT(addCone()));
+            QAction* addCylinderActiion=addPrimitivesMenu->addAction("Cylinder");
+                connect(addCylinderActiion,SIGNAL(triggered()),this,SLOT(addCylinder()));
+            QAction* addSphereAction=addPrimitivesMenu->addAction("Sphere");
+                connect(addSphereAction,SIGNAL(triggered()),this,SLOT(addSphere()));
         QAction* exitAction=fileMenu->addAction("Exit");
             connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
         QAction* settingsAction=windowMenu->addAction("Settings");
             connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
+        QAction* aboutAction=windowMenu->addAction("About");
+            connect(aboutAction,SIGNAL(triggered()),this,SLOT(about()));
     QMenu* renderMenu=menuBar()->addMenu("Render");
         QAction* renderViewportAction=renderMenu->addAction("Render Viewport");
             connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
+
+    qssLoader(this,":/qss/mainwindow.qss");
 }
 
 MainWindow::~MainWindow(){
     delete settingsWidget;
+    delete aboutDialog;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event){
+    if(!change){
+        event->accept();
+        return;
+    }
+    int res=QMessageBox::question(this,"Question","Are you sure you want to exit? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
+    if(res==QMessageBox::Yes) event->accept();
+    else event->ignore();
 }
 
 void MainWindow::exitApp(){
-    QApplication::exit(0);
+    if(!change){
+        QApplication::exit(0);
+        return;
+    }
+    int res=QMessageBox::question(this,"Question","Are you sure you want to exit? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
+    if(res==QMessageBox::Yes) QApplication::exit(0);
 }
 
 void MainWindow::addPlane(){
@@ -67,6 +101,7 @@ void MainWindow::addPlane(){
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);
+    change=true;
 }
 
 void MainWindow::addCube(){
@@ -77,14 +112,46 @@ void MainWindow::addCube(){
     model->setShader(glwidget->getFlatShader());
 
     listWidget->addItem(item);
+    change=true;
+}
+
+void MainWindow::addCone(){
+    ConeModelListWidgetItem* item=new ConeModelListWidgetItem(glwidget,"Cone"+QString::number(coneCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
+    model->setShader(glwidget->getFlatShader());
+
+    listWidget->addItem(item);
+    change=true;
+}
+
+void MainWindow::addCylinder(){
+    CylinderModelListWidgetItem* item=new CylinderModelListWidgetItem(glwidget,"Cylinder"+QString::number(cylinderCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
+    model->setShader(glwidget->getFlatShader());
+
+    listWidget->addItem(item);
+    change=true;
+}
+
+void MainWindow::addSphere(){
+    SphereModelListWidgetItem* item=new SphereModelListWidgetItem(glwidget,"Sphere"+QString::number(sphereCount++));
+    Model* model=item->getModelPropertiesWidget()->getModel();
+    model->setShader(glwidget->getPhongShader());
+
+    listWidget->addItem(item);
+    change=true;
 }
 
 void MainWindow::settings(){
     settingsWidget->show();
 }
 
+void MainWindow::about(){
+    aboutDialog->open();
+}
+
 void MainWindow::newScene(){
-    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene?",QMessageBox::Yes|QMessageBox::No);
+    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
     if(response!=QMessageBox::Yes) return;
     listWidget->clear();
     resetCounts();
@@ -93,6 +160,10 @@ void MainWindow::newScene(){
 void MainWindow::resetCounts(){
     planeCount=0;
     cubeCount=0;
+    coneCount=0;
+    cylinderCount=0;
+    sphereCount=0;
+    change=false;
 }
 
 void MainWindow::renderViewport(){

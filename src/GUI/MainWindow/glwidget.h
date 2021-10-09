@@ -1,5 +1,4 @@
 #include "src/OpenGL/mesh.h"
-#include "src/OpenGL/version.h"
 #include "src/OpenGL/texture.h"
 #include "src/OpenGL/light.h"
 
@@ -7,6 +6,7 @@
 #include <vector>
 #include <QElapsedTimer>
 #include <QColor>
+#include <QOpenGLFunctions_3_3_Core>
 
 class ListWidget;
 class Camera;
@@ -15,13 +15,13 @@ class LightShader;
 class GridModel;
 class GridShader;
 
-class GLWidget : public QOpenGLWidget{
+class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     Q_OBJECT
     bool wPressed=false,aPressed=false,sPressed=false,dPressed=false;
 
     int lastX,lastY,xChange=0,yChange=0;
 
-    LightShader*flatShader;
+    LightShader*flatShader,*phongShader;
     GridShader*gridShader;
     Mesh*planeMesh,*cubeMesh;
     Camera*camera;
@@ -47,7 +47,11 @@ public:
 
     Mesh* getCubeMesh(){return cubeMesh;}
     Mesh* getPlaneMesh(){return planeMesh;}
+    Mesh* getConeMesh(GLfloat radius=1,GLfloat height=1,GLint numLines=10);
+    Mesh* getCylinderMesh(GLfloat radius=1,GLfloat height=1,GLint numLines=10);
+    Mesh* getSphereMesh(GLfloat radius=1,GLint numLines=10);
     LightShader* getFlatShader(){return flatShader;}
+    LightShader* getPhongShader(){return phongShader;}
     GridModel* getGridModel(){return grid;}
     QImage renderViewport();
 protected:

@@ -1,11 +1,13 @@
-#include "version.h"
+#pragma once
+
 #include "lib/glm/glm.hpp"
 
+#include <QOpenGLFunctions_3_3_Core>
 #include <QColor>
 
 class LightShader;
 
-class Light{
+class Light: protected QOpenGLFunctions_3_3_Core{
     QColor color;
     GLfloat ambientIntensity;
 

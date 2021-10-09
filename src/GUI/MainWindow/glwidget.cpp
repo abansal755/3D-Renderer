@@ -1,6 +1,7 @@
 #include "glwidget.h"
 #include "src/OpenGL/camera.h"
 #include "lib/glm/gtc/type_ptr.hpp"
+#include "lib/glm/gtx/rotate_vector.hpp"
 #include "listwidget.h"
 #include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 #include "ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"
@@ -23,6 +24,7 @@ GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWi
 
 GLWidget::~GLWidget(){
     delete flatShader;
+    delete phongShader;
     delete planeMesh;
     delete cubeMesh;
     delete camera;
@@ -32,17 +34,24 @@ GLWidget::~GLWidget(){
 }
 
 void GLWidget::resizeGL(int width, int height){
-    gl()->glViewport(0,0,width,height);
+    glViewport(0,0,width,height);
     camera->setAspect((GLfloat)width/height);
 }
 
 void GLWidget::initializeGL(){
-    gl()->glEnable(GL_DEPTH_TEST);
-    gl()->glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+    initializeOpenGLFunctions();
+    glEnable(GL_DEPTH_TEST);
+    glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 
-    camera=new Camera(glm::vec3(-4,0,0),glm::vec3(0,1,0),
-                      0,0,10,0.005,
-                      PI/4,1,0.01,100);
+    GLfloat theta=PI/4;
+    GLfloat alpha=PI/6;
+    GLfloat radius=8;
+
+    camera=new Camera(glm::vec3(radius*glm::cos(theta)*glm::cos(alpha),
+                                radius*glm::sin(alpha),radius*glm::cos(alpha)*glm::sin(theta)),
+                                glm::vec3(0,1,0),
+                                PI+theta,-alpha,10,0.005,
+                                PI/4,1,0.01,100);
 
     light=new Light;
 
@@ -80,13 +89,18 @@ void GLWidget::initializeGL(){
     };
     cubeMesh=new Mesh(verticesCube,indicesCube);
 
-    std::string vPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.vert";
-    std::string fPathFlat = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/lightshader.frag";
+    QString vPathFlat = ":/shaders/flatshader.vert";
+    QString fPathFlat = ":/shaders/flatshader.frag";
     flatShader=new LightShader;
     flatShader->loadShader(vPathFlat,fPathFlat);
 
-    std::string vPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.vert";
-    std::string fPathGrid = "C:/Users/Akshit/Documents/C++/Qt/3D Renderer/src/OpenGl/Shaders/gridshader.frag";
+    QString vPathPhong = ":/shaders/phongshader.vert";
+    QString fPathPhong = ":/shaders/phongshader.frag";
+    phongShader=new LightShader;
+    phongShader->loadShader(vPathPhong,fPathPhong);
+
+    QString vPathGrid = ":/shaders/gridshader.vert";
+    QString fPathGrid = ":/shaders/gridshader.frag";
     gridShader=new GridShader;
     gridShader->loadShader(vPathGrid,fPathGrid);
 
@@ -99,8 +113,8 @@ void GLWidget::initializeGL(){
 
 void GLWidget::paintGL(){
     QColor bgColor=settingsWidget->getBGColor();
-    gl()->glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
-    gl()->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glClearColor(bgColor.redF(),bgColor.greenF(),bgColor.blueF(),bgColor.alphaF());
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
     GLfloat currTime=(GLfloat)timer.elapsed()/1000;
     GLfloat deltaTime=currTime-lastTime;
@@ -117,6 +131,7 @@ void GLWidget::paintGL(){
     light->setDirection(camera->getFront());
     light->setColor(settingsWidget->getLightColor());
     light->useLight(flatShader);
+    light->useLight(phongShader);
     light->setAmbientIntensity(settingsWidget->getAmbientLightIntensity());
     light->setDiffuseIntensity(settingsWidget->getDiffuseLightIntensity());
 
@@ -193,4 +208,147 @@ QImage GLWidget::renderViewport(){
 //    delete[]data;
 //    return image;
     return grabFramebuffer();
+}
+
+Mesh* GLWidget::getConeMesh(GLfloat radius,GLfloat height,GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=2*PI/numLines;
+    for(int i=0;i<numLines;i++){
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=0;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    vertices.push_back(Vertex(0,0,0,0,-1,0));
+    vertices.push_back(Vertex(0,height,0,0,0,0));
+    for(int i=0;i<numLines;i++){
+        indices.push_back(numLines);
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+        indices.push_back(numLines+1);
+    }
+
+    return new Mesh(vertices,indices);
+}
+
+Mesh* GLWidget::getCylinderMesh(GLfloat radius, GLfloat height, GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=2*PI/numLines;
+    for(int i=0;i<numLines;i++){
+        //0 -> numLines-1
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=0;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    for(int i=0;i<numLines;i++){
+        //numLines -> 2*numLines-1
+        glm::vec3 pos;
+        pos.x=radius*glm::cos(i*theta);
+        pos.y=height;
+        pos.z=radius*glm::sin(i*theta);
+
+        GLfloat d=radius*glm::cos(theta/2);
+        GLfloat beta=glm::asin(d/glm::sqrt(height*height+d*d));
+        glm::vec3 norm;
+        norm.x=radius*glm::cos(beta)*glm::cos(i*theta+theta/2);
+        norm.y=radius*glm::sin(beta);
+        norm.z=radius*glm::cos(beta)*glm::sin(i*theta+theta/2);
+
+        vertices.push_back(Vertex(pos,norm));
+    }
+    vertices.push_back(Vertex(0,0,0,0,-1,0));//2*numLines
+    vertices.push_back(Vertex(0,height,0,0,1,0));//2*numLines+1
+
+    for(int i=0;i<numLines;i++){
+        indices.push_back(2*numLines);
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(2*numLines+1);
+        indices.push_back(i+numLines);
+        indices.push_back((i+1)%numLines+numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i);
+        indices.push_back((i+1)%numLines);
+        indices.push_back(i+numLines);
+    }
+    for(int i=0;i<numLines;i++){
+        indices.push_back(i+numLines);
+        indices.push_back((i+1)%numLines+numLines);
+        indices.push_back((i+1)%numLines);
+    }
+
+    return new Mesh(vertices,indices);
+}
+
+Mesh* GLWidget::getSphereMesh(GLfloat radius,GLint numLines){
+    makeCurrent();
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    GLfloat theta=PI/(numLines+1);
+    GLfloat alpha=2*PI/(numLines+1);
+    for(int i=0;i<=numLines+1;i++){
+        for(int j=0;j<=numLines+1;j++){
+            glm::vec3 pos;
+            pos.x=radius*glm::cos(-PI/2+i*theta)*glm::cos(j*alpha);
+            pos.y=radius*glm::sin(-PI/2+i*theta);
+            pos.z=radius*glm::cos(-PI/2+i*theta)*glm::sin(j*alpha);
+
+            glm::vec3 norm;
+            norm.x=radius*glm::cos(-PI/2+i*theta+theta/2)*glm::cos(j*alpha+alpha/2);
+            norm.y=radius*glm::sin(-PI/2+i*theta+theta/2);
+            norm.z=radius*glm::cos(-PI/2+i*theta+theta/2)*glm::sin(j*alpha+alpha/2);
+
+            vertices.push_back(Vertex(pos,norm));
+        }
+    }
+
+
+    unsigned int n=numLines+2;
+    for(int i=0;i<=numLines;i++){
+        for(int j=0;j<=numLines;j++){
+            std::vector<unsigned int> quad={
+                n*i+j,n*i+j+1,n*(i+1)+j+1,
+                n*i+j,n*(i+1)+j,n*(i+1)+j+1
+            };
+            for(unsigned int i:quad) indices.push_back(i);
+        }
+    }
+
+    return new Mesh(vertices,indices);
 }

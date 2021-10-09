@@ -1,6 +1,9 @@
+#pragma once
+
 #include "lib/glm/glm.hpp"
 #include "lib/glm/gtc/matrix_transform.hpp"
-#include "version.h"
+
+#include <QOpenGLFunctions_3_3_Core>
 
 const float PI = 3.1415926535;
 

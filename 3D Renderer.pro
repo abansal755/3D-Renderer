@@ -18,10 +18,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += lib/glm
 
 SOURCES += \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.cpp \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/spheremodellistwidgetitem.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.cpp \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.cpp \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.cpp \
     src/GUI/MainWindow/listwidget.cpp \
     src/GUI/MainWindow/ListWidget/listwidgetitem.cpp \
+    src/GUI/aboutdialog.cpp \
+    src/GUI/qssloader.cpp \
     src/GUI/settingswidget.cpp \
     src/GUI/sliderfloat.cpp \
     src/OpenGL/Models/colormodel.cpp \
@@ -32,7 +40,6 @@ SOURCES += \
     src/OpenGL/light.cpp \
     src/OpenGL/model.cpp \
     src/OpenGL/texture.cpp \
-    src/OpenGL/version.cpp \
     src\OpenGL\shader.cpp \
     src/GUI/MainWindow/glwidget.cpp \
     src/main.cpp \
@@ -43,10 +50,17 @@ SOURCES += \
 
 HEADERS += \
     lib/stb_image.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/conemodellistwidgetitem.h \
     src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ListWidgetItem/spheremodellistwidgetitem.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h \
+    src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.h \
     src/GUI/MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h \
     src/GUI/MainWindow/listwidget.h \
     src/GUI/MainWindow/ListWidget/listwidgetitem.h \
+    src/GUI/aboutdialog.h \
     src/GUI/settingswidget.h \
     src/GUI/sliderfloat.h \
     src/OpenGL/Models/colormodel.h \
@@ -57,22 +71,21 @@ HEADERS += \
     src/OpenGL/light.h \
     src/OpenGL/model.h \
     src/OpenGL/texture.h \
-    src/OpenGL/version.h \
     src/OpenGL/vertex.h \
     src/OpenGL/shader.h \
     src/GUI/MainWindow/glwidget.h \
     src/GUI/mainwindow.h \
     src/OpenGL/mesh.h \
     src/GUI/MainWindow/ListWidget/modelpropertieswidget.h \
-    src/GUI/sliderint.h
+    src/GUI/sliderint.h \
+    src/GUI/qssloader.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    src/OpenGL/Shaders/gridshader.frag \
-    src/OpenGL/Shaders/gridshader.vert \
-    src/OpenGl/Shaders/flatShader.frag \
-    src/OpenGl/Shaders/shader/flatShader.vert
+RC_ICONS = etc/appicon.ico
+
+RESOURCES += \
+    Resources.qrc

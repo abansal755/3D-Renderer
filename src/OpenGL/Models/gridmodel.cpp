@@ -7,12 +7,11 @@ GridModel::GridModel(GLint numLines,GLfloat sideLength,
     :Model(NULL,glm::mat4(1),(Shader*)shader),numLines(numLines),
       sideLength(sideLength),color(color)
 {
+    setMesh(new Mesh);
     initMesh();
 }
 
 void GridModel::initMesh(){
-    if(mesh) delete mesh;
-
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
@@ -44,13 +43,13 @@ void GridModel::initMesh(){
         indices.push_back(i+numLines-2);
     }
 
-    mesh=new Mesh(vertices,indices,GL_STATIC_DRAW,GL_LINES);
+    setMesh(new Mesh(vertices,indices,GL_STATIC_DRAW,GL_LINES));
 }
 
 void GridModel::populateUniforms(){
     GridShader*shader=(GridShader*)getShader();
     GLuint uniformModelColor=shader->getModelColorLocation();
-    gl()->glUniform4f(uniformModelColor,color.redF(),color.greenF(),color.blueF(),color.alphaF());
+    glUniform4f(uniformModelColor,color.redF(),color.greenF(),color.blueF(),color.alphaF());
 }
 
 void GridModel::setNumLines(GLint numLines){

@@ -2,21 +2,21 @@
 
 #include "lib/glm/glm.hpp"
 
+#include <QOpenGLFunctions_3_3_Core>
 #include <QColor>
 
 class Mesh;
 class Shader;
 class Camera;
 
-class Model{
+class Model: protected QOpenGLFunctions_3_3_Core{
     glm::mat4 model;
+    Mesh*mesh;
     Shader*shader;
 protected:
-    Mesh*mesh;
     virtual void populateUniforms(){}
 public:
-    Model(Mesh*mesh=NULL,glm::mat4 model=glm::mat4(1),Shader*shader=NULL)
-        :mesh(mesh),model(model),shader(shader){}
+    Model(Mesh*mesh=NULL,glm::mat4 model=glm::mat4(1),Shader*shader=NULL);
 
     void setMesh(Mesh*mesh){this->mesh=mesh;}
     Mesh* getMesh(){return mesh;}

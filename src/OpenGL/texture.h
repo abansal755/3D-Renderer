@@ -1,13 +1,15 @@
-#include "version.h"
+#pragma once
 
-class Texture{
+#include <QOpenGLFunctions_3_3_Core>
+
+class Texture: protected QOpenGLFunctions_3_3_Core{
     GLuint textureId = 0;
     int width = 0, height = 0, bitDepth = 0;
 
     Texture(const Texture& texture);
     Texture operator=(const Texture& texture);
 public:
-    Texture() {};
+    Texture();
     Texture(std::string& fileLoc);
     ~Texture();
 
@@ -15,7 +17,7 @@ public:
     void clearTexture();
 
     void useTexture();
-    static void unUseTexture();
+    void unUseTexture();
 
     bool empty() { return (textureId == 0); }
 };

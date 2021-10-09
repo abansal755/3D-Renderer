@@ -65,6 +65,9 @@ ColorModelPropertiesWidget::ColorModelPropertiesWidget(ColorModelListWidgetItem*
             connect(scaleZ,SIGNAL(valueChanged(double)),this,SLOT(valueChanged()));
         vb1->addWidget(scaleZ);
 
+        nestedContainer=new QWidget;
+        vb1->addWidget(nestedContainer);
+
         QPushButton*btn1=new QPushButton("Change Color");
             connect(btn1,SIGNAL(clicked()),this,SLOT(btn1Clicked()));
         vb1->addWidget(btn1);

@@ -1,5 +1,7 @@
+#pragma once
+
 #include "lib/glm/glm.hpp"
-#include "version.h"
+#include <QOpenGLFunctions_3_3_Core>
 
 class Vertex{
     glm::vec3 pos;
