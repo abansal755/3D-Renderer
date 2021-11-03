@@ -1,8 +1,14 @@
 #include "GUI/mainwindow.h"
+#include "version.h"
 
 #include <QApplication>
+#include <QDebug>
+
+const Version version(0,1,0);
 
 int main(int argc, char *argv[]){
+    qDebug()<<"Version "<<version.toString();
+
     QApplication a(argc, argv);
 
     QSurfaceFormat format;

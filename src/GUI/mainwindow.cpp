@@ -16,6 +16,8 @@
 #include <QMessageBox>
 #include <QSplitter>
 #include <QCloseEvent>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -55,6 +57,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 connect(addCylinderActiion,SIGNAL(triggered()),this,SLOT(addCylinder()));
             QAction* addSphereAction=addPrimitivesMenu->addAction("Sphere");
                 connect(addSphereAction,SIGNAL(triggered()),this,SLOT(addSphere()));
+        QAction* saveAsAction=fileMenu->addAction("Save Scene As");
+            connect(saveAsAction,SIGNAL(triggered()),this,SLOT(saveAs()));
         QAction* exitAction=fileMenu->addAction("Exit");
             connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
@@ -172,4 +176,18 @@ void MainWindow::renderViewport(){
     QImage image=glwidget->renderViewport();
     bool res=image.save(path);
     if(!res) QMessageBox::critical(NULL,"Critical","Unable to save the render at the path specified");
+}
+
+void MainWindow::saveAs(){
+    QJsonObject obj=glwidget->sceneToJson();
+    QJsonDocument doc(obj);
+    QString path=QFileDialog::getSaveFileName(NULL,"Save Scene As",QString(),"*.scene");
+    if(path.isEmpty()) return;
+    QFile file(path);
+    if(!file.open(QIODevice::WriteOnly)){
+        qDebug()<<"Unable to write to "<<path;
+        return;
+    }
+    file.write(doc.toJson());
+    file.close();
 }

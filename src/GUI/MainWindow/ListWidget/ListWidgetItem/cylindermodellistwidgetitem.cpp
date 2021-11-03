@@ -6,4 +6,5 @@ CylinderModelListWidgetItem::CylinderModelListWidgetItem(GLWidget*glwidget,
     :ListWidgetItem(text)
 {
     setModelPropertiesWidget(new CylinderModelPropertiesWidget(this,glwidget,text));
+    setObjectType(Cylinder);
 }

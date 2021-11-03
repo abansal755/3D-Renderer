@@ -6,4 +6,5 @@ ConeModelListWidgetItem::ConeModelListWidgetItem(GLWidget*glwidget,
     :ListWidgetItem(text)
 {
     setModelPropertiesWidget(new ConeModelPropertiesWidget(this,glwidget,text));
+    setObjectType(Cone);
 }

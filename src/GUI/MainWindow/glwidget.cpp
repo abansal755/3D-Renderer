@@ -10,10 +10,14 @@
 #include "src/OpenGL/Models/gridmodel.h"
 #include "src/OpenGL/Shaders/gridshader.h"
 #include "src/OpenGL/Models/colormodel.h"
+#include "src/version.h"
+#include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 
 #include <string>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QJsonObject>
+#include <QJsonArray>
 
 GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent)
     :modelsListWidget(modelsListWidget),settingsWidget(settingsWidget),QOpenGLWidget(parent)
@@ -351,4 +355,48 @@ Mesh* GLWidget::getSphereMesh(GLfloat radius,GLint numLines){
     }
 
     return new Mesh(vertices,indices);
+}
+
+QJsonObject GLWidget::objectToJson(ColorModelListWidgetItem*item){
+    QJsonObject obj;
+        ObjectType type=item->getObjectType();
+            if(type==ObjectType::Cone) obj["type"]="Cone";
+            else if(type==ObjectType::Cylinder) obj["type"]="Cylinder";
+            else if(type==ObjectType::Sphere) obj["type"]="Sphere";
+            else obj["type"]="Default";
+        QJsonObject transObj;
+            auto*prop=(ColorModelPropertiesWidget*)(item->getModelPropertiesWidget());
+            transObj["x"]=prop->getTranslateX();
+            transObj["y"]=prop->getTranslateY();
+            transObj["z"]=prop->getTranslateZ();
+        obj["translate"]=transObj;
+        QJsonObject rotObj;
+            rotObj["x"]=prop->getRotateX();
+            rotObj["y"]=prop->getRotateY();
+            rotObj["z"]=prop->getRotateZ();
+        obj["rotate"]=rotObj;
+        QJsonObject scaleObj;
+            scaleObj["x"]=prop->getScaleX();
+            scaleObj["y"]=prop->getScaleY();
+            scaleObj["z"]=prop->getScaleZ();
+            scaleObj["uniform"]=prop->getScaleUniform();
+        obj["scale"]=scaleObj;
+    return obj;
+}
+
+QJsonObject GLWidget::sceneToJson(){
+    QJsonObject obj;
+        QJsonObject vObj;
+            vObj["major"]=version.major;
+            vObj["minor"]=version.minor;
+            vObj["patch"]=version.patch;
+        obj["version"]=vObj;
+        QJsonArray objs;
+            int count=modelsListWidget->count();
+            for(int i=0;i<count;i++){
+                ColorModelListWidgetItem*item=(ColorModelListWidgetItem*)modelsListWidget->getCustomItem(i);
+                objs.push_back(objectToJson(item));
+            }
+        obj["objects"]=objs;
+    return obj;
 }

@@ -1,4 +1,5 @@
 #include "src/GUI/MainWindow/ListWidget/modelpropertieswidget.h"
+#include "src/GUI/sliderfloat.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -8,7 +9,6 @@
 #include <QCheckBox>
 
 class ColorModelListWidgetItem;
-class SliderFloat;
 class FlatModel;
 class Mesh;
 
@@ -31,4 +31,17 @@ protected:
     QWidget* getNestedContainer(){return nestedContainer;};
 public:
     ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text);
+
+    float getTranslateX(){return translateX->getValue();}
+    float getTranslateY(){return translateY->getValue();}
+    float getTranslateZ(){return translateZ->getValue();}
+
+    float getRotateX(){return rotateX->getValue();}
+    float getRotateY(){return rotateY->getValue();}
+    float getRotateZ(){return rotateZ->getValue();}
+
+    float getScaleX(){return scaleX->getValue();}
+    float getScaleY(){return scaleY->getValue();}
+    float getScaleZ(){return scaleZ->getValue();}
+    float getScaleUniform(){return scaleUniform->getValue();}
 };

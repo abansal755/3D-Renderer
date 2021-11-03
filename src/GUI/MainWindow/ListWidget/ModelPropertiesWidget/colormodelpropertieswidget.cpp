@@ -1,6 +1,5 @@
 #include "colormodelpropertieswidget.h"
 #include "src/OpenGL/Models/colormodel.h"
-#include "src/GUI/sliderfloat.h"
 #include "lib/glm/gtc/matrix_transform.hpp"
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 

@@ -1,5 +1,6 @@
 #include "aboutdialog.h"
 #include "qssloader.h"
+#include "src/version.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -21,7 +22,7 @@ AboutDialog::AboutDialog(QWidget*parent):QDialog(parent){
         hb1->addWidget(label1);
         QVBoxLayout*vb1=new QVBoxLayout;
             vb1->addStretch();
-            QLabel*label2=new QLabel("3D Renderer v0.1.0");
+            QLabel*label2=new QLabel(QString("3D Renderer v%1").arg(version.toString()));
                 label2->setObjectName("app-name");
             vb1->addWidget(label2);
             QLabel*label3=new QLabel("Developed by Akshit Bansal");

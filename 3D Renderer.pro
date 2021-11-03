@@ -78,7 +78,8 @@ HEADERS += \
     src/OpenGL/mesh.h \
     src/GUI/MainWindow/ListWidget/modelpropertieswidget.h \
     src/GUI/sliderint.h \
-    src/GUI/qssloader.h
+    src/GUI/qssloader.h \
+    src/version.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

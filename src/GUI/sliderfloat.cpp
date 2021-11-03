@@ -20,7 +20,7 @@ SliderFloat::SliderFloat(QString text,QWidget*parent=NULL,int minVal=0,int maxVa
     db1->setDisabled(true);
     db1->setMinimum((double)minVal/divisor);
     db1->setMaximum((double)maxVal/divisor);
-    db1->setSingleStep((double)(maxVal-minVal)/divisor);
+    db1->setSingleStep((double)1/divisor);
     db1->setValue((double)minVal/divisor);
 
     db1->setMaximumWidth(60);

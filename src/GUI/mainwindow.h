@@ -33,6 +33,7 @@ private slots:
     void about();
     void newScene();
     void renderViewport();
+    void saveAs();
 public:
     MainWindow(QWidget*parent=NULL);
     ~MainWindow();

@@ -6,4 +6,5 @@ SphereModelListWidgetItem::SphereModelListWidgetItem(GLWidget*glwidget,
     :ListWidgetItem(text)
 {
     setModelPropertiesWidget(new SphereModelPropertiesWidget(this,glwidget,text));
+    setObjectType(Sphere);
 }

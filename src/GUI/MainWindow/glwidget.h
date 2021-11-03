@@ -14,6 +14,7 @@ class SettingsWidget;
 class LightShader;
 class GridModel;
 class GridShader;
+class ColorModelListWidgetItem;
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     Q_OBJECT
@@ -33,6 +34,8 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
 
     ListWidget*modelsListWidget;
     SettingsWidget*settingsWidget;
+
+    QJsonObject objectToJson(ColorModelListWidgetItem*item);
 public:
     GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent=NULL);
     ~GLWidget();
@@ -54,6 +57,7 @@ public:
     LightShader* getPhongShader(){return phongShader;}
     GridModel* getGridModel(){return grid;}
     QImage renderViewport();
+    QJsonObject sceneToJson();
 protected:
     void initializeGL();
     void resizeGL(int width, int height);
