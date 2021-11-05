@@ -1,3 +1,5 @@
+#pragma once
+
 #include "src/OpenGL/mesh.h"
 #include "src/OpenGL/texture.h"
 #include "src/OpenGL/light.h"
@@ -8,6 +10,7 @@
 #include <QColor>
 #include <QOpenGLFunctions_3_3_Core>
 
+class MainWindow;
 class ListWidget;
 class Camera;
 class SettingsWidget;
@@ -34,11 +37,12 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
 
     ListWidget*modelsListWidget;
     SettingsWidget*settingsWidget;
+    MainWindow*mainWindow;
 
     QJsonObject objectToJson(ColorModelListWidgetItem*item);
     QJsonObject qColorToJson(QColor color,bool alpha=true);
 public:
-    GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent=NULL);
+    GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,MainWindow*mainWindow,QWidget*parent=NULL);
     ~GLWidget();
 
     bool isWPressed(){return wPressed;}

@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QWidget*central=new QWidget;
         QHBoxLayout*hb1=new QHBoxLayout;
             QSplitter*sp1=new QSplitter(Qt::Horizontal);
-                glwidget=new GLWidget(listWidget,settingsWidget);
+                glwidget=new GLWidget(listWidget,settingsWidget,this);
                 sp1->addWidget(glwidget);
                 QWidget*sidePanel=new QWidget;
                         sidePanel->setObjectName("side-panel");
@@ -201,10 +201,11 @@ void MainWindow::saveAs(){
     file.close();
 }
 
-void MainWindow::loadScene(){
-    QString path=QFileDialog::getOpenFileName(NULL,"Load Scene",QString(),"*.scene");
+void MainWindow::loadScene(bool clear,QString path){
+    if(path.isEmpty())
+        path=QFileDialog::getOpenFileName(NULL,"Load Scene",QString(),"*.scene");
     if(path.isEmpty()) return;
-    newScene();
+    if(clear) newScene();
 
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)){

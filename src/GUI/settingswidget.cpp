@@ -11,6 +11,8 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <QFile>
+#include <QApplication>
+#include <QDir>
 
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
@@ -136,7 +138,9 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
 
 SettingsWidget::~SettingsWidget(){
     QJsonDocument doc(settingsToJson());
-    QFile file("settings.json");
+    QDir dir(QApplication::applicationDirPath());
+    QString path=dir.filePath("settings.json");
+    QFile file(path);
     if(!file.open(QIODevice::WriteOnly)){
         qDebug()<<"Unable to write settings.json";
         return;
@@ -253,7 +257,9 @@ QJsonObject SettingsWidget::settingsToJson(){
 }
 
 void SettingsWidget::loadSettings(){
-    QFile file("settings.json");
+    QDir dir(QApplication::applicationDirPath());
+    QString path=dir.filePath("settings.json");
+    QFile file(path);
     if(!file.open(QIODevice::ReadOnly)){
         qDebug()<<"Unable to read from settings.json";
         return;

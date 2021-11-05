@@ -15,15 +15,18 @@
 #include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h"
 #include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h"
 #include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.h"
+#include "src/GUI/mainwindow.h"
 
 #include <string>
 #include <QDebug>
 #include <QKeyEvent>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QApplication>
 
-GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent)
-    :modelsListWidget(modelsListWidget),settingsWidget(settingsWidget),QOpenGLWidget(parent)
+GLWidget::GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,
+                   MainWindow*mainWindow,QWidget*parent)
+    :modelsListWidget(modelsListWidget),settingsWidget(settingsWidget),mainWindow(mainWindow),QOpenGLWidget(parent)
 {
     connect(this,SIGNAL(frameSwapped()),this,SLOT(update()));
     setFocusPolicy(Qt::StrongFocus);
@@ -113,6 +116,9 @@ void GLWidget::initializeGL(){
 
     grid=new GridModel;
     grid->setShader(gridShader);
+
+    auto args=QApplication::arguments();
+    if(args.size()>1) mainWindow->loadScene(false,args[1]);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;

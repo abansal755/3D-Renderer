@@ -1,3 +1,5 @@
+#pragma once
+
 #include "MainWindow/glwidget.h"
 #include "MainWindow/listwidget.h"
 #include "aboutdialog.h"
@@ -37,7 +39,8 @@ private slots:
     void newScene();
     void renderViewport();
     void saveAs();
-    void loadScene();
+public slots:
+    void loadScene(bool clear=false,QString path="");
 public:
     MainWindow(QWidget*parent=NULL);
     ~MainWindow();
