@@ -9,6 +9,9 @@
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/spheremodellistwidgetitem.h"
 #include "qssloader.h"
 #include "MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"
+#include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h"
+#include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h"
+#include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -249,5 +252,22 @@ void MainWindow::loadScene(){
             wg->setScaleY(scale["y"].toDouble());
             wg->setScaleZ(scale["z"].toDouble());
             wg->setScaleUniform(scale["uniform"].toDouble());
+        if(type=="Cone"){
+            auto*wg2=(ConeModelPropertiesWidget*)wg;
+            wg2->setRadius(curr["radius"].toDouble());
+            wg2->setHeight(curr["height"].toDouble());
+            wg2->setNumLines(curr["numLines"].toInt());
+        }
+        else if(type=="Cylinder"){
+            auto*wg2=(CylinderModelPropertiesWidget*)wg;
+            wg2->setRadius(curr["radius"].toDouble());
+            wg2->setHeight(curr["height"].toDouble());
+            wg2->setNumLines(curr["numLines"].toInt());
+        }
+        else if(type=="Sphere"){
+            auto*wg2=(SphereModelPropertiesWidget*)wg;
+            wg2->setRadius(curr["radius"].toDouble());
+            wg2->setNumLines(curr["numLines"].toInt());
+        }
     }
 }

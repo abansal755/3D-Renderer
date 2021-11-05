@@ -1,3 +1,5 @@
+#pragma once
+
 #include "src/GUI/MainWindow/ListWidget/modelpropertieswidget.h"
 #include "src/GUI/sliderfloat.h"
 

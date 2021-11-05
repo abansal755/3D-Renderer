@@ -4,7 +4,7 @@
 #include <QApplication>
 #include <QDebug>
 
-const Version version(0,1,0);
+const Version version(0,2,0);
 
 int main(int argc, char *argv[]){
     qDebug()<<"Version "<<version.toString();

@@ -15,4 +15,9 @@ private slots:
 public:
     SphereModelPropertiesWidget(SphereModelListWidgetItem*item,GLWidget*glwidget,QString text);
     ~SphereModelPropertiesWidget();
+
+    float getRadius(){return slider1->getValue();}
+    void setRadius(float val){slider1->setValue(val);}
+    int getNumLines(){return slider2->getValue();}
+    void setNumLines(int val){slider2->setValue(val);}
 };

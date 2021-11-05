@@ -12,6 +12,9 @@
 #include "src/OpenGL/Models/colormodel.h"
 #include "src/version.h"
 #include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
+#include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h"
+#include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h"
+#include "ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.h"
 
 #include <string>
 #include <QDebug>
@@ -383,6 +386,23 @@ QJsonObject GLWidget::objectToJson(ColorModelListWidgetItem*item){
             scaleObj["z"]=prop->getScaleZ();
             scaleObj["uniform"]=prop->getScaleUniform();
         obj["scale"]=scaleObj;
+        if(type==ObjectType::Cone){
+            auto*prop2=(ConeModelPropertiesWidget*)prop;
+            obj["radius"]=prop2->getRadius();
+            obj["height"]=prop2->getHeight();
+            obj["numLines"]=prop2->getNumLines();
+        }
+        else if(type==ObjectType::Cylinder){
+            auto*prop2=(CylinderModelPropertiesWidget*)prop;
+            obj["radius"]=prop2->getRadius();
+            obj["height"]=prop2->getHeight();
+            obj["numLines"]=prop2->getNumLines();
+        }
+        else if(type==ObjectType::Sphere){
+            auto*prop2=(SphereModelPropertiesWidget*)prop;
+            obj["radius"]=prop2->getRadius();
+            obj["numLines"]=prop2->getNumLines();
+        }
     return obj;
 }
 
