@@ -360,7 +360,9 @@ Mesh* GLWidget::getSphereMesh(GLfloat radius,GLint numLines){
 QJsonObject GLWidget::objectToJson(ColorModelListWidgetItem*item){
     QJsonObject obj;
         ObjectType type=item->getObjectType();
-            if(type==ObjectType::Cone) obj["type"]="Cone";
+            if(type==ObjectType::Plane) obj["type"]="Plane";
+            else if(type==ObjectType::Cube) obj["type"]="Cube";
+            else if(type==ObjectType::Cone) obj["type"]="Cone";
             else if(type==ObjectType::Cylinder) obj["type"]="Cylinder";
             else if(type==ObjectType::Sphere) obj["type"]="Sphere";
             else obj["type"]="Default";

@@ -5,7 +5,7 @@
 class ModelPropertiesWidget;
 class Mesh;
 
-enum ObjectType{Default,Cone,Cylinder,Sphere};
+enum ObjectType{Default,Plane,Cube,Cone,Cylinder,Sphere};
 
 class ListWidgetItem : public QListWidgetItem{
     ModelPropertiesWidget*widget;

@@ -8,6 +8,7 @@
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/cylindermodellistwidgetitem.h"
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/spheremodellistwidgetitem.h"
 #include "qssloader.h"
+#include "MainWindow/ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -17,6 +18,7 @@
 #include <QSplitter>
 #include <QCloseEvent>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QJsonDocument>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
@@ -59,6 +61,8 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
                 connect(addSphereAction,SIGNAL(triggered()),this,SLOT(addSphere()));
         QAction* saveAsAction=fileMenu->addAction("Save Scene As");
             connect(saveAsAction,SIGNAL(triggered()),this,SLOT(saveAs()));
+        QAction* loadAction=fileMenu->addAction("Load Scene");
+            connect(loadAction,SIGNAL(triggered()),this,SLOT(loadScene()));
         QAction* exitAction=fileMenu->addAction("Exit");
             connect(exitAction,SIGNAL(triggered()),this,SLOT(exitApp()));
     QMenu* windowMenu=menuBar()->addMenu("Window");
@@ -100,6 +104,7 @@ void MainWindow::exitApp(){
 void MainWindow::addPlane(){
     Mesh* planeMesh=glwidget->getPlaneMesh();
     ColorModelListWidgetItem* item=new ColorModelListWidgetItem("Plane"+QString::number(planeCount++));
+    item->setObjectType(ObjectType::Plane);
     Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(planeMesh);
     model->setShader(glwidget->getFlatShader());
@@ -111,6 +116,7 @@ void MainWindow::addPlane(){
 void MainWindow::addCube(){
     Mesh* cubeMesh=glwidget->getCubeMesh();
     ColorModelListWidgetItem* item=new ColorModelListWidgetItem("Cube"+QString::number(cubeCount++));
+    item->setObjectType(ObjectType::Cube);
     Model* model=item->getModelPropertiesWidget()->getModel();
     model->setMesh(cubeMesh);
     model->setShader(glwidget->getFlatShader());
@@ -190,4 +196,58 @@ void MainWindow::saveAs(){
     }
     file.write(doc.toJson());
     file.close();
+}
+
+void MainWindow::loadScene(){
+    QString path=QFileDialog::getOpenFileName(NULL,"Load Scene",QString(),"*.scene");
+    if(path.isEmpty()) return;
+    newScene();
+
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug()<<"Unable to read from "<<path;
+        return;
+    }
+    QJsonDocument doc=QJsonDocument::fromJson(file.readAll());
+    file.close();
+    if(doc.isNull()){
+        qDebug()<<"Unable to parse "<<path;
+        return;
+    }
+    QJsonObject obj=doc.object();
+    if(!obj["objects"].isArray()){
+        qDebug()<<"objects not an array";
+        return;
+    }
+    QJsonArray objs=obj["objects"].toArray();
+    for(auto it=objs.begin();it!=objs.end();it++){
+        if(!it->isObject()){
+            qDebug()<<"Not and object";
+            continue;
+        }
+        QJsonObject curr=it->toObject();
+        QString type=curr["type"].toString();
+        int idx=listWidget->count();
+        if(type=="Plane") addPlane();
+        else if(type=="Cube") addPlane();
+        else if(type=="Cone") addCone();
+        else if(type=="Cylinder") addCylinder();
+        else if(type=="Sphere") addSphere();
+        else continue;
+        ColorModelListWidgetItem*item=(ColorModelListWidgetItem*)listWidget->getCustomItem(idx);
+        ColorModelPropertiesWidget*wg=(ColorModelPropertiesWidget*)item->getModelPropertiesWidget();
+        QJsonObject trans=curr["translate"].toObject();
+            wg->setTranslateX(trans["x"].toDouble());
+            wg->setTranslateY(trans["y"].toDouble());
+            wg->setTranslateZ(trans["z"].toDouble());
+        QJsonObject rotate=curr["rotate"].toObject();
+            wg->setRotateX(rotate["x"].toDouble());
+            wg->setRotateZ(rotate["y"].toDouble());
+            wg->setRotateY(rotate["z"].toDouble());
+        QJsonObject scale=curr["scale"].toObject();
+            wg->setScaleX(scale["x"].toDouble());
+            wg->setScaleY(scale["y"].toDouble());
+            wg->setScaleZ(scale["z"].toDouble());
+            wg->setScaleUniform(scale["uniform"].toDouble());
+    }
 }

@@ -33,15 +33,25 @@ public:
     ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text);
 
     float getTranslateX(){return translateX->getValue();}
+    void setTranslateX(float val){translateX->setValue(val);}
     float getTranslateY(){return translateY->getValue();}
+    void setTranslateY(float val){translateY->setValue(val);}
     float getTranslateZ(){return translateZ->getValue();}
+    void setTranslateZ(float val){translateZ->setValue(val);}
 
     float getRotateX(){return rotateX->getValue();}
+    void setRotateX(float val){rotateX->setValue(val);}
     float getRotateY(){return rotateY->getValue();}
+    void setRotateY(float val){rotateY->setValue(val);}
     float getRotateZ(){return rotateZ->getValue();}
+    void setRotateZ(float val){rotateZ->setValue(val);}
 
     float getScaleX(){return scaleX->getValue();}
+    void setScaleX(float val){scaleX->setValue(val);}
     float getScaleY(){return scaleY->getValue();}
+    void setScaleY(float val){scaleY->setValue(val);}
     float getScaleZ(){return scaleZ->getValue();}
+    void setScaleZ(float val){scaleZ->setValue(val);}
     float getScaleUniform(){return scaleUniform->getValue();}
+    void setScaleUniform(float val){scaleUniform->setValue(val);}
 };
