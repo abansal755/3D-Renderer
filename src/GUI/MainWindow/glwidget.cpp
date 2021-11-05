@@ -386,6 +386,7 @@ QJsonObject GLWidget::objectToJson(ColorModelListWidgetItem*item){
             scaleObj["z"]=prop->getScaleZ();
             scaleObj["uniform"]=prop->getScaleUniform();
         obj["scale"]=scaleObj;
+        obj["color"]=qColorToJson(prop->getColor());
         if(type==ObjectType::Cone){
             auto*prop2=(ConeModelPropertiesWidget*)prop;
             obj["radius"]=prop2->getRadius();
@@ -420,5 +421,14 @@ QJsonObject GLWidget::sceneToJson(){
                 objs.push_back(objectToJson(item));
             }
         obj["objects"]=objs;
+    return obj;
+}
+
+QJsonObject GLWidget::qColorToJson(QColor color,bool alpha){
+    QJsonObject obj;
+    obj["red"]=color.red();
+    obj["green"]=color.green();
+    obj["blue"]=color.blue();
+    if(alpha) obj["alpha"]=color.alpha();
     return obj;
 }

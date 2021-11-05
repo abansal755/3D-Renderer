@@ -36,6 +36,7 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
     SettingsWidget*settingsWidget;
 
     QJsonObject objectToJson(ColorModelListWidgetItem*item);
+    QJsonObject qColorToJson(QColor color,bool alpha=true);
 public:
     GLWidget(ListWidget*modelsListWidget,SettingsWidget*settingsWidget,QWidget*parent=NULL);
     ~GLWidget();

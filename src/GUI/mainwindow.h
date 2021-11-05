@@ -20,6 +20,9 @@ class MainWindow : public QMainWindow{
     void resetCounts();
 
     bool change=false;
+
+    bool isColorJsonValid(QJsonObject json);
+    QColor jsonToQColor(QJsonObject json);
 protected:
     virtual void closeEvent(QCloseEvent*event);
 private slots:

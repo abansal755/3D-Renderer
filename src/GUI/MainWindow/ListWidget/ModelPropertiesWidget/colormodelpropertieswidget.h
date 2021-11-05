@@ -56,4 +56,9 @@ public:
     void setScaleZ(float val){scaleZ->setValue(val);}
     float getScaleUniform(){return scaleUniform->getValue();}
     void setScaleUniform(float val){scaleUniform->setValue(val);}
+
+    QColor getColor(){return colorDialog->currentColor();}
+    void setColor(QColor color){
+        colorDialog->setCurrentColor(color);
+    }
 };

@@ -232,7 +232,7 @@ void MainWindow::loadScene(){
         QString type=curr["type"].toString();
         int idx=listWidget->count();
         if(type=="Plane") addPlane();
-        else if(type=="Cube") addPlane();
+        else if(type=="Cube") addCube();
         else if(type=="Cone") addCone();
         else if(type=="Cylinder") addCylinder();
         else if(type=="Sphere") addSphere();
@@ -252,6 +252,7 @@ void MainWindow::loadScene(){
             wg->setScaleY(scale["y"].toDouble());
             wg->setScaleZ(scale["z"].toDouble());
             wg->setScaleUniform(scale["uniform"].toDouble());
+        if(isColorJsonValid(curr["color"].toObject())) wg->setColor(jsonToQColor(curr["color"].toObject()));
         if(type=="Cone"){
             auto*wg2=(ConeModelPropertiesWidget*)wg;
             wg2->setRadius(curr["radius"].toDouble());
@@ -270,4 +271,21 @@ void MainWindow::loadScene(){
             wg2->setNumLines(curr["numLines"].toInt());
         }
     }
+}
+
+bool MainWindow::isColorJsonValid(QJsonObject json){
+    if(!json["red"].isDouble()) return false;
+    if(!json["green"].isDouble()) return false;
+    if(!json["blue"].isDouble()) return false;
+    return true;
+}
+
+QColor MainWindow::jsonToQColor(QJsonObject json){
+    QColor color;
+    color.setRed(json["red"].toInt());
+    color.setGreen(json["green"].toInt());
+    color.setBlue(json["blue"].toInt());
+    if(json["alpha"].isDouble()) color.setAlpha(json["alpha"].toInt());
+    else color.setAlpha(255);
+    return color;
 }
