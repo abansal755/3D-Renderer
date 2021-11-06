@@ -2,7 +2,7 @@
 #include "shader.h"
 #include "mesh.h"
 #include "camera.h"
-#include "lib/glm/gtc/type_ptr.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
 Model::Model(Mesh*mesh,glm::mat4 model,Shader*shader)
     :mesh(mesh),model(model),shader(shader)

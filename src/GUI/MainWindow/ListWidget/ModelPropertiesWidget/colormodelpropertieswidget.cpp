@@ -1,6 +1,6 @@
 #include "colormodelpropertieswidget.h"
 #include "src/OpenGL/Models/colormodel.h"
-#include "lib/glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 #include "src/GUI/MainWindow/ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 
 ColorModelPropertiesWidget::ColorModelPropertiesWidget(ColorModelListWidgetItem*item,QString text)

@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "texture.h"
-#include "lib/stb_image.h"
+#include <stb_image.h>
 
 #include <QDebug>
 

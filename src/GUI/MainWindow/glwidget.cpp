@@ -1,7 +1,7 @@
 #include "glwidget.h"
 #include "src/OpenGL/camera.h"
-#include "lib/glm/gtc/type_ptr.hpp"
-#include "lib/glm/gtx/rotate_vector.hpp"
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 #include "listwidget.h"
 #include "ListWidget/ListWidgetItem/colormodellistwidgetitem.h"
 #include "ListWidget/ModelPropertiesWidget/colormodelpropertieswidget.h"

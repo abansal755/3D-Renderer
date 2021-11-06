@@ -8,6 +8,8 @@
 #include <QMenuBar>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
 class SettingsWidget;
 
@@ -25,6 +27,8 @@ class MainWindow : public QMainWindow{
 
     bool isColorJsonValid(QJsonObject json);
     QColor jsonToQColor(QJsonObject json);
+
+    QNetworkAccessManager*manager;
 protected:
     virtual void closeEvent(QCloseEvent*event);
 private slots:
@@ -39,6 +43,8 @@ private slots:
     int newScene();
     void renderViewport();
     void saveAs();
+
+    void requestFinished(QNetworkReply*reply);
 public slots:
     void loadScene(QString path="");
 public:

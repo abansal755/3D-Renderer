@@ -12,6 +12,7 @@
 #include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/conemodelpropertieswidget.h"
 #include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/cylindermodelpropertieswidget.h"
 #include "MainWindow/ListWidget/ModelPropertiesWidget/ColorModelPropertiesWidgets/spheremodelpropertieswidget.h"
+#include "src/version.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -23,6 +24,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     resize(800,600);
@@ -78,6 +81,10 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
             connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
 
     qssLoader(this,":/qss/mainwindow.qss");
+
+    manager=new QNetworkAccessManager(this);
+    connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestFinished(QNetworkReply*)));
+    manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/abansal755/3D-Renderer/releases")));
 }
 
 MainWindow::~MainWindow(){
@@ -294,4 +301,19 @@ QColor MainWindow::jsonToQColor(QJsonObject json){
     if(json["alpha"].isDouble()) color.setAlpha(json["alpha"].toInt());
     else color.setAlpha(255);
     return color;
+}
+
+void MainWindow::requestFinished(QNetworkReply*reply){
+    if(reply->error()){
+        QMessageBox::warning(this,"Critical","Unable to check for new updates");
+        return;
+    }
+    QJsonDocument doc=QJsonDocument::fromJson(reply->readAll());
+    QJsonObject obj=doc.array()[0].toObject();
+    Version newVer=Version::fromString(obj["tag_name"].toString());
+    if(version<newVer){
+        int res=QMessageBox::question(this,"Question","A new update is available. Do you want to download the update?",QMessageBox::Yes|QMessageBox::No);
+        if(res==QMessageBox::No) return;
+        QDesktopServices::openUrl(QUrl(obj["html_url"].toString()));
+    }
 }
