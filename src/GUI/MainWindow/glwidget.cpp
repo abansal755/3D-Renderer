@@ -118,7 +118,7 @@ void GLWidget::initializeGL(){
     grid->setShader(gridShader);
 
     auto args=QApplication::arguments();
-    if(args.size()>1) mainWindow->loadScene(false,args[1]);
+    if(args.size()>1) mainWindow->loadScene(args[1]);
 
     timer.start();
     lastTime=(GLfloat)timer.elapsed()/1000;
@@ -393,6 +393,7 @@ QJsonObject GLWidget::objectToJson(ColorModelListWidgetItem*item){
             scaleObj["uniform"]=prop->getScaleUniform();
         obj["scale"]=scaleObj;
         obj["color"]=qColorToJson(prop->getColor());
+        obj["name"]=prop->getText();
         if(type==ObjectType::Cone){
             auto*prop2=(ConeModelPropertiesWidget*)prop;
             obj["radius"]=prop2->getRadius();

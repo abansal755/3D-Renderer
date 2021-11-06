@@ -163,11 +163,15 @@ void MainWindow::about(){
     aboutDialog->open();
 }
 
-void MainWindow::newScene(){
-    int response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
-    if(response!=QMessageBox::Yes) return;
-    listWidget->clear();
-    resetCounts();
+int MainWindow::newScene(){
+    int response=QMessageBox::Yes;
+    if(change)
+        response=QMessageBox::warning(this,"Warning","Are you sure you want to create a new scene? Make sure to save your work.",QMessageBox::Yes|QMessageBox::No);
+    if(response==QMessageBox::Yes){
+        listWidget->clear();
+        resetCounts();
+    }
+    return response;
 }
 
 void MainWindow::resetCounts(){
@@ -201,11 +205,11 @@ void MainWindow::saveAs(){
     file.close();
 }
 
-void MainWindow::loadScene(bool clear,QString path){
+void MainWindow::loadScene(QString path){
     if(path.isEmpty())
         path=QFileDialog::getOpenFileName(NULL,"Load Scene",QString(),"*.scene");
     if(path.isEmpty()) return;
-    if(clear) newScene();
+    if(newScene()!=QMessageBox::Yes) return;
 
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly)){
@@ -254,6 +258,7 @@ void MainWindow::loadScene(bool clear,QString path){
             wg->setScaleZ(scale["z"].toDouble());
             wg->setScaleUniform(scale["uniform"].toDouble());
         if(isColorJsonValid(curr["color"].toObject())) wg->setColor(jsonToQColor(curr["color"].toObject()));
+        if(curr["name"].isString()) wg->setText(curr["name"].toString());
         if(type=="Cone"){
             auto*wg2=(ConeModelPropertiesWidget*)wg;
             wg2->setRadius(curr["radius"].toDouble());

@@ -36,11 +36,11 @@ private slots:
     void addSphere();
     void settings();
     void about();
-    void newScene();
+    int newScene();
     void renderViewport();
     void saveAs();
 public slots:
-    void loadScene(bool clear=false,QString path="");
+    void loadScene(QString path="");
 public:
     MainWindow(QWidget*parent=NULL);
     ~MainWindow();
