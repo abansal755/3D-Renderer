@@ -8,6 +8,16 @@ This is my first attempt to make a basic 3D Renderer using OpenGL and Qt Framewo
 
 <img src="etc/Screenshot.png" />
 
+## Changelog
+
+- v0.2.0
+    ### Added
+    - Support for saving/loading scenes to/from files (new .scene extension). Opening .scene files with this application automatically loads it. Scene files will also contain info of version of the application used while saving.
+    - Support for checking for updates.
+    - settings.json now contains the version info which maybe usefull for supporting backwards compatibility in future.
+    ### Fixed
+    - Corrected step value of floating point sliders.
+
 ## Contributing
 If you would like to contribute, you can contact me through any of the following:
 - Email: bansalakshitwork@gmail.com
