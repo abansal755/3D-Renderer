@@ -273,6 +273,11 @@ QJsonObject SettingsWidget::settingsToJson(){
             cameraObj["cameraZNear"]=getCameraZNear();
             cameraObj["cameraZFar"]=getCameraZFar();
         obj["camera"]=cameraObj;
+        QJsonObject verObj;
+            verObj["major"]=version.major;
+            verObj["minor"]=version.minor;
+            verObj["patch"]=version.patch;
+        obj["version"]=verObj;
     return obj;
 }
 
