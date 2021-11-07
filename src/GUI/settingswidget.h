@@ -3,6 +3,9 @@
 #include <QGroupBox>
 #include <QComboBox>
 #include <QMessageBox>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QCheckBox>
 
 #include "sliderfloat.h"
 #include "sliderint.h"
@@ -18,6 +21,9 @@ class SettingsWidget : public QWidget{
     QGroupBox*box3;
 
     QComboBox*cb1;
+    QCheckBox*cb2;
+
+    QNetworkAccessManager*manager;
 
     bool changeInGrid=true;
 
@@ -28,6 +34,7 @@ class SettingsWidget : public QWidget{
     void loadSettings();
 
     //default settings
+    bool defaultUpdates=true;
     QColor defaultBGColor;
     int defaultVsync=1;
     QColor defaultLightColor;
@@ -49,10 +56,17 @@ private slots:
     void btn4Clicked();
     void cb1Changed();
     void gridChanged();
+
+    void requestFinished(QNetworkReply*reply);
 public:
     SettingsWidget(QWidget*parent=NULL);
     ~SettingsWidget();
 
+    bool getUpdates(){return cb2->checkState()==Qt::Checked;}
+    void setUpdates(bool val){
+        if(val) cb2->setCheckState(Qt::Checked);
+        else cb2->setCheckState(Qt::Unchecked);
+    }
     QColor getBGColor(){return bgColorDialog->currentColor();}
     void setBGColor(QColor color){this->bgColorDialog->setCurrentColor(color);}
     int getVsyncMode(){return cb1->currentIndex();}

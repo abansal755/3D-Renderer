@@ -1,6 +1,7 @@
 #include "settingswidget.h"
 #include "mainwindow.h"
 #include "qssloader.h"
+#include "src/version.h"
 
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -13,6 +14,8 @@
 #include <QFile>
 #include <QApplication>
 #include <QDir>
+#include <QDesktopServices>
+#include <QUrl>
 
 SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     setWindowFlag(Qt::WindowStaysOnTopHint);
@@ -38,6 +41,14 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     gridColorDialog->setOptions(QColorDialog::NoButtons);
 
     QVBoxLayout*vb1=new QVBoxLayout;
+        QGroupBox*box5=new QGroupBox("General");
+            QVBoxLayout*vb6=new QVBoxLayout;
+                cb2=new QCheckBox("Check for updates at launch");
+                if(defaultUpdates) cb2->setCheckState(Qt::Checked);
+                else cb2->setCheckState(Qt::Unchecked);
+                vb6->addWidget(cb2);
+            box5->setLayout(vb6);
+        vb1->addWidget(box5);
         QGroupBox*box1=new QGroupBox("Viewport");
             QVBoxLayout*vb5=new QVBoxLayout;
                 QHBoxLayout*hb1=new QHBoxLayout;
@@ -134,6 +145,11 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
     qssLoader(this,":/qss/settingswidget.qss");
 
     loadSettings();
+
+    manager=new QNetworkAccessManager(this);
+    connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestFinished(QNetworkReply*)));
+    if(getUpdates())
+        manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/abansal755/3D-Renderer/releases")));
 }
 
 SettingsWidget::~SettingsWidget(){
@@ -231,6 +247,7 @@ QColor SettingsWidget::jsonToQColor(QJsonObject json){
 
 QJsonObject SettingsWidget::settingsToJson(){
     QJsonObject obj;
+        obj["updates"]=getUpdates();
         QJsonObject viewportObj;
             viewportObj["backgroundColor"]=qColorToJson(getBGColor(),false);
             viewportObj["vsync"]=getVsyncMode();
@@ -271,6 +288,7 @@ void SettingsWidget::loadSettings(){
         return;
     }
     QJsonObject obj=doc.object();
+        setUpdates(obj["updates"].toBool());
         QJsonObject viewportObj=obj["viewport"].toObject();
             if(isColorJsonValid(viewportObj["backgroundColor"].toObject())) setBGColor(jsonToQColor(viewportObj["backgroundColor"].toObject()));
             if(viewportObj["vsync"].isDouble()) setVsyncMode(viewportObj["vsync"].toInt());
@@ -289,4 +307,19 @@ void SettingsWidget::loadSettings(){
             if(cameraObj["cameraFOV"].isDouble()) setCameraFOV(cameraObj["cameraFOV"].toDouble());
             if(cameraObj["cameraZNear"].isDouble()) setCameraZNear(cameraObj["cameraZNear"].toDouble());
             if(cameraObj["cameraZFar"].isDouble()) setCameraZFar(cameraObj["cameraZFar"].toDouble());
+}
+
+void SettingsWidget::requestFinished(QNetworkReply*reply){
+    if(reply->error()){
+        QMessageBox::warning(this,"Critical","Unable to check for new updates.");
+        return;
+    }
+    QJsonDocument doc=QJsonDocument::fromJson(reply->readAll());
+    QJsonObject obj=doc.array()[0].toObject();
+    Version newVer=Version::fromString(obj["tag_name"].toString());
+    if(version<newVer){
+        int res=QMessageBox::question(this,"Question","A new update is available. Do you want to download the update?",QMessageBox::Yes|QMessageBox::No);
+        if(res==QMessageBox::Yes) QDesktopServices::openUrl(QUrl(obj["html_url"].toString()));
+    }
+    else QMessageBox::information(this,"Information","Latest version is installed.");
 }
