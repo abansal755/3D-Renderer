@@ -71,11 +71,13 @@ MainWindow::MainWindow(QWidget*parent):QMainWindow(parent){
     QMenu* windowMenu=menuBar()->addMenu("Window");
         QAction* settingsAction=windowMenu->addAction("Settings");
             connect(settingsAction,SIGNAL(triggered()),this,SLOT(settings()));
-        QAction* aboutAction=windowMenu->addAction("About");
-            connect(aboutAction,SIGNAL(triggered()),this,SLOT(about()));
-    QMenu* renderMenu=menuBar()->addMenu("Render");
-        QAction* renderViewportAction=renderMenu->addAction("Render Viewport");
+        QAction* renderViewportAction=windowMenu->addAction("Render Viewport");
             connect(renderViewportAction,SIGNAL(triggered()),this,SLOT(renderViewport()));
+    QMenu* helpMenu=menuBar()->addMenu("Help");
+        QAction* checkForUpdatesAction=helpMenu->addAction("Check for updates");
+            connect(checkForUpdatesAction,SIGNAL(triggered()),settingsWidget,SLOT(checkForUpdates()));
+        QAction* aboutAction=helpMenu->addAction("About");
+            connect(aboutAction,SIGNAL(triggered()),this,SLOT(about()));
 
     qssLoader(this,":/qss/mainwindow.qss");
 }

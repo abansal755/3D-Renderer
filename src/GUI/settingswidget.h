@@ -58,6 +58,8 @@ private slots:
     void gridChanged();
 
     void requestFinished(QNetworkReply*reply);
+public slots:
+    void checkForUpdates();
 public:
     SettingsWidget(QWidget*parent=NULL);
     ~SettingsWidget();

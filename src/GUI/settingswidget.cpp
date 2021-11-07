@@ -148,8 +148,11 @@ SettingsWidget::SettingsWidget(QWidget*parent):QWidget(parent){
 
     manager=new QNetworkAccessManager(this);
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(requestFinished(QNetworkReply*)));
-    if(getUpdates())
-        manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/abansal755/3D-Renderer/releases")));
+    if(getUpdates()) checkForUpdates();
+}
+
+void SettingsWidget::checkForUpdates(){
+    manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/abansal755/3D-Renderer/releases")));
 }
 
 SettingsWidget::~SettingsWidget(){
